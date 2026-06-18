@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Hyster-Yale OHG Modal Analysis – Hylton Reber</title>
+<title>Hylton Reber – Mechanical Engineer</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,7 +28,6 @@
     line-height: 1.6;
   }
 
-  /* NAV */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -51,45 +50,53 @@
   }
 
   .nav-logo span { color: var(--amber); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
 
-  .back-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--muted);
+  .nav-links a {
     text-decoration: none;
+    color: var(--muted);
     font-size: 0.8rem;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     font-weight: 500;
     transition: color 0.2s;
   }
 
-  .back-link:hover { color: var(--amber); }
+  .nav-links a:hover { color: var(--amber); }
 
-  /* HERO */
-  .project-hero {
-    padding: 9rem 3rem 5rem;
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
     position: relative;
     overflow: hidden;
-    border-bottom: 1px solid rgba(74,127,165,0.15);
   }
 
-  .project-hero::before {
+  #hero::before {
     content: '';
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(74,127,165,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(74,127,165,0.06) 1px, transparent 1px);
+      linear-gradient(rgba(74,127,165,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,127,165,0.07) 1px, transparent 1px);
     background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  #hero::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle at top right, rgba(200,136,58,0.12), transparent 70%);
     pointer-events: none;
   }
 
   .hero-inner { position: relative; max-width: 900px; }
 
-  .project-tag {
-    font-size: 0.7rem;
+  .hero-eyebrow {
+    font-size: 0.75rem;
     letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--amber);
@@ -97,60 +104,108 @@
     margin-bottom: 1rem;
   }
 
-  .project-title {
+  .hero-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-size: clamp(4rem, 10vw, 8rem);
+    line-height: 0.92;
     letter-spacing: 0.04em;
-    line-height: 0.95;
-    margin-bottom: 1.5rem;
     color: var(--offwhite);
+    margin-bottom: 1.5rem;
   }
 
-  .project-subtitle {
-    font-size: 1rem;
-    color: var(--muted);
-    max-width: 600px;
-    line-height: 1.75;
-    margin-bottom: 2.5rem;
+  .hero-plate {
+    display: inline-block;
+    border: 1px solid var(--steel);
+    padding: 0.6rem 1.4rem;
+    margin-bottom: 2rem;
+    position: relative;
   }
 
-  .meta-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
+  .hero-plate::before, .hero-plate::after {
+    content: '▪';
+    color: var(--amber);
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    font-size: 0.5rem;
   }
+  .hero-plate::before { left: -0.6rem; }
+  .hero-plate::after { right: -0.6rem; }
 
-  .meta-item { }
-
-  .meta-label {
-    font-size: 0.65rem;
+  .hero-plate span {
+    font-size: 0.8rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--amber);
+    color: var(--steel);
     font-weight: 500;
-    margin-bottom: 0.25rem;
   }
 
-  .meta-value {
-    font-size: 0.85rem;
+  .hero-bio {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 540px;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+  }
+
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--amber);
+    color: var(--navy);
+    padding: 0.75rem 1.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: #d99840; transform: translateY(-1px); }
+
+  .btn-outline {
+    display: inline-block;
+    border: 1px solid var(--steel);
+    color: var(--steel);
+    padding: 0.75rem 1.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-outline:hover { border-color: var(--offwhite); color: var(--offwhite); }
+
+  .hero-stats {
+    position: absolute;
+    right: 3rem; bottom: 2rem;
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
     color: var(--offwhite);
-    font-weight: 500;
+    letter-spacing: 0.05em;
+    line-height: 1;
   }
 
-  /* CONTENT */
-  .content-wrap {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 3rem;
+  .stat-num span { color: var(--amber); }
+
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
 
-  /* SECTION */
-  .section {
-    padding: 5rem 0;
-    border-bottom: 1px solid rgba(74,127,165,0.1);
-  }
-
-  .section:last-child { border-bottom: none; }
+  section { padding: 6rem 3rem; }
 
   .section-label {
     font-size: 0.7rem;
@@ -163,225 +218,176 @@
 
   .section-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-size: clamp(2.5rem, 5vw, 4rem);
     letter-spacing: 0.04em;
     line-height: 1;
-    margin-bottom: 0.75rem;
+    margin-bottom: 3rem;
     color: var(--offwhite);
   }
 
   .divider {
-    width: 40px;
+    width: 48px;
     height: 2px;
     background: var(--amber);
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
   }
 
-  .body-text {
-    font-size: 0.95rem;
-    color: var(--muted);
-    line-height: 1.85;
-    max-width: 760px;
-  }
+  #about { background: var(--navy-mid); }
 
-  .body-text + .body-text { margin-top: 1rem; }
-
-  .body-text strong { color: var(--offwhite); font-weight: 500; }
-
-  /* TWO-COL */
-  .two-col {
+  .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    gap: 4rem;
     align-items: start;
-    margin-top: 2rem;
+    max-width: 1100px;
   }
 
-  /* ROLE CHIPS */
-  .role-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-top: 1.5rem;
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    font-size: 0.95rem;
+    line-height: 1.8;
   }
+
+  .about-text p strong { color: var(--offwhite); font-weight: 500; }
+
+  .certs { display: flex; flex-direction: column; gap: 1rem; }
+
+  .cert-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    border-left: 2px solid var(--amber);
+    background: rgba(74,127,165,0.06);
+  }
+
+  .cert-icon { color: var(--amber); font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .cert-title { font-size: 0.85rem; font-weight: 600; color: var(--offwhite); margin-bottom: 0.2rem; }
+  .cert-sub { font-size: 0.75rem; color: var(--muted); }
+
+  #projects { background: var(--navy); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px;
+  }
+
+  .project-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(74,127,165,0.15);
+    padding: 2rem;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: pointer;
+    color: inherit;
+  }
+
+  .project-card:hover { border-color: var(--steel); transform: translateY(-3px); }
+
+  .project-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.04em;
+    color: var(--offwhite);
+    margin-bottom: 0.75rem;
+    line-height: 1.1;
+  }
+
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
   .chip {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--steel);
     border: 1px solid rgba(74,127,165,0.4);
-    padding: 0.3rem 0.75rem;
+    padding: 0.2rem 0.6rem;
   }
 
-  /* STAT BOXES */
-  .stat-row {
+  #skills { background: var(--navy-mid); }
+
+  .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 1rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
   }
 
-  .stat-box {
-    background: var(--card-bg);
-    border: 1px solid rgba(74,127,165,0.15);
-    padding: 1.25rem 1.5rem;
-  }
-
-  .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    color: var(--offwhite);
-    letter-spacing: 0.05em;
-    line-height: 1;
-  }
-
-  .stat-num span { color: var(--amber); }
-  .stat-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; }
-
-  /* PROCESS STEPS */
-  .steps { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
-
-  .step {
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-start;
-  }
-
-  .step-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    color: var(--amber);
-    line-height: 1;
-    flex-shrink: 0;
-    width: 2.5rem;
-    text-align: right;
-  }
-
-  .step-content { }
-
-  .step-title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--offwhite);
-    margin-bottom: 0.3rem;
-  }
-
-  .step-desc {
-    font-size: 0.85rem;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-
-  /* IMAGES */
-  .img-full {
-    width: 100%;
-    margin-top: 2.5rem;
-    border: 1px solid rgba(74,127,165,0.2);
-    display: block;
-  }
-
-  .img-caption {
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    margin-top: 0.6rem;
-    font-style: italic;
-  }
-
-  .img-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-top: 2.5rem;
-  }
-
-  .img-grid-item img {
-    width: 100%;
-    border: 1px solid rgba(74,127,165,0.2);
-    display: block;
-  }
-
-  /* PLACEHOLDER for photos not yet added */
-  .photo-placeholder {
-    width: 100%;
-    aspect-ratio: 4/3;
-    background: var(--card-bg);
-    border: 2px dashed rgba(74,127,165,0.3);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 2.5rem;
-  }
-
-  .photo-placeholder span {
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .photo-placeholder .icon { font-size: 2rem; opacity: 0.3; }
-
-  /* FREQUENCY TABLE */
-  .freq-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 2rem;
-    font-size: 0.85rem;
-  }
-
-  .freq-table th {
-    background: var(--card-bg);
-    color: var(--steel);
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    font-weight: 600;
-    padding: 0.75rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid rgba(74,127,165,0.2);
-  }
-
-  .freq-table td {
-    padding: 0.65rem 1rem;
-    color: var(--muted);
-    border-bottom: 1px solid rgba(74,127,165,0.08);
-  }
-
-  .freq-table td strong { color: var(--offwhite); }
-
-  .freq-table tr:last-child td { border-bottom: none; }
-
-  /* OUTCOME CALLOUT */
-  .callout {
-    background: var(--card-bg);
-    border-left: 3px solid var(--amber);
-    padding: 1.5rem 2rem;
-    margin-top: 2rem;
-    max-width: 760px;
-  }
-
-  .callout-title {
+  .skill-group-title {
     font-size: 0.7rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--amber);
     font-weight: 500;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(74,127,165,0.2);
   }
 
-  .callout p {
-    font-size: 0.9rem;
+  .skill-list { list-style: none; }
+
+  .skill-list li {
+    font-size: 0.85rem;
     color: var(--muted);
-    line-height: 1.75;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(74,127,165,0.08);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
   }
 
-  .callout p strong { color: var(--offwhite); font-weight: 500; }
+  .skill-list li::before { content: '→'; color: var(--steel); font-size: 0.7rem; }
 
-  /* FOOTER */
+  #contact { background: var(--navy); text-align: center; }
+
+  .contact-inner { max-width: 600px; margin: 0 auto; }
+
+  .contact-inner p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--steel);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .contact-link:hover { color: var(--amber); }
+
   footer {
     padding: 1.5rem 3rem;
     border-top: 1px solid rgba(74,127,165,0.15);
@@ -392,10 +398,6 @@
     color: var(--muted);
   }
 
-  footer a { color: var(--steel); text-decoration: none; }
-  footer a:hover { color: var(--amber); }
-
-  /* Reveal */
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: none; }
 </style>
@@ -403,244 +405,232 @@
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">H<span>.</span>REBER</a>
-  <a href="index.html#projects" class="back-link">← Back to Projects</a>
+  <a href="#hero" class="nav-logo">H<span>.</span>REBER</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
 
-<!-- HERO -->
-<div class="project-hero">
+<section id="hero">
   <div class="hero-inner">
-    <p class="project-tag">Capstone Senior Project · Industry Sponsor · Aug 2024 – May 2025</p>
-    <h1 class="project-title">Hyster-Yale<br>Overhead Guard<br>Modal Analysis</h1>
-    <p class="project-subtitle">
-      A physics-based modal testing campaign to identify resonance frequencies in a forklift overhead guard and validate structural modifications designed to shift those frequencies away from engine excitation ranges.
+    <p class="hero-eyebrow">Mechanical Engineer · Idaho Falls, ID</p>
+    <h1 class="hero-name">Hylton<br>Reber</h1>
+    <div class="hero-plate"><span>B.S. Mechanical Engineering · University of Idaho · 2025</span></div>
+    <p class="hero-bio">
+      I design, test, and build — from modal frequency analysis on industrial forklifts to fabricating a gravity-powered race vehicle from scratch. I'm a hands-on engineer who brings systems thinking and a bias for action to every project.
     </p>
-    <div class="meta-row">
-      <div class="meta-item">
-        <div class="meta-label">Sponsor</div>
-        <div class="meta-value">Hyster-Yale Materials Handling</div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="resume.pdf" class="btn-outline">Download Resume</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">3.63<span> GPA</span></div>
+      <div class="stat-label">University of Idaho</div>
+    </div>
+    <div>
+      <div class="stat-num">100<span>+ hrs</span></div>
+      <div class="stat-label">Machine Shop</div>
+    </div>
+    <div>
+      <div class="stat-num">3<span>×</span></div>
+      <div class="stat-label">Certifications</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="reveal">
+    <p class="section-label">Background</p>
+    <h2 class="section-title">About Me</h2>
+    <div class="divider"></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I graduated from the <strong>University of Idaho</strong> in May 2025 with a B.S. in Mechanical Engineering and an Aerospace Engineering Academic Certificate. My coursework spanned thermodynamics, fluid mechanics, fatigue &amp; fracture mechanics, gas dynamics, and turbomachinery.</p>
+        <p>My capstone project with <strong>Hyster-Yale</strong> had me building a physics-based modal testing rig — programming Arduino accelerometers in C++, executing a 38-node test procedure, and running FFT analysis in MATLAB to isolate resonance frequencies in an overhead guard.</p>
+        <p>Outside the lab, I co-founded <strong>Axes &amp; Axles LLC</strong> to compete in the Red Bull Soapbox Race Denver 2026 — designing and fabricating a full vehicle from the ground up and engineering a field replacement brake system 24 hours before competition.</p>
       </div>
-      <div class="meta-item">
-        <div class="meta-label">Team</div>
-        <div class="meta-value">Modal Minds — 4 Members</div>
-      </div>
-      <div class="meta-item">
-        <div class="meta-label">My Role</div>
-        <div class="meta-value">Data Acquisition & Physical Testing Lead</div>
-      </div>
-      <div class="meta-item">
-        <div class="meta-label">Tools</div>
-        <div class="meta-value">Arduino · C++ · MATLAB · Ansys · SolidWorks</div>
+      <div class="certs">
+        <div class="cert-item">
+          <div class="cert-icon">◆</div>
+          <div>
+            <div class="cert-title">Certified SolidWorks Expert (CSWE)</div>
+            <div class="cert-sub">Dassault Systèmes · May 2025</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">◆</div>
+          <div>
+            <div class="cert-title">FE Exam – Passed (EIT)</div>
+            <div class="cert-sub">NCEES · May 2025</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">◆</div>
+          <div>
+            <div class="cert-title">Aerospace Engineering Academic Certificate</div>
+            <div class="cert-sub">University of Idaho · May 2025</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">◆</div>
+          <div>
+            <div class="cert-title">Eagle Scout</div>
+            <div class="cert-sub">Boy Scouts of America · 2020</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="content-wrap">
-
-  <!-- OVERVIEW -->
-  <div class="section reveal">
-    <p class="section-label">Overview</p>
-    <h2 class="section-title">The Problem</h2>
+<section id="projects">
+  <div class="reveal">
+    <p class="section-label">Work</p>
+    <h2 class="section-title">Projects</h2>
     <div class="divider"></div>
-    <p class="body-text">
-      Forklift operators are exposed to sustained vibration and noise generated by the engine and hydraulic systems. When the engine's operating frequencies align with the <strong>natural frequencies of the overhead guard</strong>, resonance amplifies the noise and vibration reaching the operator — a long-term occupational health concern.
-    </p>
-    <p class="body-text" style="margin-top:1rem;">
-      Hyster-Yale tasked our team — <strong>Modal Minds</strong> — with modifying the overhead guard structure to shift its resonance frequencies away from the engine's key excitation frequencies: <strong>26.66 Hz, 66.66 Hz, and 80 Hz</strong> (corresponding to idle, operating, and full throttle RPM).
-    </p>
+    <div class="projects-grid">
 
-    <div class="stat-row">
-      <div class="stat-box">
-        <div class="stat-num">38<span> nodes</span></div>
-        <div class="stat-label">Test Points</div>
+      <a href="hyster-yale.html" class="project-card" style="text-decoration:none; display:block;">
+        <div class="project-tag">Capstone · Industry Sponsor</div>
+        <div class="project-title">Hyster-Yale Overhead Guard Modal Analysis</div>
+        <p class="project-desc">Designed and executed a physics-based modal testing method using Arduino-integrated accelerometers to identify natural frequencies and reduce resonance noise in a forklift overhead guard. Programmed 8-bit sensor registers in C++ and processed FFT data in MATLAB across 38 test nodes.</p>
+        <div class="project-chips">
+          <span class="chip">MATLAB</span>
+          <span class="chip">C++ / Arduino</span>
+          <span class="chip">Modal Analysis</span>
+          <span class="chip">Data Acquisition</span>
+        </div>
+        <p style="margin-top:1.25rem; font-size:0.75rem; color:var(--amber); letter-spacing:0.1em; text-transform:uppercase; font-weight:500;">View Project →</p>
+      </a>
+
+      <div class="project-card">
+        <div class="project-tag">Startup · Competition</div>
+        <div class="project-title">Axes & Axles LLC — Red Bull Soapbox Race</div>
+        <p class="project-desc">Co-founded an LLC and led a 5-person team through the full design-build cycle of a gravity-powered race vehicle. Iterated suspension through two full redesigns, corrected a steering inversion, and engineered a field replacement brake system after hydraulic failure 24 hours before race day.</p>
+        <div class="project-chips">
+          <span class="chip">Structural Design</span>
+          <span class="chip">Fabrication</span>
+          <span class="chip">Systems Engineering</span>
+          <span class="chip">Leadership</span>
+        </div>
       </div>
-      <div class="stat-box">
-        <div class="stat-num">3<span>×</span></div>
-        <div class="stat-label">Engine Frequencies to Avoid</div>
+
+      <div class="project-card">
+        <div class="project-tag">Thermal Systems · Lab</div>
+        <div class="project-title">Refrigeration Cycle Analysis</div>
+        <p class="project-desc">Conducted experimental analysis on a refrigeration system across 20+ measurement cycles — temperature, pressure, and airflow at condenser and evaporator. Applied state postulate analysis in EES and MATLAB to determine heat transfer rates and system efficiency.</p>
+        <div class="project-chips">
+          <span class="chip">EES</span>
+          <span class="chip">MATLAB</span>
+          <span class="chip">Thermodynamics</span>
+          <span class="chip">Data Analysis</span>
+        </div>
       </div>
-      <div class="stat-box">
-        <div class="stat-num">9</div>
-        <div class="stat-label">Modal Modes Simulated</div>
+
+      <div class="project-card">
+        <div class="project-tag">FEA · Machine Design</div>
+        <div class="project-title">Solar Panel Pivot Joint Analysis</div>
+        <p class="project-desc">Performed stress and fatigue analysis of an aluminum pivot joint using hand calculations and SolidWorks FEA under cyclic loading. Identified critical stress concentrations, proposed design modifications, and produced a full dFMEA, BOM, and revised engineering drawings.</p>
+        <div class="project-chips">
+          <span class="chip">SolidWorks FEA</span>
+          <span class="chip">dFMEA</span>
+          <span class="chip">Fatigue Analysis</span>
+          <span class="chip">Engineering Drawings</span>
+        </div>
       </div>
-      <div class="stat-box">
-        <div class="stat-num">2<span> tests</span></div>
-        <div class="stat-label">Initial & Final Validation</div>
+
+      <div class="project-card">
+        <div class="project-tag">CAD · Manufacturing</div>
+        <div class="project-title">Machine Shop & SolidWorks Modeling</div>
+        <p class="project-desc">Accumulated 100+ hours on manual and CNC mills and lathes fabricating precision components. Complemented by a full SolidWorks steam engine assembly — part drawings, renderings, and animation — applying tolerancing and configuration control per engineering drawing standards.</p>
+        <div class="project-chips">
+          <span class="chip">CNC Machining</span>
+          <span class="chip">SolidWorks (CSWE)</span>
+          <span class="chip">GD&T</span>
+          <span class="chip">Technical Drawings</span>
+        </div>
       </div>
+
     </div>
-
-    <table class="freq-table" style="margin-top:2.5rem;">
-      <thead>
-        <tr>
-          <th>Engine Condition</th>
-          <th>RPM</th>
-          <th>2nd Order Frequency</th>
-          <th>Target Shift Range</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Idle</td><td>800</td><td><strong>26.66 Hz</strong></td><td>32 – 53 Hz</td></tr>
-        <tr><td>Operating</td><td>2000</td><td><strong>66.66 Hz</strong></td><td>72 – 73 Hz</td></tr>
-        <tr><td>Full Throttle</td><td>2400</td><td><strong>80 Hz</strong></td><td>88 – 96 Hz</td></tr>
-      </tbody>
-    </table>
   </div>
+</section>
 
-  <!-- MY ROLE -->
-  <div class="section reveal">
-    <p class="section-label">Contribution</p>
-    <h2 class="section-title">My Role</h2>
+<section id="skills">
+  <div class="reveal">
+    <p class="section-label">Capabilities</p>
+    <h2 class="section-title">Skills</h2>
     <div class="divider"></div>
-    <div class="two-col">
+    <div class="skills-grid">
       <div>
-        <p class="body-text">
-          The team split into two parallel groups. I led the <strong>data acquisition and physical testing</strong> sub-team alongside Cruz Flores. While Ryder Fleming and Koji Becker drove the FEA simulation and SolidWorks redesign effort, my group was responsible for building the system that would physically validate — or invalidate — their simulation results.
-        </p>
-        <p class="body-text" style="margin-top:1rem;">
-          My core responsibilities included designing the hardware and software stack for the data acquisition system, writing the accelerometer interface code in C++, designing and executing the 38-node test procedure, and processing the raw sensor data into MATLAB frequency plots and histograms.
-        </p>
-        <div class="role-chips">
-          <span class="chip">Arduino Programming (C++)</span>
-          <span class="chip">Accelerometer Integration</span>
-          <span class="chip">Test Procedure Design</span>
-          <span class="chip">MATLAB FFT Analysis</span>
-          <span class="chip">Data Visualization</span>
-          <span class="chip">Technical Documentation</span>
-        </div>
+        <div class="skill-group-title">Software & Tools</div>
+        <ul class="skill-list">
+          <li>SolidWorks (CSWE)</li>
+          <li>MATLAB</li>
+          <li>Python</li>
+          <li>EES</li>
+          <li>Microsoft Office</li>
+        </ul>
       </div>
       <div>
-        <!-- PHOTO PLACEHOLDER — replace src with your IMG_1248 or IMG_6406 once converted -->
-        <div class="photo-placeholder">
-          <span class="icon">📷</span>
-          <span>Test Setup Photo</span>
-          <span style="font-size:0.65rem; opacity:0.6;">Replace with IMG_1248 or IMG_6406</span>
-        </div>
+        <div class="skill-group-title">Engineering</div>
+        <ul class="skill-list">
+          <li>Thermal / Fluid Systems</li>
+          <li>Modal & Vibration Analysis</li>
+          <li>FEA & Stress Analysis</li>
+          <li>Fatigue & Fracture Mechanics</li>
+          <li>Gas Dynamics</li>
+        </ul>
+      </div>
+      <div>
+        <div class="skill-group-title">Fabrication</div>
+        <ul class="skill-list">
+          <li>Manual & CNC Milling</li>
+          <li>Lathe Operation</li>
+          <li>Measurement & Tolerancing</li>
+          <li>Technical Drawings / GD&T</li>
+        </ul>
+      </div>
+      <div>
+        <div class="skill-group-title">Programming</div>
+        <ul class="skill-list">
+          <li>C++ (Arduino)</li>
+          <li>Python</li>
+          <li>MATLAB Scripting</li>
+          <li>HTML / CSS (this site)</li>
+        </ul>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- TESTING METHOD -->
-  <div class="section reveal">
-    <p class="section-label">Methodology</p>
-    <h2 class="section-title">Testing Method</h2>
-    <div class="divider"></div>
-    <p class="body-text">
-      We designed a custom data acquisition system built around <strong>ADXL345 tri-axial accelerometers</strong> interfaced with an Arduino microcontroller. I interpreted the accelerometer datasheets and configured the 8-bit control registers in C++ to set the measurement range, data rate, and output format appropriate for our frequency range of interest (0–200 Hz).
-    </p>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-content">
-          <div class="step-title">Hardware Setup</div>
-          <div class="step-desc">Configured ADXL345 accelerometers via I2C, programmed 8-bit registers in C++ to set ±16g range and 800 Hz output data rate. Designed wiring harness for consistent node-to-node repositioning.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-content">
-          <div class="step-title">38-Node Test Procedure</div>
-          <div class="step-desc">Defined 38 measurement nodes distributed across the overhead guard surface. Each node was tested in two directions (A and B) across all three axes (X, Y, Z) to capture the full 3D vibration response of the structure.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-content">
-          <div class="step-title">Impulse Excitation</div>
-          <div class="step-desc">Applied controlled impulse excitation to the structure at each node while recording the time-domain acceleration response with the DAQ system.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div class="step-content">
-          <div class="step-title">FFT Analysis in MATLAB</div>
-          <div class="step-desc">Processed raw time-domain data through a Fast Fourier Transform pipeline in MATLAB to extract peak frequencies at each node. Aggregated results into combined histograms across all nodes and directions to identify the dominant modal frequencies of the structure.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">05</div>
-        <div class="step-content">
-          <div class="step-title">Before & After Comparison</div>
-          <div class="step-desc">Ran the full test procedure on the unmodified OHG (Initial Test) and again after structural modifications were fabricated and applied (Final Test). Compared histograms against Ansys simulation predictions and target frequency ranges.</div>
-        </div>
-      </div>
+<section id="contact">
+  <div class="reveal contact-inner">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Contact</h2>
+    <div class="divider" style="margin: 0 auto 2rem;"></div>
+    <p>I'm actively seeking entry-level mechanical engineering roles. If you have an opportunity that could be a fit, I'd love to hear from you.</p>
+    <div class="contact-links">
+      <a href="mailto:hylton@therebers.net" class="contact-link">✉ hylton@therebers.net</a>
+      <a href="tel:2085208463" class="contact-link">✆ (208) 520-8463</a>
+      <a href="https://linkedin.com/in/Hylton-Reber" target="_blank" class="contact-link">⟶ LinkedIn</a>
     </div>
   </div>
-
-  <!-- RESULTS -->
-  <div class="section reveal">
-    <p class="section-label">Results</p>
-    <h2 class="section-title">Data & Findings</h2>
-    <div class="divider"></div>
-    <p class="body-text">
-      The histograms below show the distribution of peak frequencies identified across all 38 nodes — aggregated across all directions and axes — for both the initial (unmodified) and final (modified) overhead guard. The <strong>dashed red lines</strong> mark the engine excitation frequencies the team aimed to avoid.
-    </p>
-
-    <!-- Initial Histogram -->
-    <img
-      src="hyster-yale-initial-histogram.png"
-      alt="Initial Data — Combined Histogram of All Peak Frequencies"
-      class="img-full"
-    />
-    <p class="img-caption">Fig. 1 — Initial OHG: Combined histogram of peak frequencies across all 38 nodes. Dominant peaks cluster near engine frequencies (26.66 Hz, 66.66 Hz, 80 Hz).</p>
-
-    <!-- All Directions Breakdown -->
-    <img
-      src="hyster-yale-all-directions.png"
-      alt="Histogram of Peak Frequencies Across All Nodes — All Directions and Axes"
-      class="img-full"
-    />
-    <p class="img-caption">Fig. 2 — Initial data broken down by test direction (A/B) and axis (X, Y, Z), showing how frequency response varied across measurement orientations.</p>
-
-    <!-- Final Histogram -->
-    <img
-      src="hyster-yale-final-histogram.png"
-      alt="Final Data — Combined Histogram of All Peak Frequencies"
-      class="img-full"
-    />
-    <p class="img-caption">Fig. 3 — Final OHG (post-modification): Peak frequencies visibly shifted. Mode 1 moved from ~19 Hz to ~24 Hz; Mode 7 shifted to 88 Hz — landing within the target range of 88–96 Hz.</p>
-
-    <div class="callout">
-      <div class="callout-title">Key Outcome</div>
-      <p>
-        Physical testing confirmed that the structural modifications successfully shifted several resonance modes away from the engine excitation frequencies. <strong>Mode 7 shifted from 72 Hz to 88 Hz</strong>, placing it within our target range. The results aligned closely with Ansys FEA predictions, validating both the simulation methodology and the testing approach. These findings were presented to Hyster-Yale Materials Handling and at the University of Idaho Engineering EXPO.
-      </p>
-    </div>
-
-    <!-- Second photo placeholder -->
-    <div class="photo-placeholder" style="margin-top:2.5rem;">
-      <span class="icon">📷</span>
-      <span>Modified OHG / Team Photo</span>
-      <span style="font-size:0.65rem; opacity:0.6;">Replace with IMG_6406 once converted</span>
-    </div>
-  </div>
-
-  <!-- TAKEAWAYS -->
-  <div class="section reveal">
-    <p class="section-label">Reflection</p>
-    <h2 class="section-title">What I Learned</h2>
-    <div class="divider"></div>
-    <p class="body-text">
-      This project was my first exposure to building a full instrumentation and data acquisition system from scratch. Programming the accelerometers at the register level — reading datasheets, understanding bit-field configurations, and debugging I2C communication — gave me a practical foundation in embedded sensor integration that no coursework had directly covered.
-    </p>
-    <p class="body-text" style="margin-top:1rem;">
-      Running a structured 38-node test on a physical structure also taught me how much test procedure design matters. Small inconsistencies in sensor orientation or mounting could shift a frequency peak by several Hz — which at this scale of problem is meaningful. I learned to design for repeatability, not just accuracy.
-    </p>
-    <p class="body-text" style="margin-top:1rem;">
-      Working in parallel with the simulation team reinforced how simulation and physical testing are most powerful when used together — not as substitutes for each other. When our histograms matched the Ansys output, confidence in both increased. When they diverged, it gave us something specific to investigate.
-    </p>
-  </div>
-
-</div><!-- end content-wrap -->
+</section>
 
 <footer>
   <span>© 2026 Hylton Reber</span>
-  <a href="index.html#projects">← Back to all projects</a>
+  <span>Built with HTML · CSS · Hosted on GitHub Pages</span>
 </footer>
 
 <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.08 });
+  }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 
