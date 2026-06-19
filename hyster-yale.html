@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hyster-Yale OHG Modal Analysis – Hylton Reber</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0D1B2A;
+    --navy-mid: #152436;
+    --offwhite: #F0EFE9;
+    --steel: #4A7FA5;
+    --amber: #C8883A;
+    --muted: #8A9BAD;
+    --card-bg: #192C3E;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--offwhite);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background: rgba(13,27,42,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(74,127,165,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--offwhite);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--amber); }
+
+  .back-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--amber); }
+
+  /* HERO */
+  .project-hero {
+    padding: 9rem 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(74,127,165,0.15);
+  }
+
+  .project-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(74,127,165,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,127,165,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .hero-inner { position: relative; max-width: 900px; }
+
+  .project-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+    color: var(--offwhite);
+  }
+
+  .project-subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .meta-item { }
+
+  .meta-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .meta-value {
+    font-size: 0.85rem;
+    color: var(--offwhite);
+    font-weight: 500;
+  }
+
+  /* CONTENT */
+  .content-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 5rem 0;
+    border-bottom: 1px solid rgba(74,127,165,0.1);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    color: var(--offwhite);
+  }
+
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: var(--amber);
+    margin-bottom: 2rem;
+  }
+
+  .body-text {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.85;
+    max-width: 760px;
+  }
+
+  .body-text + .body-text { margin-top: 1rem; }
+
+  .body-text strong { color: var(--offwhite); font-weight: 500; }
+
+  /* TWO-COL */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+
+  /* ROLE CHIPS */
+  .role-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+
+  .chip {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--steel);
+    border: 1px solid rgba(74,127,165,0.4);
+    padding: 0.3rem 0.75rem;
+  }
+
+  /* STAT BOXES */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .stat-box {
+    background: var(--card-bg);
+    border: 1px solid rgba(74,127,165,0.15);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--offwhite);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+
+  .stat-num span { color: var(--amber); }
+  .stat-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; }
+
+  /* PROCESS STEPS */
+  .steps { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .step {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--amber);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 2.5rem;
+    text-align: right;
+  }
+
+  .step-content { }
+
+  .step-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--offwhite);
+    margin-bottom: 0.3rem;
+  }
+
+  .step-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* IMAGES */
+  .img-full {
+    width: 100%;
+    margin-top: 2.5rem;
+    border: 1px solid rgba(74,127,165,0.2);
+    display: block;
+  }
+
+  .img-caption {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-top: 0.6rem;
+    font-style: italic;
+  }
+
+  .img-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .img-grid-item img {
+    width: 100%;
+    border: 1px solid rgba(74,127,165,0.2);
+    display: block;
+  }
+
+  /* PLACEHOLDER for photos not yet added */
+  .photo-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: var(--card-bg);
+    border: 2px dashed rgba(74,127,165,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .photo-placeholder span {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .photo-placeholder .icon { font-size: 2rem; opacity: 0.3; }
+
+  /* FREQUENCY TABLE */
+  .freq-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    font-size: 0.85rem;
+  }
+
+  .freq-table th {
+    background: var(--card-bg);
+    color: var(--steel);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(74,127,165,0.2);
+  }
+
+  .freq-table td {
+    padding: 0.65rem 1rem;
+    color: var(--muted);
+    border-bottom: 1px solid rgba(74,127,165,0.08);
+  }
+
+  .freq-table td strong { color: var(--offwhite); }
+
+  .freq-table tr:last-child td { border-bottom: none; }
+
+  /* OUTCOME CALLOUT */
+  .callout {
+    background: var(--card-bg);
+    border-left: 3px solid var(--amber);
+    padding: 1.5rem 2rem;
+    margin-top: 2rem;
+    max-width: 760px;
+  }
+
+  .callout-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .callout p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .callout p strong { color: var(--offwhite); font-weight: 500; }
+
+  /* FOOTER */
+  footer {
+    padding: 1.5rem 3rem;
+    border-top: 1px solid rgba(74,127,165,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  footer a { color: var(--steel); text-decoration: none; }
+  footer a:hover { color: var(--amber); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">H<span>.</span>REBER</a>
+  <a href="index.html#projects" class="back-link">← Back to Projects</a>
+</nav>
+
+<!-- HERO -->
+<div class="project-hero">
+  <div class="hero-inner">
+    <p class="project-tag">Capstone Senior Project · Industry Sponsor · Aug 2024 – May 2025</p>
+    <h1 class="project-title">Hyster-Yale<br>Overhead Guard<br>Modal Analysis</h1>
+    <p class="project-subtitle">
+      A physics-based modal testing campaign to identify resonance frequencies in a forklift overhead guard and validate structural modifications designed to shift those frequencies away from engine excitation ranges.
+    </p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="meta-label">Sponsor</div>
+        <div class="meta-value">Hyster-Yale Materials Handling</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Team</div>
+        <div class="meta-value">Modal Minds — 4 Members</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">My Role</div>
+        <div class="meta-value">Data Acquisition & Physical Testing Lead</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Tools</div>
+        <div class="meta-value">Arduino · C++ · MATLAB · Ansys · SolidWorks</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- OVERVIEW -->
+  <div class="section reveal">
+    <p class="section-label">Overview</p>
+    <h2 class="section-title">The Problem</h2>
+    <div class="divider"></div>
+    <p class="body-text">
+      Forklift operators are exposed to sustained vibration and noise generated by the engine and hydraulic systems. When the engine's operating frequencies align with the <strong>natural frequencies of the overhead guard</strong>, resonance amplifies the noise and vibration reaching the operator — a long-term occupational health concern.
+    </p>
+    <p class="body-text" style="margin-top:1rem;">
+      Hyster-Yale tasked our team — <strong>Modal Minds</strong> — with modifying the overhead guard structure to shift its resonance frequencies away from the engine's key excitation frequencies: <strong>26.66 Hz, 66.66 Hz, and 80 Hz</strong> (corresponding to idle, operating, and full throttle RPM).
+    </p>
+
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-num">38<span> nodes</span></div>
+        <div class="stat-label">Test Points</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">3<span>×</span></div>
+        <div class="stat-label">Engine Frequencies to Avoid</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">9</div>
+        <div class="stat-label">Modal Modes Simulated</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">2<span> tests</span></div>
+        <div class="stat-label">Initial & Final Validation</div>
+      </div>
+    </div>
+
+    <table class="freq-table" style="margin-top:2.5rem;">
+      <thead>
+        <tr>
+          <th>Engine Condition</th>
+          <th>RPM</th>
+          <th>2nd Order Frequency</th>
+          <th>Target Shift Range</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Idle</td><td>800</td><td><strong>26.66 Hz</strong></td><td>32 – 53 Hz</td></tr>
+        <tr><td>Operating</td><td>2000</td><td><strong>66.66 Hz</strong></td><td>72 – 73 Hz</td></tr>
+        <tr><td>Full Throttle</td><td>2400</td><td><strong>80 Hz</strong></td><td>88 – 96 Hz</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MY ROLE -->
+  <div class="section reveal">
+    <p class="section-label">Contribution</p>
+    <h2 class="section-title">My Role</h2>
+    <div class="divider"></div>
+    <div class="two-col">
+      <div>
+        <p class="body-text">
+          The team split into two parallel groups. I led the <strong>data acquisition and physical testing</strong> sub-team alongside Cruz Flores. While Ryder Fleming and Koji Becker drove the FEA simulation and SolidWorks redesign effort, my group was responsible for building the system that would physically validate — or invalidate — their simulation results.
+        </p>
+        <p class="body-text" style="margin-top:1rem;">
+          My core responsibilities included designing the hardware and software stack for the data acquisition system, writing the accelerometer interface code in C++, designing and executing the 38-node test procedure, and processing the raw sensor data into MATLAB frequency plots and histograms.
+        </p>
+        <div class="role-chips">
+          <span class="chip">Arduino Programming (C++)</span>
+          <span class="chip">Accelerometer Integration</span>
+          <span class="chip">Test Procedure Design</span>
+          <span class="chip">MATLAB FFT Analysis</span>
+          <span class="chip">Data Visualization</span>
+          <span class="chip">Technical Documentation</span>
+        </div>
+      </div>
+      <div>
+        <!-- PHOTO PLACEHOLDER — replace src with your IMG_1248 or IMG_6406 once converted -->
+        <div class="photo-placeholder">
+          <span class="icon">📷</span>
+          <span>Test Setup Photo</span>
+          <span style="font-size:0.65rem; opacity:0.6;">Replace with IMG_1248 or IMG_6406</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTING METHOD -->
+  <div class="section reveal">
+    <p class="section-label">Methodology</p>
+    <h2 class="section-title">Testing Method</h2>
+    <div class="divider"></div>
+    <p class="body-text">
+      We designed a custom data acquisition system built around <strong>ADXL345 tri-axial accelerometers</strong> interfaced with an Arduino microcontroller. I interpreted the accelerometer datasheets and configured the 8-bit control registers in C++ to set the measurement range, data rate, and output format appropriate for our frequency range of interest (0–200 Hz).
+    </p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-title">Hardware Setup</div>
+          <div class="step-desc">Configured ADXL345 accelerometers via I2C, programmed 8-bit registers in C++ to set ±16g range and 800 Hz output data rate. Designed wiring harness for consistent node-to-node repositioning.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-title">38-Node Test Procedure</div>
+          <div class="step-desc">Defined 38 measurement nodes distributed across the overhead guard surface. Each node was tested in two directions (A and B) across all three axes (X, Y, Z) to capture the full 3D vibration response of the structure.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-title">Impulse Excitation</div>
+          <div class="step-desc">Applied controlled impulse excitation to the structure at each node while recording the time-domain acceleration response with the DAQ system.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-title">FFT Analysis in MATLAB</div>
+          <div class="step-desc">Processed raw time-domain data through a Fast Fourier Transform pipeline in MATLAB to extract peak frequencies at each node. Aggregated results into combined histograms across all nodes and directions to identify the dominant modal frequencies of the structure.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <div class="step-title">Before & After Comparison</div>
+          <div class="step-desc">Ran the full test procedure on the unmodified OHG (Initial Test) and again after structural modifications were fabricated and applied (Final Test). Compared histograms against Ansys simulation predictions and target frequency ranges.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="section reveal">
+    <p class="section-label">Results</p>
+    <h2 class="section-title">Data & Findings</h2>
+    <div class="divider"></div>
+    <p class="body-text">
+      The histograms below show the distribution of peak frequencies identified across all 38 nodes — aggregated across all directions and axes — for both the initial (unmodified) and final (modified) overhead guard. The <strong>dashed red lines</strong> mark the engine excitation frequencies the team aimed to avoid.
+    </p>
+
+    <!-- Initial Histogram -->
+    <img
+      src="hyster-yale-initial-histogram.png"
+      alt="Initial Data — Combined Histogram of All Peak Frequencies"
+      class="img-full"
+    />
+    <p class="img-caption">Fig. 1 — Initial OHG: Combined histogram of peak frequencies across all 38 nodes. Dominant peaks cluster near engine frequencies (26.66 Hz, 66.66 Hz, 80 Hz).</p>
+
+    <!-- All Directions Breakdown -->
+    <img
+      src="hyster-yale-all-directions.png"
+      alt="Histogram of Peak Frequencies Across All Nodes — All Directions and Axes"
+      class="img-full"
+    />
+    <p class="img-caption">Fig. 2 — Initial data broken down by test direction (A/B) and axis (X, Y, Z), showing how frequency response varied across measurement orientations.</p>
+
+    <!-- Final Histogram -->
+    <img
+      src="hyster-yale-final-histogram.png"
+      alt="Final Data — Combined Histogram of All Peak Frequencies"
+      class="img-full"
+    />
+    <p class="img-caption">Fig. 3 — Final OHG (post-modification): Peak frequencies visibly shifted. Mode 1 moved from ~19 Hz to ~24 Hz; Mode 7 shifted to 88 Hz — landing within the target range of 88–96 Hz.</p>
+
+    <div class="callout">
+      <div class="callout-title">Key Outcome</div>
+      <p>
+        Physical testing confirmed that the structural modifications successfully shifted several resonance modes away from the engine excitation frequencies. <strong>Mode 7 shifted from 72 Hz to 88 Hz</strong>, placing it within our target range. The results aligned closely with Ansys FEA predictions, validating both the simulation methodology and the testing approach. These findings were presented to Hyster-Yale Materials Handling and at the University of Idaho Engineering EXPO.
+      </p>
+    </div>
+
+    <!-- Second photo placeholder -->
+    <div class="photo-placeholder" style="margin-top:2.5rem;">
+      <span class="icon">📷</span>
+      <span>Modified OHG / Team Photo</span>
+      <span style="font-size:0.65rem; opacity:0.6;">Replace with IMG_6406 once converted</span>
+    </div>
+  </div>
+
+  <!-- TAKEAWAYS -->
+  <div class="section reveal">
+    <p class="section-label">Reflection</p>
+    <h2 class="section-title">What I Learned</h2>
+    <div class="divider"></div>
+    <p class="body-text">
+      This project was my first exposure to building a full instrumentation and data acquisition system from scratch. Programming the accelerometers at the register level — reading datasheets, understanding bit-field configurations, and debugging I2C communication — gave me a practical foundation in embedded sensor integration that no coursework had directly covered.
+    </p>
+    <p class="body-text" style="margin-top:1rem;">
+      Running a structured 38-node test on a physical structure also taught me how much test procedure design matters. Small inconsistencies in sensor orientation or mounting could shift a frequency peak by several Hz — which at this scale of problem is meaningful. I learned to design for repeatability, not just accuracy.
+    </p>
+    <p class="body-text" style="margin-top:1rem;">
+      Working in parallel with the simulation team reinforced how simulation and physical testing are most powerful when used together — not as substitutes for each other. When our histograms matched the Ansys output, confidence in both increased. When they diverged, it gave us something specific to investigate.
+    </p>
+  </div>
+
+</div><!-- end content-wrap -->
+
+<footer>
+  <span>© 2026 Hylton Reber</span>
+  <a href="index.html#projects">← Back to all projects</a>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
