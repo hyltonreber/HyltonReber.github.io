@@ -28,6 +28,7 @@
     line-height: 1.6;
   }
 
+  /* NAV */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -50,6 +51,7 @@
   }
 
   .nav-logo span { color: var(--amber); }
+
   .nav-links { display: flex; gap: 2rem; list-style: none; }
 
   .nav-links a {
@@ -64,6 +66,7 @@
 
   .nav-links a:hover { color: var(--amber); }
 
+  /* HERO */
   #hero {
     min-height: 100vh;
     display: flex;
@@ -147,7 +150,11 @@
     line-height: 1.75;
   }
 
-  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
 
   .btn-primary {
     display: inline-block;
@@ -197,7 +204,6 @@
   }
 
   .stat-num span { color: var(--amber); }
-
   .stat-label {
     font-size: 0.65rem;
     letter-spacing: 0.18em;
@@ -205,6 +211,7 @@
     color: var(--muted);
   }
 
+  /* SECTIONS */
   section { padding: 6rem 3rem; }
 
   .section-label {
@@ -232,6 +239,7 @@
     margin-bottom: 3rem;
   }
 
+  /* ABOUT */
   #about { background: var(--navy-mid); }
 
   .about-grid {
@@ -266,6 +274,7 @@
   .cert-title { font-size: 0.85rem; font-weight: 600; color: var(--offwhite); margin-bottom: 0.2rem; }
   .cert-sub { font-size: 0.75rem; color: var(--muted); }
 
+  /* PROJECTS */
   #projects { background: var(--navy); }
 
   .projects-grid {
@@ -278,13 +287,31 @@
   .project-card {
     background: var(--card-bg);
     border: 1px solid rgba(74,127,165,0.15);
-    padding: 2rem;
+    overflow: hidden;
     transition: border-color 0.2s, transform 0.2s;
     cursor: pointer;
-    color: inherit;
   }
 
   .project-card:hover { border-color: var(--steel); transform: translateY(-3px); }
+
+  .card-img-wrap {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    background: #0a1420;
+  }
+
+  .card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .project-card:hover .card-img-wrap img { transform: scale(1.05); }
+
+  .card-body { padding: 2rem; }
 
   .project-tag {
     font-size: 0.65rem;
@@ -322,6 +349,7 @@
     padding: 0.2rem 0.6rem;
   }
 
+  /* SKILLS */
   #skills { background: var(--navy-mid); }
 
   .skills-grid {
@@ -356,6 +384,7 @@
 
   .skill-list li::before { content: '→'; color: var(--steel); font-size: 0.7rem; }
 
+  /* CONTACT */
   #contact { background: var(--navy); text-align: center; }
 
   .contact-inner { max-width: 600px; margin: 0 auto; }
@@ -388,6 +417,7 @@
 
   .contact-link:hover { color: var(--amber); }
 
+  /* FOOTER */
   footer {
     padding: 1.5rem 3rem;
     border-top: 1px solid rgba(74,127,165,0.15);
@@ -398,6 +428,7 @@
     color: var(--muted);
   }
 
+  /* Scroll reveal */
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: none; }
 </style>
@@ -414,6 +445,7 @@
   </ul>
 </nav>
 
+<!-- HERO -->
 <section id="hero">
   <div class="hero-inner">
     <p class="hero-eyebrow">Mechanical Engineer · Idaho Falls, ID</p>
@@ -443,6 +475,7 @@
   </div>
 </section>
 
+<!-- ABOUT -->
 <section id="about">
   <div class="reveal">
     <p class="section-label">Background</p>
@@ -488,6 +521,7 @@
   </div>
 </section>
 
+<!-- PROJECTS -->
 <section id="projects">
   <div class="reveal">
     <p class="section-label">Work</p>
@@ -496,63 +530,78 @@
     <div class="projects-grid">
 
       <a href="hyster-yale.html" class="project-card" style="text-decoration:none; display:block;">
-        <div class="project-tag">Capstone · Industry Sponsor</div>
-        <div class="project-title">Hyster-Yale Overhead Guard Modal Analysis</div>
-        <p class="project-desc">Designed and executed a physics-based modal testing method using Arduino-integrated accelerometers to identify natural frequencies and reduce resonance noise in a forklift overhead guard. Programmed 8-bit sensor registers in C++ and processed FFT data in MATLAB across 38 test nodes.</p>
-        <div class="project-chips">
-          <span class="chip">MATLAB</span>
-          <span class="chip">C++ / Arduino</span>
-          <span class="chip">Modal Analysis</span>
-          <span class="chip">Data Acquisition</span>
+        <div class="card-img-wrap"><img src="card-hyster-yale.jpg" alt="Hyster-Yale overhead guard frame"></div>
+        <div class="card-body">
+          <div class="project-tag">Capstone · Industry Sponsor</div>
+          <div class="project-title">Hyster-Yale Overhead Guard Modal Analysis</div>
+          <p class="project-desc">Designed and executed a physics-based modal testing method using Arduino-integrated accelerometers to identify natural frequencies and reduce resonance noise in a forklift overhead guard. Programmed 8-bit sensor registers in C++ and processed FFT data in MATLAB across 38 test nodes.</p>
+          <div class="project-chips">
+            <span class="chip">MATLAB</span>
+            <span class="chip">C++ / Arduino</span>
+            <span class="chip">Modal Analysis</span>
+            <span class="chip">Data Acquisition</span>
+          </div>
+          <p style="margin-top:1.25rem; font-size:0.75rem; color:var(--amber); letter-spacing:0.1em; text-transform:uppercase; font-weight:500;">View Project →</p>
         </div>
-        <p style="margin-top:1.25rem; font-size:0.75rem; color:var(--amber); letter-spacing:0.1em; text-transform:uppercase; font-weight:500;">View Project →</p>
       </a>
 
       <div class="project-card">
-        <div class="project-tag">Startup · Competition</div>
-        <div class="project-title">Axes & Axles LLC — Red Bull Soapbox Race</div>
-        <p class="project-desc">Co-founded an LLC and led a 5-person team through the full design-build cycle of a gravity-powered race vehicle. Iterated suspension through two full redesigns, corrected a steering inversion, and engineered a field replacement brake system after hydraulic failure 24 hours before race day.</p>
-        <div class="project-chips">
-          <span class="chip">Structural Design</span>
-          <span class="chip">Fabrication</span>
-          <span class="chip">Systems Engineering</span>
-          <span class="chip">Leadership</span>
+        <div class="card-img-wrap"><img src="card-soapbox.png" alt="Axes & Axles soapbox chassis"></div>
+        <div class="card-body">
+          <div class="project-tag">Startup · Competition</div>
+          <div class="project-title">Axes & Axles LLC — Red Bull Soapbox Race</div>
+          <p class="project-desc">Co-founded an LLC and led a 5-person team through the full design-build cycle of a gravity-powered race vehicle. Iterated suspension through two full redesigns, corrected a steering inversion, and engineered a field replacement brake system after hydraulic failure 24 hours before race day.</p>
+          <div class="project-chips">
+            <span class="chip">Structural Design</span>
+            <span class="chip">Fabrication</span>
+            <span class="chip">Systems Engineering</span>
+            <span class="chip">Leadership</span>
+          </div>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="project-tag">Thermal Systems · Lab</div>
-        <div class="project-title">Refrigeration Cycle Analysis</div>
-        <p class="project-desc">Conducted experimental analysis on a refrigeration system across 20+ measurement cycles — temperature, pressure, and airflow at condenser and evaporator. Applied state postulate analysis in EES and MATLAB to determine heat transfer rates and system efficiency.</p>
-        <div class="project-chips">
-          <span class="chip">EES</span>
-          <span class="chip">MATLAB</span>
-          <span class="chip">Thermodynamics</span>
-          <span class="chip">Data Analysis</span>
+        <div class="card-img-wrap"><img src="card-refrigeration.png" alt="Refrigeration cycle test rig"></div>
+        <div class="card-body">
+          <div class="project-tag">Thermal Systems · Lab</div>
+          <div class="project-title">Refrigeration Cycle Analysis</div>
+          <p class="project-desc">Conducted experimental analysis on a refrigeration system across 20+ measurement cycles — temperature, pressure, and airflow at condenser and evaporator. Applied state postulate analysis in EES and MATLAB to determine heat transfer rates and system efficiency.</p>
+          <div class="project-chips">
+            <span class="chip">EES</span>
+            <span class="chip">MATLAB</span>
+            <span class="chip">Thermodynamics</span>
+            <span class="chip">Data Analysis</span>
+          </div>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="project-tag">FEA · Machine Design</div>
-        <div class="project-title">Solar Panel Pivot Joint Analysis</div>
-        <p class="project-desc">Performed stress and fatigue analysis of an aluminum pivot joint using hand calculations and SolidWorks FEA under cyclic loading. Identified critical stress concentrations, proposed design modifications, and produced a full dFMEA, BOM, and revised engineering drawings.</p>
-        <div class="project-chips">
-          <span class="chip">SolidWorks FEA</span>
-          <span class="chip">dFMEA</span>
-          <span class="chip">Fatigue Analysis</span>
-          <span class="chip">Engineering Drawings</span>
+        <div class="card-img-wrap"><img src="card-solar-pivot.png" alt="Solar panel pivot joint engineering drawing"></div>
+        <div class="card-body">
+          <div class="project-tag">FEA · Machine Design</div>
+          <div class="project-title">Solar Panel Pivot Joint Analysis</div>
+          <p class="project-desc">Performed stress and fatigue analysis of an aluminum pivot joint using hand calculations and SolidWorks FEA under cyclic loading. Identified critical stress concentrations, proposed design modifications, and produced a full dFMEA, BOM, and revised engineering drawings.</p>
+          <div class="project-chips">
+            <span class="chip">SolidWorks FEA</span>
+            <span class="chip">dFMEA</span>
+            <span class="chip">Fatigue Analysis</span>
+            <span class="chip">Engineering Drawings</span>
+          </div>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="project-tag">CAD · Manufacturing</div>
-        <div class="project-title">Machine Shop & SolidWorks Modeling</div>
-        <p class="project-desc">Accumulated 100+ hours on manual and CNC mills and lathes fabricating precision components. Complemented by a full SolidWorks steam engine assembly — part drawings, renderings, and animation — applying tolerancing and configuration control per engineering drawing standards.</p>
-        <div class="project-chips">
-          <span class="chip">CNC Machining</span>
-          <span class="chip">SolidWorks (CSWE)</span>
-          <span class="chip">GD&T</span>
-          <span class="chip">Technical Drawings</span>
+        <div class="card-img-wrap"><img src="card-solidworks.jpg" alt="SolidWorks steam engine render"></div>
+        <div class="card-body">
+          <div class="project-tag">CAD · Manufacturing</div>
+          <div class="project-title">Machine Shop & SolidWorks Modeling</div>
+          <p class="project-desc">Accumulated 100+ hours on manual and CNC mills and lathes fabricating precision components. Complemented by a full SolidWorks steam engine assembly — part drawings, renderings, and animation — applying tolerancing and configuration control per engineering drawing standards.</p>
+          <div class="project-chips">
+            <span class="chip">CNC Machining</span>
+            <span class="chip">SolidWorks (CSWE)</span>
+            <span class="chip">GD&T</span>
+            <span class="chip">Technical Drawings</span>
+          </div>
         </div>
       </div>
 
@@ -560,6 +609,7 @@
   </div>
 </section>
 
+<!-- SKILLS -->
 <section id="skills">
   <div class="reveal">
     <p class="section-label">Capabilities</p>
@@ -608,6 +658,7 @@
   </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact">
   <div class="reveal contact-inner">
     <p class="section-label">Get In Touch</p>
