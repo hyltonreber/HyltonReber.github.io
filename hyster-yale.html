@@ -510,7 +510,7 @@
       </div>
       <div>
         <img src="hyster-yale-test-setup.jpg" alt="Accelerometer mounted on 3D-printed holder, wired to Arduino" style="width:100%; border:1px solid rgba(74,127,165,0.2); display:block;">
-        <p class="img-caption">The data acquisition hardware — ADXL accelerometer on a custom 3D-printed mount, wired to the Arduino used for register-level sensor configuration.</p>
+        <p class="img-caption">The data acquisition hardware — ICM-20649 accelerometer on a custom 3D-printed mount, wired to the Arduino used for register-level sensor configuration.</p>
       </div>
     </div>
   </div>
@@ -521,14 +521,14 @@
     <h2 class="section-title">Testing Method</h2>
     <div class="divider"></div>
     <p class="body-text">
-      We designed a custom data acquisition system built around <strong>ADXL345 tri-axial accelerometers</strong> interfaced with an Arduino microcontroller. I interpreted the accelerometer datasheets and configured the 8-bit control registers in C++ to set the measurement range, data rate, and output format appropriate for our frequency range of interest (0–200 Hz).
+      We designed a custom data acquisition system built around <strong>ICM-20649 tri-axial accelerometers</strong> interfaced with Arduino microcontrollers over SPI. I interpreted the accelerometer datasheets and configured the 8-bit control registers in C++ to set the measurement range, sample rate, and output format appropriate for our frequency range of interest (0–120 Hz).
     </p>
     <div class="steps">
       <div class="step">
         <div class="step-num">01</div>
         <div class="step-content">
           <div class="step-title">Hardware Setup</div>
-          <div class="step-desc">Configured ADXL345 accelerometers via I2C, programmed 8-bit registers in C++ to set ±16g range and 800 Hz output data rate. Designed wiring harness for consistent node-to-node repositioning.</div>
+          <div class="step-desc">Configured ICM-20649 accelerometers via SPI, programmed 8-bit registers in C++ to set ±8g range and ~300 Hz sample rate. Designed wiring harness for consistent node-to-node repositioning.</div>
         </div>
       </div>
       <div class="step">
@@ -613,7 +613,7 @@
     <h2 class="section-title">What I Learned</h2>
     <div class="divider"></div>
     <p class="body-text">
-      This project was my first exposure to building a full instrumentation and data acquisition system from scratch. Programming the accelerometers at the register level — reading datasheets, understanding bit-field configurations, and debugging I2C communication — gave me a practical foundation in embedded sensor integration that no coursework had directly covered.
+      This project was my first exposure to building a full instrumentation and data acquisition system from scratch. Programming the accelerometers at the register level — reading datasheets, understanding bit-field configurations, and debugging SPI communication — gave me a practical foundation in embedded sensor integration that no coursework had directly covered.
     </p>
     <p class="body-text" style="margin-top:1rem;">
       Running a structured 38-node test on a physical structure also taught me how much test procedure design matters. Small inconsistencies in sensor orientation or mounting could shift a frequency peak by several Hz — which at this scale of problem is meaningful. I learned to design for repeatability, not just accuracy.
