@@ -353,13 +353,44 @@
     padding-top: 3rem;
   }
 
+  /* === MOBILE RESPONSIVE — fixes layout on phone-width screens === */
   @media (max-width: 900px) {
+    /* hero section: tighten padding, smaller title */
+    .project-hero { padding: 7rem 1.25rem 3rem; }
+    .meta-row { gap: 1.25rem; }
+
+    /* general section padding */
+    section, .section { padding: 3rem 0; }
+    .content-wrap { padding: 0 1.25rem; }
+
+    /* two-column layouts (My Role text+photo, etc.) stack on mobile */
+    .two-col {
+      grid-template-columns: 1fr !important;
+      gap: 2rem;
+    }
+
+    /* image grid stacks on mobile */
+    .img-grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* stat boxes: 2 per row instead of squeezing 4 across */
+    .stat-row {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* data pipeline steps stack vertically on mobile */
     .pipeline-grid, .pipeline-grid[style] {
       grid-template-columns: 1fr !important;
     }
     .pipeline-arrow {
       transform: rotate(90deg);
       padding: 0.5rem 0;
+    }
+
+    /* gallery: 2 columns instead of auto-fill squeeze */
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
     }
   }
 
