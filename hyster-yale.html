@@ -322,6 +322,15 @@
     background: #fff;
   }
 
+  /* click-to-enlarge affordance — does not affect sizing */
+  .clickable-img {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+  .clickable-img:hover {
+    opacity: 0.88;
+  }
+
   .pipeline-num {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.6rem;
@@ -727,7 +736,7 @@
       </div>
       <div>
         <!-- EDIT: photo + caption next to "My Role" text -->
-        <img src="hyster-yale-test-setup.jpg" alt="Accelerometer mounted on 3D-printed holder, wired to Arduino" style="width:100%; border:1px solid rgba(74,127,165,0.2); display:block;">
+        <img src="hyster-yale-test-setup.jpg" alt="Accelerometer mounted on 3D-printed holder, wired to Arduino" class="clickable-img" onclick="openLightbox('hyster-yale-test-setup.jpg')" style="width:100%; border:1px solid rgba(74,127,165,0.2); display:block;">
         <p class="img-caption">The data acquisition hardware — ICM-20649 accelerometer on a custom 3D-printed mount, wired to the Arduino used for register-level sensor configuration.</p>
       </div>
     </div>
@@ -803,7 +812,7 @@
     <div class="pipeline-grid">
       <div class="pipeline-step">
         <div class="pipeline-num">01</div>
-        <img src="hyster-yale-raw-data.png" alt="Raw time and acceleration data in Excel" class="pipeline-img">
+        <img src="hyster-yale-raw-data.png" alt="Raw time and acceleration data in Excel" class="pipeline-img clickable-img" onclick="openLightbox('hyster-yale-raw-data.png')">
         <div class="pipeline-title">Collect Raw Acceleration Data</div>
         <div class="pipeline-desc">Each hammer strike was logged as raw time-vs-acceleration data across X, Y, and Z axes, recorded straight from the Arduino serial monitor into Excel.</div>
       </div>
@@ -812,7 +821,7 @@
 
       <div class="pipeline-step">
         <div class="pipeline-num">02</div>
-        <img src="hyster-yale-accel-plot.png" alt="Acceleration vs time plot" class="pipeline-img">
+        <img src="hyster-yale-accel-plot.png" alt="Acceleration vs time plot" class="pipeline-img clickable-img" onclick="openLightbox('hyster-yale-accel-plot.png')">
         <div class="pipeline-title">Plot Relative to Frame Axes</div>
         <div class="pipeline-desc">Raw values were reoriented to a universal frame coordinate system and plotted as acceleration vs. time — one plot per node, direction, and axis (38 × 6 subplots).</div>
       </div>
@@ -821,7 +830,7 @@
 
       <div class="pipeline-step">
         <div class="pipeline-num">03</div>
-        <img src="hyster-yale-freq-plot.png" alt="FFT frequency spectrum plot" class="pipeline-img">
+        <img src="hyster-yale-freq-plot.png" alt="FFT frequency spectrum plot" class="pipeline-img clickable-img" onclick="openLightbox('hyster-yale-freq-plot.png')">
         <div class="pipeline-title">Apply FFT</div>
         <div class="pipeline-desc">A Fast Fourier Transform converted each time-domain signal into a frequency spectrum, revealing which frequencies the structure responded to most strongly.</div>
       </div>
@@ -870,7 +879,8 @@
     <img
       src="hyster-yale-initial-histogram.png"
       alt="Initial Data — Combined Histogram of All Peak Frequencies"
-      class="img-full"
+      class="img-full clickable-img"
+      onclick="openLightbox('hyster-yale-initial-histogram.png')"
     />
     <p class="img-caption">Fig. 1 — Initial OHG: Combined histogram of peak frequencies across all 38 nodes. Dominant peaks cluster near engine frequencies (26.66 Hz, 66.66 Hz, 80 Hz).</p>
 
@@ -878,7 +888,8 @@
     <img
       src="hyster-yale-all-directions.png"
       alt="Histogram of Peak Frequencies Across All Nodes — All Directions and Axes"
-      class="img-full"
+      class="img-full clickable-img"
+      onclick="openLightbox('hyster-yale-all-directions.png')"
     />
     <p class="img-caption">Fig. 2 — Initial data broken down by test direction (A/B) and axis (X, Y, Z), showing how frequency response varied across measurement orientations.</p>
 
@@ -886,7 +897,8 @@
     <img
       src="hyster-yale-final-histogram.png"
       alt="Final Data — Combined Histogram of All Peak Frequencies"
-      class="img-full"
+      class="img-full clickable-img"
+      onclick="openLightbox('hyster-yale-final-histogram.png')"
     />
     <p class="img-caption">Fig. 3 — Final OHG (post-modification): Peak frequencies visibly shifted. Mode 1 moved from ~19 Hz to ~24 Hz; Mode 7 shifted to 88 Hz — landing within the target range of 88–96 Hz.</p>
 
