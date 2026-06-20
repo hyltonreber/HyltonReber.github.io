@@ -419,7 +419,14 @@
     transition: transform 0.3s ease;
   }
 
+  /* use on gallery-item for diagrams/screenshots: shows full image, no cropping */
+  .gallery-item.fit img {
+    object-fit: contain;
+  }
+
   .gallery-item:hover img { transform: scale(1.08); }
+
+  .gallery-item.fit:hover img { transform: scale(1.03); }
 
   .gallery-caption {
     position: absolute;
@@ -956,7 +963,7 @@
         <img src="gallery-solo.jpg" alt="Presenting the project poster at EXPO">
         <div class="gallery-caption">Presenting our results at the Engineering EXPO</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gallery-wiring-diagram.png')">
+      <div class="gallery-item fit" onclick="openLightbox('gallery-wiring-diagram.png')">
         <img src="gallery-wiring-diagram.png" alt="SPI wiring diagram for ICM accelerometers on Arduino UNO and MEGA">
         <div class="gallery-caption">SPI wiring schematic for the accelerometer to Arduino DAQ setup</div>
       </div>
