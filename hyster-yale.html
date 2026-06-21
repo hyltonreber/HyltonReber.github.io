@@ -88,7 +88,7 @@
   .back-link:hover { color: var(--amber); }
 
   /* HERO */
-  /* === HERO BACKGROUND IMAGE — uses its own file "hyster-yale-hero-bg.jpg" === */
+  /* === HERO BACKGROUND IMAGE — uses its own file "hyster-yale/hyster-yale-hero-bg.jpg" === */
   /* (separate from the gallery copy, so you can crop this one independently) */
   .project-hero {
     padding: 9rem 3rem 5rem;
@@ -97,7 +97,7 @@
     border-bottom: 1px solid rgba(74,127,165,0.15);
     background-image:
       linear-gradient(110deg, rgba(13,27,42,0.97) 0%, rgba(13,27,42,0.88) 35%, rgba(13,27,42,0.65) 70%, rgba(13,27,42,0.4) 100%),
-      url('hyster-yale-hero-bg.jpg');
+      url('hyster-yale/hyster-yale-hero-bg.jpg');
     background-size: cover;
     background-position: top right;
   }
@@ -1015,7 +1015,7 @@
       </div>
       <div>
         <!-- EDIT: photo + caption next to "My Role" text -->
-        <img src="hyster-yale-test-setup.jpg" alt="Accelerometer mounted on 3D-printed holder, wired to Arduino" class="clickable-img" onclick="openLightbox('hyster-yale-test-setup.jpg', 'Accelerometer mounted on a 3D-printed holder, wired to the Arduino DAQ.')" style="width:100%; border:1px solid rgba(74,127,165,0.2); display:block;">
+        <img src="hyster-yale/hyster-yale-test-setup.jpg" alt="Accelerometer mounted on 3D-printed holder, wired to Arduino" class="clickable-img" onclick="openLightbox('hyster-yale/hyster-yale-test-setup.jpg', 'Accelerometer mounted on a 3D-printed holder, wired to the Arduino DAQ.')" style="width:100%; border:1px solid rgba(74,127,165,0.2); display:block;">
         <p class="img-caption">The data acquisition hardware — ICM-20649 accelerometer on a custom 3D-printed mount, wired to the Arduino used for register-level sensor configuration.</p>
       </div>
     </div>
@@ -1092,7 +1092,7 @@
       <div class="pipeline-grid">
         <div class="pipeline-step">
           <div class="pipeline-num">01</div>
-          <img src="hyster-yale-raw-data.png" alt="Raw time and acceleration data in Excel" class="pipeline-img clickable-img" onclick="openLightbox('hyster-yale-raw-data.png', 'Each hammer strike was logged as raw time-vs-acceleration data across X, Y, and Z axes, recorded straight from the Arduino serial monitor into Excel.')">
+          <img src="hyster-yale/hyster-yale-raw-data.png" alt="Raw time and acceleration data in Excel" class="pipeline-img clickable-img" onclick="openLightbox('hyster-yale/hyster-yale-raw-data.png', 'Each hammer strike was logged as raw time-vs-acceleration data across X, Y, and Z axes, recorded straight from the Arduino serial monitor into Excel.')">
           <div class="pipeline-title">Collect Raw Acceleration Data</div>
           <div class="pipeline-desc">Each hammer strike was logged as raw time-vs-acceleration data across X, Y, and Z axes, recorded straight from the Arduino serial monitor into Excel.</div>
         </div>
@@ -1101,7 +1101,7 @@
 
         <div class="pipeline-step">
           <div class="pipeline-num">02</div>
-          <img src="hyster-yale-accel-plot.png" alt="Acceleration vs time plot" class="pipeline-img clickable-img" onclick="openLightbox('hyster-yale-accel-plot.png', 'Raw values were reoriented to a universal frame coordinate system and plotted as acceleration vs. time \u2014 one plot per node, direction, and axis (38 \u00d7 6 subplots).')">
+          <img src="hyster-yale/hyster-yale-accel-plot.png" alt="Acceleration vs time plot" class="pipeline-img clickable-img" onclick="openLightbox('hyster-yale/hyster-yale-accel-plot.png', 'Raw values were reoriented to a universal frame coordinate system and plotted as acceleration vs. time \u2014 one plot per node, direction, and axis (38 \u00d7 6 subplots).')">
           <div class="pipeline-title">Plot Relative to Frame Axes</div>
           <div class="pipeline-desc">Raw values were reoriented to a universal frame coordinate system and plotted as acceleration vs. time — one plot per node, direction, and axis (38 × 6 subplots).</div>
         </div>
@@ -1110,7 +1110,7 @@
 
         <div class="pipeline-step">
           <div class="pipeline-num">03</div>
-          <img src="hyster-yale-freq-plot.png" alt="FFT frequency spectrum plot" class="pipeline-img clickable-img" onclick="openLightbox('hyster-yale-freq-plot.png', 'A Fast Fourier Transform converted each time-domain signal into a frequency spectrum, revealing which frequencies the structure responded to most strongly.')">
+          <img src="hyster-yale/hyster-yale-freq-plot.png" alt="FFT frequency spectrum plot" class="pipeline-img clickable-img" onclick="openLightbox('hyster-yale/hyster-yale-freq-plot.png', 'A Fast Fourier Transform converted each time-domain signal into a frequency spectrum, revealing which frequencies the structure responded to most strongly.')">
           <div class="pipeline-title">Apply FFT</div>
           <div class="pipeline-desc">A Fast Fourier Transform converted each time-domain signal into a frequency spectrum, revealing which frequencies the structure responded to most strongly.</div>
         </div>
@@ -1210,7 +1210,7 @@
     <div class="mode-viewer">
       <img
         id="mode-viewer-img"
-        src="hyster-yale-mode1.gif"
+        src="hyster-yale/hyster-yale-mode1.gif"
         alt="Ansys Modal animation — Mode 1, 19.29 Hz"
         onclick="openLightbox(this.src, document.getElementById('mode-viewer-desc').textContent)"
       >
@@ -1236,19 +1236,19 @@
 
     <!-- Initial Histogram -->
     <img
-      src="hyster-yale-initial-histogram.jpeg"
+      src="hyster-yale/hyster-yale-initial-histogram.jpeg"
       alt="Initial Data — Combined Histogram of All Peak Frequencies"
       class="img-full clickable-img"
-      onclick="openLightbox('hyster-yale-initial-histogram.jpeg', 'Fig. 1 \u2014 Initial OHG: Combined histogram of peak frequencies across all 38 nodes. Dominant peaks cluster near engine frequencies (26.66 Hz, 66.66 Hz, 80 Hz). Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly.')"
+      onclick="openLightbox('hyster-yale/hyster-yale-initial-histogram.jpeg', 'Fig. 1 \u2014 Initial OHG: Combined histogram of peak frequencies across all 38 nodes. Dominant peaks cluster near engine frequencies (26.66 Hz, 66.66 Hz, 80 Hz). Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly.')"
     />
     <p class="img-caption">Fig. 1 — Initial OHG: Combined histogram of peak frequencies across all 38 nodes. Dominant peaks cluster near engine frequencies (26.66 Hz, 66.66 Hz, 80 Hz). Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly.</p>
 
     <!-- EDIT: 3rd histogram image + caption (final/post-modification) -->
     <img
-      src="hyster-yale-final-histogram.jpeg"
+      src="hyster-yale/hyster-yale-final-histogram.jpeg"
       alt="Final Data — Combined Histogram of All Peak Frequencies"
       class="img-full clickable-img"
-      onclick="openLightbox('hyster-yale-final-histogram.jpeg', 'Fig. 2 \u2014 Final OHG (post-modification): Peak frequencies visibly shifted. Mode 1 moved from ~19 Hz to ~24 Hz; Mode 7 shifted to 88 Hz \u2014 landing within the target range of 88\u201396 Hz. Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly.')"
+      onclick="openLightbox('hyster-yale/hyster-yale-final-histogram.jpeg', 'Fig. 2 \u2014 Final OHG (post-modification): Peak frequencies visibly shifted. Mode 1 moved from ~19 Hz to ~24 Hz; Mode 7 shifted to 88 Hz \u2014 landing within the target range of 88\u201396 Hz. Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly.')"
     />
     <p class="img-caption">Fig. 2 — Final OHG (post-modification): Peak frequencies visibly shifted. Mode 1 moved from ~19 Hz to ~24 Hz; Mode 7 shifted to 88 Hz — landing within the target range of 88–96 Hz. Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly.</p>
 
@@ -1261,7 +1261,7 @@
     </div>
 
     <!-- EDIT: team photo + caption -->
-    <img src="hyster-yale-team.jpg" alt="Modal Minds team presenting at the University of Idaho Engineering EXPO" class="img-full" style="margin-top:2.5rem;">
+    <img src="hyster-yale/hyster-yale-team.jpg" alt="Modal Minds team presenting at the University of Idaho Engineering EXPO" class="img-full" style="margin-top:2.5rem;">
     <p class="img-caption">Modal Minds at the University of Idaho Engineering EXPO — presenting the modified overhead guard, test rig, and final results to judges and sponsors.</p>
   </div>
 
@@ -1311,41 +1311,57 @@
     <!-- EDIT: each .gallery-item = one photo. To add a photo: copy a block, -->
     <!-- change the image filename (2 places) and the caption text.         -->
     <div class="gallery-grid">
-      <div class="gallery-item" onclick="openLightbox('gallery-frame-isometric.jpg', 'Unmodified overhead guard frame')">
-        <img src="gallery-frame-isometric.jpg" alt="Bare overhead guard frame, isometric view">
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-frame-isometric.jpg', 'Unmodified overhead guard frame')">
+        <img src="hyster-yale/gallery-frame-isometric.jpg" alt="Bare overhead guard frame, isometric view">
         <div class="gallery-caption">Unmodified overhead guard frame</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gallery-accel-node.jpg', 'Accelerometer mounted at a test node during data collection')">
-        <img src="gallery-accel-node.jpg" alt="Accelerometer mounted on a test node">
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-accel-node.jpg', 'Accelerometer mounted at a test node during data collection')">
+        <img src="hyster-yale/gallery-accel-node.jpg" alt="Accelerometer mounted on a test node">
         <div class="gallery-caption">Accelerometer mounted at a test node during data collection</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gallery-wiring-mess.jpg', 'The reality of prototyping a DAQ system from scratch')">
-        <img src="gallery-wiring-mess.jpg" alt="Tangle of accelerometer and Arduino wiring">
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-wiring-mess.jpg', 'The reality of prototyping a DAQ system from scratch')">
+        <img src="hyster-yale/gallery-wiring-mess.jpg" alt="Tangle of accelerometer and Arduino wiring">
         <div class="gallery-caption">The reality of prototyping a DAQ system from scratch</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gallery-expo-table.jpg', 'Live demo setup at the Engineering EXPO')">
-        <img src="gallery-expo-table.jpg" alt="EXPO demo table with impact hammer and test equipment">
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-expo-table.jpg', 'Live demo setup at the Engineering EXPO')">
+        <img src="hyster-yale/gallery-expo-table.jpg" alt="EXPO demo table with impact hammer and test equipment">
         <div class="gallery-caption">Live demo setup at the Engineering EXPO</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gallery-both-teams.jpg', 'Both Hyster-Yale capstone teams at EXPO')">
-        <img src="gallery-both-teams.jpg" alt="Both Hyster-Yale capstone teams together at EXPO">
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-both-teams.jpg', 'Both Hyster-Yale capstone teams at EXPO')">
+        <img src="hyster-yale/gallery-both-teams.jpg" alt="Both Hyster-Yale capstone teams together at EXPO">
         <div class="gallery-caption">Both Hyster-Yale capstone teams at EXPO</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gallery-solo.jpg', 'Presenting our results at the Engineering EXPO')">
-        <img src="gallery-solo.jpg" alt="Presenting the project poster at EXPO">
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-solo.jpg', 'Presenting our results at the Engineering EXPO')">
+        <img src="hyster-yale/gallery-solo.jpg" alt="Presenting the project poster at EXPO">
         <div class="gallery-caption">Presenting our results at the Engineering EXPO</div>
       </div>
-      <div class="gallery-item fit" onclick="openLightbox('gallery-wiring-diagram.png', 'SPI wiring schematic for the accelerometer to Arduino DAQ setup')">
-        <img src="gallery-wiring-diagram.png" alt="SPI wiring diagram for ICM accelerometers on Arduino UNO and MEGA">
+      <div class="gallery-item fit" onclick="openLightbox('hyster-yale/gallery-wiring-diagram.png', 'SPI wiring schematic for the accelerometer to Arduino DAQ setup')">
+        <img src="hyster-yale/gallery-wiring-diagram.png" alt="SPI wiring diagram for ICM accelerometers on Arduino UNO and MEGA">
         <div class="gallery-caption">SPI wiring schematic for the accelerometer to Arduino DAQ setup</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gallery-testing-setup.jpg', 'Impact hammer testing on the overhead guard frame, with live data logging')">
-        <img src="gallery-testing-setup.jpg" alt="Impact hammer testing setup with laptops logging accelerometer data">
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-testing-setup.jpg', 'Impact hammer testing on the overhead guard frame, with live data logging')">
+        <img src="hyster-yale/gallery-testing-setup.jpg" alt="Impact hammer testing setup with laptops logging accelerometer data">
         <div class="gallery-caption">Impact hammer testing on the overhead guard frame, with live data logging</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gallery-sd-bypass.jpg', 'SD card reader hacked to bypass an SPI wiring conflict \u2014 got it reading, but write speed couldn\u2019t keep up with dual high-rate accelerometers')">
-        <img src="gallery-sd-bypass.jpg" alt="SD card reader module with a hand-soldered trace modification">
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-sd-bypass.jpg', 'SD card reader hacked to bypass an SPI wiring conflict \u2014 got it reading, but write speed couldn\u2019t keep up with dual high-rate accelerometers')">
+        <img src="hyster-yale/gallery-sd-bypass.jpg" alt="SD card reader module with a hand-soldered trace modification">
         <div class="gallery-caption">SD card reader hacked to bypass an SPI wiring conflict — got it reading, but write speed couldn't keep up with dual high-rate accelerometers</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-gusset.jpg', 'Close-up of a welded gusset added to stiffen a corner joint and shift the local resonance frequency')">
+        <img src="hyster-yale/gallery-gusset.jpg" alt="Welded gusset reinforcement at a frame joint">
+        <div class="gallery-caption">Welded gusset added to stiffen a corner joint as part of the frequency-shifting modifications</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-frame-before.jpg', 'The overhead guard frame before structural modifications')">
+        <img src="hyster-yale/gallery-frame-before.jpg" alt="Overhead guard frame before modifications">
+        <div class="gallery-caption">The overhead guard frame before structural modifications</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-frame-after.jpg', 'The overhead guard frame after structural modifications were fabricated')">
+        <img src="hyster-yale/gallery-frame-after.jpg" alt="Overhead guard frame after modifications">
+        <div class="gallery-caption">The overhead guard frame after structural modifications were fabricated</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-frame-iso-shop.jpg', 'Isometric view of the modified frame in the fabrication shop')">
+        <img src="hyster-yale/gallery-frame-iso-shop.jpg" alt="Isometric view of the modified overhead guard frame in the shop">
+        <div class="gallery-caption">Isometric view of the modified frame in the fabrication shop</div>
       </div>
     </div>
   </div>
@@ -1384,15 +1400,15 @@
 
   /* FEA modal animation selector */
   const modeData = {
-    1: { file: 'hyster-yale-mode1.gif', freq: '19.29 Hz', desc: 'Total deformation max of 0.110 m, concentrated in the roof structure — the frame\u2019s lowest-frequency bending mode.' },
-    2: { file: 'hyster-yale-mode2.gif', freq: '25.05 Hz', desc: 'Total deformation max of 0.123 m. Roof bending mode with a twisting component across the canopy.' },
-    3: { file: 'hyster-yale-mode3.gif', freq: '33.69 Hz', desc: 'Total deformation max of 0.180 m. Torsional mode concentrated in the roof bars and upper corner posts.' },
-    4: { file: 'hyster-yale-mode4.gif', freq: '38.42 Hz', desc: 'Total deformation max of 0.457 m. Large-amplitude mode driven by lower frame/chassis flexing.' },
-    5: { file: 'hyster-yale-mode5.gif', freq: '40.52 Hz', desc: 'Total deformation max of 0.542 m. Similar lower-frame flexing mode, highest deformation magnitude of the nine modes shown.' },
-    6: { file: 'hyster-yale-mode6.gif', freq: '72.15 Hz', desc: 'Total deformation max of 0.327 m. Localized roof-panel mode within the engine excitation range the team aimed to avoid.' },
-    7: { file: 'hyster-yale-mode7.gif', freq: '74.27 Hz', desc: 'Total deformation max of 0.480 m. Lower-frame mode close to the engine\u2019s operating-speed excitation frequency.' },
-    8: { file: 'hyster-yale-mode8.gif', freq: '85.19 Hz', desc: 'Total deformation max of 0.267 m. Roof-bar mode sitting just below the target avoidance range.' },
-    9: { file: 'hyster-yale-mode9.gif', freq: '87.84 Hz', desc: 'Total deformation max of 0.617 m. Highest-frequency mode shown, with deformation concentrated in the lower frame.' }
+    1: { file: 'hyster-yale/hyster-yale-mode1.gif', freq: '19.29 Hz', desc: 'Total deformation max of 0.110 m, concentrated in the roof structure — the frame\u2019s lowest-frequency bending mode.' },
+    2: { file: 'hyster-yale/hyster-yale-mode2.gif', freq: '25.05 Hz', desc: 'Total deformation max of 0.123 m. Roof bending mode with a twisting component across the canopy.' },
+    3: { file: 'hyster-yale/hyster-yale-mode3.gif', freq: '33.69 Hz', desc: 'Total deformation max of 0.180 m. Torsional mode concentrated in the roof bars and upper corner posts.' },
+    4: { file: 'hyster-yale/hyster-yale-mode4.gif', freq: '38.42 Hz', desc: 'Total deformation max of 0.457 m. Large-amplitude mode driven by lower frame/chassis flexing.' },
+    5: { file: 'hyster-yale/hyster-yale-mode5.gif', freq: '40.52 Hz', desc: 'Total deformation max of 0.542 m. Similar lower-frame flexing mode, highest deformation magnitude of the nine modes shown.' },
+    6: { file: 'hyster-yale/hyster-yale-mode6.gif', freq: '72.15 Hz', desc: 'Total deformation max of 0.327 m. Localized roof-panel mode within the engine excitation range the team aimed to avoid.' },
+    7: { file: 'hyster-yale/hyster-yale-mode7.gif', freq: '74.27 Hz', desc: 'Total deformation max of 0.480 m. Lower-frame mode close to the engine\u2019s operating-speed excitation frequency.' },
+    8: { file: 'hyster-yale/hyster-yale-mode8.gif', freq: '85.19 Hz', desc: 'Total deformation max of 0.267 m. Roof-bar mode sitting just below the target avoidance range.' },
+    9: { file: 'hyster-yale/hyster-yale-mode9.gif', freq: '87.84 Hz', desc: 'Total deformation max of 0.617 m. Highest-frequency mode shown, with deformation concentrated in the lower frame.' }
   };
 
   function selectMode(n) {
