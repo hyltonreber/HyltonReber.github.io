@@ -467,13 +467,46 @@
   }
 
   .pipeline-row-connector {
-    display: flex;
-    justify-content: flex-end;
-    padding-right: calc(16.6% - 0.75rem);
-    font-size: 1.5rem;
+    position: relative;
+    height: 56px;
+  }
+
+  .pipeline-row-connector .conn-seg {
+    position: absolute;
+    background: var(--steel);
+  }
+
+  .pipeline-row-connector .conn-down1 {
+    top: 0;
+    left: var(--start-x);
+    width: 2px;
+    height: 27px;
+    transform: translateX(-1px);
+  }
+
+  .pipeline-row-connector .conn-across {
+    top: 26px;
+    height: 2px;
+    left: min(var(--start-x), var(--end-x));
+    width: calc(max(var(--start-x), var(--end-x)) - min(var(--start-x), var(--end-x)));
+  }
+
+  .pipeline-row-connector .conn-down2 {
+    top: 27px;
+    left: var(--end-x);
+    width: 2px;
+    height: 19px;
+    transform: translateX(-1px);
+  }
+
+  .pipeline-row-connector .conn-arrow {
+    position: absolute;
+    top: 44px;
+    left: var(--end-x);
+    transform: translateX(-50%);
     color: var(--steel);
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
+    font-size: 0.9rem;
+    line-height: 1;
   }
 
   /* === MOBILE RESPONSIVE — fixes layout on phone-width screens === */
@@ -511,11 +544,21 @@
       padding: 0.5rem 0;
     }
 
-    /* swap desktop L-connector for a simple stacked-arrow fallback */
+    /* swap desktop elbow-connector for a simple centered down arrow on mobile */
     .pipeline-row-connector {
+      height: auto;
+      padding: 0.5rem 0;
       display: flex;
       justify-content: center;
-      padding-right: 0;
+    }
+    .pipeline-row-connector .conn-seg,
+    .pipeline-row-connector .conn-arrow {
+      display: none;
+    }
+    .pipeline-row-connector::after {
+      content: '↓';
+      font-size: 1.5rem;
+      color: var(--steel);
     }
 
     /* gallery: 2 columns instead of auto-fill squeeze */
@@ -906,7 +949,12 @@
         </div>
       </div>
 
-      <div class="pipeline-row-connector">↓</div>
+      <div class="pipeline-row-connector" style="--start-x:85.7%; --end-x:14.3%;">
+        <div class="conn-seg conn-down1"></div>
+        <div class="conn-seg conn-across"></div>
+        <div class="conn-seg conn-down2"></div>
+        <div class="conn-arrow">▾</div>
+      </div>
 
       <div class="pipeline-grid" style="margin-top:1.5rem;">
         <div class="pipeline-step">
@@ -1075,7 +1123,12 @@
         </div>
       </div>
 
-      <div class="pipeline-row-connector">↓</div>
+      <div class="pipeline-row-connector" style="--start-x:85.7%; --end-x:23.3%;">
+        <div class="conn-seg conn-down1"></div>
+        <div class="conn-seg conn-across"></div>
+        <div class="conn-seg conn-down2"></div>
+        <div class="conn-arrow">▾</div>
+      </div>
 
       <!-- EDIT: steps 4–5 (no images, text only) -->
       <div class="pipeline-grid" style="margin-top:1.5rem; grid-template-columns: 1fr auto 1fr;">
