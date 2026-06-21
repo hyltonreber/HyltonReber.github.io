@@ -413,7 +413,7 @@
 
   .pipeline-img {
     width: 100%;
-    height: 200px;
+    aspect-ratio: 784 / 924;
     object-fit: contain;
     border: 1px solid rgba(74,127,165,0.15);
     margin-bottom: 1rem;
@@ -468,10 +468,12 @@
 
   .pipeline-row-connector {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+    padding-right: calc(16.6% - 0.75rem);
     font-size: 1.5rem;
     color: var(--steel);
-    padding: 0.4rem 0;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
   }
 
   /* === MOBILE RESPONSIVE — fixes layout on phone-width screens === */
@@ -510,7 +512,11 @@
     }
 
     /* swap desktop L-connector for a simple stacked-arrow fallback */
-    .pipeline-row-connector { display: flex; }
+    .pipeline-row-connector {
+      display: flex;
+      justify-content: center;
+      padding-right: 0;
+    }
 
     /* gallery: 2 columns instead of auto-fill squeeze */
     .gallery-grid {
