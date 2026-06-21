@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<!--
+  SOAPBOX PROJECT DETAIL PAGE
+  ------------------------------------------------------------------
+  This is the deep-dive page for the Axes & Axles soapbox project,
+  linked from the project card on index.html.
+
+  HOW TO FIND THINGS IN THIS FILE:
+  - All page TEXT lives in the BODY section below the closing STYLE
+    tag. Look for "EDIT:" comments -- those mark every spot meant
+    to be edited (titles, paragraphs, captions, stats).
+  - Section headers are marked with rows of equal signs and a
+    section name, e.g. SECTION NAME.
+  - Colors are defined once at the top (look for ":root" below) and
+    reused everywhere via var(--name) -- change a color there and it
+    updates the whole page.
+  - Images are referenced as "soapbox/filename.jpg" and must live
+    in the soapbox/ folder in the same repo root.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Axes &amp; Axles — Red Bull Soapbox Race – Hylton Reber</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* === COLOR PALETTE — change a value here to recolor the whole page === */
+  :root {
+    --navy: #0D1B2A;       /* main background */
+    --navy-mid: #152436;   /* slightly lighter background (alt sections) */
+    --offwhite: #F0EFE9;   /* primary text / headings */
+    --steel: #4A7FA5;      /* secondary accent (links, borders) */
+    --amber: #C8883A;      /* primary accent (labels, highlights) */
+    --muted: #8A9BAD;      /* body text / less important text */
+    --card-bg: #192C3E;    /* card and box backgrounds */
+  }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
+
+  body {
+    background: var(--navy);
+    color: var(--offwhite);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    width: 100%;
+    max-width: 100vw;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background: rgba(13,27,42,0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(74,127,165,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--offwhite);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--amber); }
+
+  .back-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--amber); }
+
+  /* HERO */
+  .project-hero {
+    width: 100%;
+    max-width: 100vw;
+    padding: 9rem 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(74,127,165,0.15);
+    background-image:
+      linear-gradient(110deg, rgba(13,27,42,0.97) 0%, rgba(13,27,42,0.88) 35%, rgba(13,27,42,0.65) 70%, rgba(13,27,42,0.4) 100%),
+      url('soapbox/soapbox-hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .project-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(74,127,165,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,127,165,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .hero-inner { position: relative; max-width: 900px; }
+
+  .project-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+    color: var(--offwhite);
+  }
+
+  .project-subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .meta-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .meta-value {
+    font-size: 0.85rem;
+    color: var(--offwhite);
+    font-weight: 500;
+  }
+
+  /* CONTENT */
+  .content-wrap {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 3rem;
+    box-sizing: border-box;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 5rem 0;
+    border-bottom: 1px solid rgba(74,127,165,0.1);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    color: var(--offwhite);
+  }
+
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: var(--amber);
+    margin-bottom: 2rem;
+  }
+
+  .body-text {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.85;
+    max-width: 760px;
+  }
+
+  .body-text + .body-text { margin-top: 1rem; }
+
+  .body-text strong { color: var(--offwhite); font-weight: 500; }
+
+  /* TWO-COL */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+
+  .two-col > div { min-width: 0; }
+
+  /* ROLE CHIPS */
+  .role-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+
+  .chip {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--steel);
+    border: 1px solid rgba(74,127,165,0.4);
+    padding: 0.3rem 0.75rem;
+  }
+
+  /* STAT BOXES */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .stat-box {
+    background: var(--card-bg);
+    border: 1px solid rgba(74,127,165,0.15);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--offwhite);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+
+  .stat-num span { color: var(--amber); }
+  .stat-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; }
+
+  /* NUMBERED STEPS */
+  .steps { margin-top: 2rem; display: flex; flex-direction: column; gap: 2rem; }
+
+  .step {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--amber);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 2.5rem;
+    text-align: right;
+  }
+
+  .step-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--offwhite);
+    margin-bottom: 0.3rem;
+  }
+
+  .step-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .step-desc strong { color: var(--offwhite); font-weight: 500; }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--card-bg);
+    border-left: 3px solid var(--amber);
+    padding: 1.5rem 2rem;
+    margin-top: 2rem;
+    max-width: 760px;
+  }
+
+  .callout-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .callout p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .callout p + p { margin-top: 0.75rem; }
+
+  .callout p strong { color: var(--offwhite); font-weight: 500; }
+
+  /* click-to-enlarge affordance */
+  .clickable-img {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+  .clickable-img:hover { opacity: 0.88; }
+
+  /* IMAGES */
+  .img-caption {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-top: 0.6rem;
+    font-style: italic;
+  }
+
+  .img-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .img-grid-item img {
+    width: 100%;
+    border: 1px solid rgba(74,127,165,0.2);
+    display: block;
+  }
+
+  /* GALLERY */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(74,127,165,0.15);
+    cursor: pointer;
+    aspect-ratio: 4 / 3;
+    background: #0a1420;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-item:hover img { transform: scale(1.08); }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(13,27,42,0.95), transparent);
+    color: var(--offwhite);
+    font-size: 0.75rem;
+    padding: 1.5rem 0.85rem 0.6rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .gallery-item:hover .gallery-caption { opacity: 1; }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8,14,22,0.92);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+  }
+
+  .lightbox.active { display: flex; }
+
+  .lightbox-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 80vh;
+    border: 1px solid rgba(74,127,165,0.3);
+    display: block;
+  }
+
+  .lightbox-caption {
+    color: var(--offwhite);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 1rem;
+    max-width: 70ch;
+    line-height: 1.5;
+  }
+  .lightbox-caption:empty { margin-top: 0; }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 2rem;
+    color: var(--offwhite);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 1.5rem 3rem;
+    border-top: 1px solid rgba(74,127,165,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  footer a { color: var(--steel); text-decoration: none; }
+  footer a:hover { color: var(--amber); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* === MOBILE RESPONSIVE === */
+  @media (max-width: 900px) {
+    .project-hero { padding: 7rem 1.25rem 3rem; }
+    .meta-row { gap: 1.25rem; }
+
+    section, .section { padding: 3rem 0; }
+    .content-wrap { padding: 0 1.25rem; }
+
+    .two-col {
+      grid-template-columns: 1fr !important;
+      gap: 2rem;
+    }
+
+    .img-grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    .stat-row {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">H<span>.</span>REBER</a>
+  <a href="index.html#projects" class="back-link">← Back to Projects</a>
+</nav>
+
+<!-- ============================================== -->
+<!-- HERO SECTION — title, subtitle, and meta info  -->
+<!-- ============================================== -->
+<div class="project-hero">
+  <div class="hero-inner">
+
+    <!-- EDIT: small eyebrow tag above the title -->
+    <p class="project-tag">Startup · Competition · May – June 2026</p>
+
+    <!-- EDIT: main page title (use <br> to control line breaks) -->
+    <h1 class="project-title">Axes &amp; Axles<br>Red Bull<br>Soapbox Race</h1>
+
+    <!-- EDIT: subtitle / one-sentence project summary -->
+    <p class="project-subtitle">
+      Co-founded a five-person LLC and served as team lead and lead engineer for the full design-build cycle of a gravity-powered race vehicle — from bare chassis to the Red Bull Soapbox Race in Denver, CO, in six weeks.
+    </p>
+
+    <!-- EDIT: the 4 meta boxes -->
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="meta-label">Event</div>
+        <div class="meta-value">Red Bull Soapbox Race · Denver, CO</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Team</div>
+        <div class="meta-value">Axes &amp; Axles LLC — 5 Members</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">My Role</div>
+        <div class="meta-value">Team Lead &amp; Lead Engineer</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Build Window</div>
+        <div class="meta-value">May – June 13, 2026</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- ============================================== -->
+  <!-- OVERVIEW SECTION — "The Challenge"             -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Overview</p>
+    <h2 class="section-title">The Challenge</h2>
+    <div class="divider"></div>
+
+    <div class="two-col">
+      <div>
+        <!-- EDIT: overview paragraphs -->
+        <p class="body-text">
+          The Red Bull Soapbox Race is an international amateur engineering competition where teams design and build entirely gravity-powered vehicles, then race them in front of a live crowd on a purpose-built course. No motor, no stored energy — just engineering, craftsmanship, and gravity.
+        </p>
+        <p class="body-text">
+          Axes &amp; Axles LLC entered the 2026 Denver event with a bare chassis and six weeks to turn it into a race-ready vehicle. That meant designing and fabricating the full system from scratch: suspension geometry, steering linkage, braking, and any structural reinforcement the chassis needed. Every component had to pass a Red Bull technical inspection before we were allowed on the course.
+        </p>
+        <p class="body-text">
+          I co-founded the LLC specifically for this event and served as team lead and lead engineer throughout the build — directing the overall design, making structural calls, and doing the majority of hands-on fabrication alongside the team.
+        </p>
+        <!-- EDIT: skill chips -->
+        <div class="role-chips" style="margin-top:1.5rem;">
+          <span class="chip">Structural Design</span>
+          <span class="chip">Fabrication</span>
+          <span class="chip">Systems Engineering</span>
+          <span class="chip">Leadership</span>
+          <span class="chip">Welding</span>
+          <span class="chip">Grinding</span>
+        </div>
+      </div>
+      <div>
+        <!-- EDIT: photo + caption next to overview text -->
+        <img src="soapbox/soapbox-frame-initial.jpg" alt="Bare chassis when the team received it" class="clickable-img" onclick="openLightbox('soapbox/soapbox-frame-initial.jpg', 'The chassis as received — starting point for the build.')" style="width:100%; border:1px solid rgba(74,127,165,0.2); display:block;">
+        <p class="img-caption">The chassis as received — starting point for the build.</p>
+      </div>
+    </div>
+
+    <!-- EDIT: 4 quick-stat boxes -->
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Team Members</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">2<span>×</span></div>
+        <div class="stat-label">Suspension Redesigns</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">6<span> wks</span></div>
+        <div class="stat-label">Build Window</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">June<span> 13</span></div>
+        <div class="stat-label">Race Day</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">One Run</div>
+      <p>
+        The Red Bull Soapbox Race is a one-day competition — you get one run. There's no warm-up pass, no practice lap, no second attempt. Every engineering decision made in six weeks either holds up on the course or it doesn't.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- SUSPENSION REDESIGN SECTION                    -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Mechanical Design</p>
+    <h2 class="section-title">Suspension Redesign</h2>
+    <div class="divider"></div>
+
+    <p class="body-text">
+      The chassis arrived with basic axle hardware already in place, but the suspension geometry — control arm layout, pickup points, spring mounting, and pivot angles — had to be designed and fabricated from scratch. The first design established the basic architecture: arm positions that kept the wheels roughly square to the chassis and allowed vertical travel without bottoming out against the frame rails.
+    </p>
+    <p class="body-text">
+      Loaded and on the vehicle, the first design revealed problems that weren't apparent during the build. The geometry produced inconsistent wheel behavior through the travel range — binding in certain positions and allowing too much uncontrolled movement in others. A first full teardown addressed the worst of those issues. The second design held better, but geometry problems affecting tracking and predictability under load required another complete rebuild before the front end behaved as intended. The configuration pictured below is the result of those two full cycles.
+    </p>
+
+    <!-- Before / After image grid -->
+    <div class="img-grid">
+      <div class="img-grid-item">
+        <img src="soapbox/soapbox-front-initial.jpg" alt="Initial front suspension configuration" class="clickable-img" onclick="openLightbox('soapbox/soapbox-front-initial.jpg', 'Initial front suspension — first design mounted on the chassis.')">
+        <p class="img-caption">Initial front suspension — first design mounted on chassis.</p>
+      </div>
+      <div class="img-grid-item">
+        <img src="soapbox/soapbox-suspension-final.jpg" alt="Final front suspension — race-day configuration" class="clickable-img" onclick="openLightbox('soapbox/soapbox-suspension-final.jpg', 'Final race-day front suspension — result of two full redesigns.')">
+        <p class="img-caption">Final front suspension — after two complete redesigns.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:2rem;">
+      <div class="callout-title">Two Redesigns</div>
+      <p>
+        Each rebuild targeted problems that only became clear under real load — binding through the travel range, inconsistent wheel position, and clearance issues that weren't visible off the vehicle. Two full teardowns in a six-week build window was expensive in time, but each one produced a measurably better result. The final configuration eliminated those problems and held together through the full course on race day.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- STEERING FIX & BRAKE EMERGENCY SECTION         -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Late Build</p>
+    <h2 class="section-title">Steering Fix &amp; Brake Emergency</h2>
+    <div class="divider"></div>
+
+    <p class="body-text">
+      Two separate engineering problems surfaced in the final stretch of the build — both requiring fast diagnosis and faster solutions under a hard race-day deadline.
+    </p>
+
+    <!-- EDIT: each .step = one numbered problem/solution -->
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-title">Steering Inversion Fix</div>
+          <div class="step-desc">
+            During final assembly and inspection of the completed steering system, the linkage geometry turned out to be inverted — turning the wheel left caused the vehicle to steer right. Rather than rebuilding the steering from scratch, the fix was a <strong>steering arm extension</strong> that reversed the effective input geometry of the linkage without touching the core hardware. The vehicle passed technical inspection with the corrected geometry in place.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-title">Hydraulic Brake Failure — 24 Hours Out</div>
+          <div class="step-desc">
+            With 24 hours until race day, the hydraulic brake system failed. There was no time to source replacement parts or rebuild the hydraulic circuit. The team engineered a <strong>field-replacement mechanical brake system</strong> using on-hand materials, fabricated it overnight, and had it installed and passing Red Bull's technical inspection by race morning.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Steering fix images -->
+    <div class="img-grid">
+      <div class="img-grid-item">
+        <img src="soapbox/soapbox-steering-fix.jpg" alt="Corrected steering geometry after the inversion fix" class="clickable-img" onclick="openLightbox('soapbox/soapbox-steering-fix.jpg', 'Corrected steering geometry after the inversion fix was applied.')">
+        <p class="img-caption">Corrected steering geometry after the inversion fix.</p>
+      </div>
+      <div class="img-grid-item">
+        <img src="soapbox/soapbox-steering-arm.jpg" alt="Steering arm extension that reversed the linkage geometry" class="clickable-img" onclick="openLightbox('soapbox/soapbox-steering-arm.jpg', 'Steering arm extension — reversed the effective linkage geometry without a full rebuild.')">
+        <p class="img-caption">Steering arm extension — reversed the linkage geometry without a full rebuild.</p>
+      </div>
+    </div>
+
+    <!-- EDIT: race day outcome callout -->
+    <div class="callout" style="margin-top:2rem;">
+      <div class="callout-title">Race Day — June 13, 2026</div>
+      <p>
+        The vehicle finished the Red Bull Soapbox Race Denver — passing inspection, completing the course, and crossing the finish line. The steering was still slightly toed out and too sensitive on race day, which caused the vehicle to track inconsistently and the team posted a slow time as a result.
+      </p>
+      <p>
+        <strong>The fact that it finished at all — after a hydraulic brake failure less than 24 hours before the event — was the engineering win.</strong>
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- GALLERY SECTION — photo grid + lightbox        -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Behind the Project</p>
+    <h2 class="section-title">Gallery</h2>
+    <div class="divider"></div>
+
+    <!-- EDIT: gallery intro line -->
+    <p class="body-text">
+      A look at the build process, team, and race day in Denver.
+    </p>
+
+    <!-- EDIT: each .gallery-item = one photo. To add: copy a block, change -->
+    <!-- the image filename (2 places) and the caption text.                -->
+    <div class="gallery-grid">
+      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-hero-bg.jpg', 'The Axes & Axles team at pit row before the race')">
+        <img src="soapbox/soapbox-hero-bg.jpg" alt="Team at pit row before the race">
+        <div class="gallery-caption">The team at pit row before the race</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-gallery-pit-row.jpg', 'Vehicle staged at pit row before the run')">
+        <img src="soapbox/soapbox-gallery-pit-row.jpg" alt="Vehicle at pit row">
+        <div class="gallery-caption">Vehicle staged at pit row before the run</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-rear-initial.jpg', 'Rear frame during early stages of the build')">
+        <img src="soapbox/soapbox-rear-initial.jpg" alt="Rear frame during beginning of project">
+        <div class="gallery-caption">Rear frame during early stages of the build</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-suspension-final-closeup.jpg', 'Final front suspension — close-up view')">
+        <img src="soapbox/soapbox-suspension-final-closeup.jpg" alt="Final front suspension close-up">
+        <div class="gallery-caption">Final front suspension — close-up</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-suspension-alt.jpg', 'Front suspension assembly — alternate angle')">
+        <img src="soapbox/soapbox-suspension-alt.jpg" alt="Front suspension alternate view">
+        <div class="gallery-caption">Front suspension — alternate angle</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-steering-123.jpg', 'Steering system assembly')">
+        <img src="soapbox/soapbox-steering-123.jpg" alt="Steering system assembly">
+        <div class="gallery-caption">Steering system assembly</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-steering-top.jpg', 'Steering geometry — top-down view')">
+        <img src="soapbox/soapbox-steering-top.jpg" alt="Steering top view">
+        <div class="gallery-caption">Steering geometry — top-down view</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-gallery-working.jpg', 'Hands-on fabrication during the build')">
+        <img src="soapbox/soapbox-gallery-working.jpg" alt="Working on the vehicle during fabrication">
+        <div class="gallery-caption">Hands-on fabrication during the build</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end content-wrap -->
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <div class="lightbox-content" onclick="event.stopPropagation()">
+    <img id="lightbox-img" src="" alt="Enlarged image">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+</div>
+
+<!-- EDIT: footer text -->
+<footer>
+  <span>© 2026 Hylton Reber</span>
+  <a href="index.html#projects">← Back to all projects</a>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function openLightbox(src, caption) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-caption').textContent = caption || '';
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+  }
+</script>
+
+</body>
+</html>
