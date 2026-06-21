@@ -37,7 +37,7 @@
     --card-bg: #192C3E;    /* card and box backgrounds */
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
 
   body {
     background: var(--navy);
@@ -45,6 +45,7 @@
     font-family: 'Inter', sans-serif;
     font-weight: 300;
     line-height: 1.6;
+    overflow-x: hidden;
   }
 
   /* NAV */
@@ -443,13 +444,59 @@
     position: relative;
   }
 
-  /* desktop: L-shaped SVG connector from end of row 1 to start of row 2 */
-  .pipeline-connector-svg {
-    display: block;
-    width: 100%;
-    height: 40px;
-    color: var(--steel);
-    overflow: visible;
+  /* desktop: connector row mirrors the grid's own column widths via flex-basis,
+     guaranteeing alignment with the boxes above/below without guessed coordinates */
+  .pipeline-connector {
+    display: flex;
+    align-items: stretch;
+    height: 2.5rem;
+  }
+  .pipeline-connector .col {
+    flex: 1;
+    position: relative;
+  }
+  .pipeline-connector .gap {
+    flex: 0 0 1.25rem; /* matches .pipeline-grid gap */
+  }
+  /* drop line from the end (right edge) of the source column */
+  .pipeline-connector .col.source::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 1.25rem;
+    border-right: 2px solid var(--steel);
+  }
+  /* horizontal line spanning all columns/gaps between source and target */
+  .pipeline-connector .bridge {
+    position: absolute;
+    top: 1.25rem;
+    left: 0;
+    right: 0;
+    height: 0;
+    border-top: 2px solid var(--steel);
+  }
+  /* drop line + arrowhead into the start (left edge) of the target column */
+  .pipeline-connector .col.target::before {
+    content: '';
+    position: absolute;
+    top: 1.25rem;
+    left: 0;
+    width: 0;
+    height: 1rem;
+    border-left: 2px solid var(--steel);
+  }
+  .pipeline-connector .col.target::after {
+    content: '';
+    position: absolute;
+    top: 2.25rem;
+    left: -5px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid var(--steel);
   }
 
   /* mobile fallback: simple down arrow, hidden on desktop */
@@ -497,7 +544,7 @@
     }
 
     /* swap desktop L-connector for a simple stacked-arrow fallback */
-    .pipeline-connector-svg { display: none; }
+    .pipeline-connector { display: none; }
     .pipeline-row-connector { display: flex; }
 
     /* gallery: 2 columns instead of auto-fill squeeze */
@@ -889,14 +936,14 @@
       </div>
 
       <!-- desktop-only L-shaped connector: row 1 end (step 3) down to row 2 start (step 4) -->
-      <svg class="pipeline-connector-svg" viewBox="0 0 1000 80" preserveAspectRatio="none">
-        <path d="M 833 0 L 833 40 L 167 40 L 167 80" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#pipelineArrowhead)"/>
-        <defs>
-          <marker id="pipelineArrowhead" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M2 1L8 5L2 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </marker>
-        </defs>
-      </svg>
+      <div class="pipeline-connector">
+        <div class="col target"></div>
+        <div class="gap"></div>
+        <div class="col"></div>
+        <div class="gap"></div>
+        <div class="col source"></div>
+        <div class="bridge"></div>
+      </div>
 
       <!-- mobile-only fallback connector -->
       <div class="pipeline-row-connector">↓</div>
@@ -1069,15 +1116,14 @@
         </div>
       </div>
 
-      <!-- desktop-only L-shaped connector: row 1 end (step 3) down to row 2 start (step 4) -->
-      <svg class="pipeline-connector-svg" viewBox="0 0 1000 80" preserveAspectRatio="none">
-        <path d="M 833 0 L 833 40 L 250 40 L 250 80" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#pipelineArrowhead2)"/>
-        <defs>
-          <marker id="pipelineArrowhead2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M2 1L8 5L2 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </marker>
-        </defs>
-      </svg>
+      <!-- desktop-only L-shaped connector: row 1 end (step 3) down to row 2 start (step 4, left half of a 2-col row) -->
+      <div class="pipeline-connector">
+        <div class="col target" style="flex: 0 0 50%;"></div>
+        <div class="col"></div>
+        <div class="gap"></div>
+        <div class="col source"></div>
+        <div class="bridge"></div>
+      </div>
 
       <!-- mobile-only fallback connector -->
       <div class="pipeline-row-connector">↓</div>
