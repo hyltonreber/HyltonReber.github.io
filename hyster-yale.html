@@ -444,64 +444,8 @@
     position: relative;
   }
 
-  /* desktop: connector row mirrors the grid's own column widths via flex-basis,
-     guaranteeing alignment with the boxes above/below without guessed coordinates */
-  .pipeline-connector {
-    display: flex;
-    align-items: stretch;
-    height: 2.5rem;
-  }
-  .pipeline-connector .col {
-    flex: 1;
-    position: relative;
-  }
-  .pipeline-connector .gap {
-    flex: 0 0 1.25rem; /* matches .pipeline-grid gap */
-  }
-  /* drop line from the end (right edge) of the source column */
-  .pipeline-connector .col.source::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 0;
-    height: 1.25rem;
-    border-right: 2px solid var(--steel);
-  }
-  /* horizontal line spanning all columns/gaps between source and target */
-  .pipeline-connector .bridge {
-    position: absolute;
-    top: 1.25rem;
-    left: 0;
-    right: 0;
-    height: 0;
-    border-top: 2px solid var(--steel);
-  }
-  /* drop line + arrowhead into the start (left edge) of the target column */
-  .pipeline-connector .col.target::before {
-    content: '';
-    position: absolute;
-    top: 1.25rem;
-    left: 0;
-    width: 0;
-    height: 1rem;
-    border-left: 2px solid var(--steel);
-  }
-  .pipeline-connector .col.target::after {
-    content: '';
-    position: absolute;
-    top: 2.25rem;
-    left: -5px;
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 7px solid var(--steel);
-  }
-
-  /* mobile fallback: simple down arrow, hidden on desktop */
   .pipeline-row-connector {
-    display: none;
+    display: flex;
     justify-content: center;
     font-size: 1.5rem;
     color: var(--steel);
@@ -544,7 +488,6 @@
     }
 
     /* swap desktop L-connector for a simple stacked-arrow fallback */
-    .pipeline-connector { display: none; }
     .pipeline-row-connector { display: flex; }
 
     /* gallery: 2 columns instead of auto-fill squeeze */
@@ -935,17 +878,6 @@
         </div>
       </div>
 
-      <!-- desktop-only L-shaped connector: row 1 end (step 3) down to row 2 start (step 4) -->
-      <div class="pipeline-connector">
-        <div class="col target"></div>
-        <div class="gap"></div>
-        <div class="col"></div>
-        <div class="gap"></div>
-        <div class="col source"></div>
-        <div class="bridge"></div>
-      </div>
-
-      <!-- mobile-only fallback connector -->
       <div class="pipeline-row-connector">↓</div>
 
       <div class="pipeline-grid" style="margin-top:1.5rem;">
@@ -1116,16 +1048,6 @@
         </div>
       </div>
 
-      <!-- desktop-only L-shaped connector: row 1 end (step 3) down to row 2 start (step 4, left half of a 2-col row) -->
-      <div class="pipeline-connector">
-        <div class="col target" style="flex: 0 0 50%;"></div>
-        <div class="col"></div>
-        <div class="gap"></div>
-        <div class="col source"></div>
-        <div class="bridge"></div>
-      </div>
-
-      <!-- mobile-only fallback connector -->
       <div class="pipeline-row-connector">↓</div>
 
       <!-- EDIT: steps 4–5 (no images, text only) -->
