@@ -413,7 +413,7 @@
 
   .pipeline-img {
     width: 100%;
-    aspect-ratio: 784 / 924;
+    aspect-ratio: 1;
     object-fit: contain;
     border: 1px solid rgba(74,127,165,0.15);
     margin-bottom: 1rem;
@@ -501,12 +501,14 @@
 
   .pipeline-row-connector .conn-arrow {
     position: absolute;
-    top: 44px;
+    top: 45px;
     left: var(--end-x);
     transform: translateX(-50%);
-    color: var(--steel);
-    font-size: 0.9rem;
-    line-height: 1;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid var(--steel);
   }
 
   /* === MOBILE RESPONSIVE — fixes layout on phone-width screens === */
@@ -953,7 +955,7 @@
         <div class="conn-seg conn-down1"></div>
         <div class="conn-seg conn-across"></div>
         <div class="conn-seg conn-down2"></div>
-        <div class="conn-arrow">▾</div>
+        <div class="conn-arrow"></div>
       </div>
 
       <div class="pipeline-grid" style="margin-top:1.5rem;">
@@ -1127,7 +1129,7 @@
         <div class="conn-seg conn-down1"></div>
         <div class="conn-seg conn-across"></div>
         <div class="conn-seg conn-down2"></div>
-        <div class="conn-arrow">▾</div>
+        <div class="conn-arrow"></div>
       </div>
 
       <!-- EDIT: steps 4–5 (no images, text only) -->
