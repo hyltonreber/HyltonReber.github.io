@@ -43,7 +43,7 @@
     --card-bg: #192C3E;    /* card and box backgrounds */
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
 
   body {
     background: var(--navy);
@@ -51,12 +51,18 @@
     font-family: 'Inter', sans-serif;
     font-weight: 300;
     line-height: 1.6;
+    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
+    position: relative;
   }
 
   /* NAV */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
+    width: 100%;
+    max-width: 100vw;
     z-index: 100;
     display: flex;
     justify-content: space-between;
@@ -64,6 +70,7 @@
     padding: 1rem 3rem;
     background: rgba(13,27,42,0.92);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(74,127,165,0.2);
   }
 
@@ -93,16 +100,18 @@
   .back-link:hover { color: var(--amber); }
 
   /* HERO */
-  /* === HERO BACKGROUND IMAGE — uses its own file "hyster-yale-hero-bg.jpg" === */
+  /* === HERO BACKGROUND IMAGE — uses its own file "hyster-yale/hyster-yale-hero-bg.jpg" === */
   /* (separate from the gallery copy, so you can crop this one independently) */
   .project-hero {
+    width: 100%;
+    max-width: 100vw;
     padding: 9rem 3rem 5rem;
     position: relative;
     overflow: hidden;
     border-bottom: 1px solid rgba(74,127,165,0.15);
     background-image:
       linear-gradient(110deg, rgba(13,27,42,0.97) 0%, rgba(13,27,42,0.88) 35%, rgba(13,27,42,0.65) 70%, rgba(13,27,42,0.4) 100%),
-      url('hyster-yale-hero-bg.jpg');
+      url('hyster-yale/hyster-yale-hero-bg.jpg');
     background-size: cover;
     background-position: top right;
   }
@@ -172,8 +181,10 @@
   /* CONTENT */
   .content-wrap {
     max-width: 1100px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 3rem;
+    box-sizing: border-box;
   }
 
   /* SECTION */
@@ -278,6 +289,82 @@
   /* PROCESS STEPS */
   .steps { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
 
+  /* MODAL ANALYSIS — mode selector + viewer */
+  .mode-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+
+  .mode-tab {
+    background: var(--card-bg);
+    border: 1px solid rgba(74,127,165,0.25);
+    color: var(--muted);
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .mode-tab .mode-tab-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    color: var(--offwhite);
+    letter-spacing: 0.05em;
+    display: block;
+  }
+
+  .mode-tab .mode-tab-freq {
+    font-size: 0.7rem;
+    color: var(--steel);
+  }
+
+  .mode-tab:hover {
+    border-color: rgba(74,127,165,0.6);
+  }
+
+  .mode-tab.active {
+    border-color: var(--amber);
+  }
+
+  .mode-tab.active .mode-tab-num { color: var(--amber); }
+
+  .mode-viewer {
+    margin-top: 1.5rem;
+    border: 1px solid rgba(74,127,165,0.2);
+    background: #0a1420;
+  }
+
+  .mode-viewer img {
+    width: 100%;
+    display: block;
+    cursor: pointer;
+  }
+
+  .mode-viewer-caption {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid rgba(74,127,165,0.15);
+  }
+
+  .mode-viewer-caption .mode-freq-line {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: var(--offwhite);
+    letter-spacing: 0.03em;
+  }
+
+  .mode-viewer-caption .mode-freq-line span { color: var(--amber); }
+
+  .mode-viewer-caption p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.4rem;
+    line-height: 1.6;
+  }
+
   .step {
     display: flex;
     gap: 1.5rem;
@@ -332,6 +419,15 @@
     background: #fff;
   }
 
+  /* click-to-enlarge affordance — does not affect sizing */
+  .clickable-img {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+  .clickable-img:hover {
+    opacity: 0.88;
+  }
+
   .pipeline-num {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.6rem;
@@ -361,6 +457,19 @@
     color: var(--steel);
     height: 100%;
     padding-top: 3rem;
+  }
+
+  /* wraps two stacked .pipeline-grid rows + the connector between them */
+  .pipeline-sequence {
+    position: relative;
+  }
+
+  .pipeline-row-connector {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--steel);
+    padding: 0.4rem 0;
   }
 
   /* === MOBILE RESPONSIVE — fixes layout on phone-width screens === */
@@ -398,9 +507,18 @@
       padding: 0.5rem 0;
     }
 
+    /* swap desktop L-connector for a simple stacked-arrow fallback */
+    .pipeline-row-connector { display: flex; }
+
     /* gallery: 2 columns instead of auto-fill squeeze */
     .gallery-grid {
       grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* mode selector: smaller tabs, tighter wrap on mobile */
+    .mode-tab {
+      padding: 0.45rem 0.7rem !important;
+      flex: 1 1 30%;
     }
   }
 
@@ -429,7 +547,14 @@
     transition: transform 0.3s ease;
   }
 
+  /* use on gallery-item for diagrams/screenshots: shows full image, no cropping */
+  .gallery-item.fit img {
+    object-fit: contain;
+  }
+
   .gallery-item:hover img { transform: scale(1.08); }
+
+  .gallery-item.fit:hover img { transform: scale(1.03); }
 
   .gallery-caption {
     position: absolute;
@@ -459,11 +584,30 @@
 
   .lightbox.active { display: flex; }
 
+  .lightbox-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
   .lightbox img {
     max-width: 90vw;
-    max-height: 85vh;
+    max-height: 80vh;
     border: 1px solid rgba(74,127,165,0.3);
+    display: block;
   }
+
+  .lightbox-caption {
+    color: var(--offwhite);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 1rem;
+    max-width: 70ch;
+    line-height: 1.5;
+  }
+  .lightbox-caption:empty { margin-top: 0; }
 
   .lightbox-close {
     position: absolute;
@@ -663,7 +807,7 @@
       Forklift operators are exposed to sustained vibration and noise generated by the engine and hydraulic systems. When the engine's operating frequencies align with the <strong>natural frequencies of the overhead guard</strong>, resonance amplifies the noise and vibration reaching the operator — a long-term occupational health concern.
     </p>
     <p class="body-text" style="margin-top:1rem;">
-      Hyster-Yale tasked our team — <strong>Modal Minds</strong> — with modifying the overhead guard structure to shift its resonance frequencies away from the engine's key excitation frequencies: <strong>26.66 Hz, 66.66 Hz, and 80 Hz</strong> (corresponding to idle, operating, and full throttle RPM).
+      Hyster-Yale tasked our team — <strong>Modal Minds</strong> — with modifying a physical overhead guard they provided, shifting its resonance frequencies away from the engine's key excitation points. Because the same OHG pairs with engines rated at <strong>800, 2000, and 2400 RPM</strong>, all three had to be treated as separate excitation sources. The relevant frequency is each engine's <strong>2nd order frequency</strong> — double the RPM-derived value, since these are 4-cylinder engines whose strongest vibration hits at twice rotational speed — giving target frequencies of <strong>26.66 Hz, 66.66 Hz, and 80 Hz</strong> to avoid.
     </p>
 
     <!-- EDIT: 4 quick-stat boxes (number + label) -->
@@ -686,22 +830,115 @@
       </div>
     </div>
 
-    <!-- EDIT: engine frequency table (rows = Idle / Operating / Full Throttle) -->
+    <!-- EDIT: engine frequency table — 3 separate engine speed ratings the OHG must work across -->
     <table class="freq-table" style="margin-top:2.5rem;">
       <thead>
         <tr>
-          <th>Engine Condition</th>
+          <th>Engine Rating</th>
           <th>RPM</th>
           <th>2nd Order Frequency</th>
           <th>Target Shift Range</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>Idle</td><td>800</td><td><strong>26.66 Hz</strong></td><td>32 – 53 Hz</td></tr>
-        <tr><td>Operating</td><td>2000</td><td><strong>66.66 Hz</strong></td><td>72 – 73 Hz</td></tr>
-        <tr><td>Full Throttle</td><td>2400</td><td><strong>80 Hz</strong></td><td>88 – 96 Hz</td></tr>
+        <tr><td>800 RPM-rated engine</td><td>800</td><td><strong>26.66 Hz</strong></td><td>32 – 53 Hz</td></tr>
+        <tr><td>2000 RPM-rated engine</td><td>2000</td><td><strong>66.66 Hz</strong></td><td>72 – 73 Hz</td></tr>
+        <tr><td>2400 RPM-rated engine</td><td>2400</td><td><strong>80 Hz</strong></td><td>88 – 96 Hz</td></tr>
       </tbody>
     </table>
+    <p class="img-caption" style="margin-top:0.75rem;">The same OHG design can be paired with engines rated at any of these three speeds, so all three had to be treated as separate excitation sources — not just different states of one engine.</p>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- SCOPE SECTION — why this mattered beyond one OHG -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <div class="callout">
+      <div class="callout-title">Scope</div>
+      <p>
+        Modifying a single overhead guard isn't, on its own, a business-critical deliverable — Hyster-Yale could have shelved the result and moved on. What made it worth their time was the underlying question: <strong>can resonance frequencies in a structure like this be deliberately and predictably shifted</strong>, using accessible tools and a process their own engineers could repeat? We delivered a working demonstration of that process on this guard, not a finished, ready-to-apply toolkit — but we did establish that the simulate-modify-verify loop works and the physical testing method is sound, giving the next iteration of this work a clear place to start.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- PROJECT TIMELINE SECTION                        -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Approach</p>
+    <h2 class="section-title">Project Timeline</h2>
+    <div class="divider"></div>
+
+    <p class="body-text">
+      The approach centered on a repeatable simulate-modify-verify loop — iterating on the OHG design in Ansys until the model's modes cleared the engine's excitation frequencies, then physically fabricating and testing that final design to confirm the predicted shift held up on the real structure.
+    </p>
+
+    <div class="pipeline-sequence">
+      <div class="pipeline-grid" style="margin-top:2rem;">
+        <div class="pipeline-step">
+          <div class="pipeline-num">01</div>
+          <div class="pipeline-title">Simulate in Ansys</div>
+          <div class="pipeline-desc">Ran modal FEA on the unmodified overhead guard to identify its first nine natural frequencies and mode shapes.</div>
+        </div>
+
+        <div class="pipeline-arrow">→</div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-num">02</div>
+          <div class="pipeline-title">Make Large Changes, Resimulate</div>
+          <div class="pipeline-desc">Applied significant structural modifications to the model and re-ran the modal simulation to see how far — and in which direction — the modes would move.</div>
+        </div>
+
+        <div class="pipeline-arrow">→</div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-num">03</div>
+          <div class="pipeline-title">Refine &amp; Iterate</div>
+          <div class="pipeline-desc">Repeated cycles of smaller, targeted changes and resimulation, converging the modes away from the 26.66 / 66.66 / 80 Hz engine excitation frequencies.</div>
+        </div>
+      </div>
+
+      <div class="pipeline-row-connector">↓</div>
+
+      <div class="pipeline-grid" style="margin-top:1.5rem;">
+        <div class="pipeline-step">
+          <div class="pipeline-num">04</div>
+          <div class="pipeline-title">Final Model</div>
+          <div class="pipeline-desc">Locked in a modified design predicted to shift all nine modes clear of the target engine frequencies.</div>
+        </div>
+
+        <div class="pipeline-arrow">→</div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-num">05</div>
+          <div class="pipeline-title">Make Physical Changes</div>
+          <div class="pipeline-desc">Fabricated the final model's structural modifications onto the real overhead guard frame.</div>
+        </div>
+
+        <div class="pipeline-arrow">→</div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-num">06</div>
+          <div class="pipeline-title">Verify by Physical Testing</div>
+          <div class="pipeline-desc">Ran the 38-node impact-hammer test on both the initial (unmodified) and final (modified) guard to check the real structure's response against the Ansys predictions.</div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- EDIT: honest outcome callout -->
+    <div class="callout" style="margin-top:2rem;">
+      <div class="callout-title">Outcome</div>
+      <p>
+        The team delivered a modified overhead guard with frequencies shifted away from the engine's excitation points, in both simulation and physical testing — though we ran out of time to fully validate the physical test data was clean (see testing limitations below).
+      </p>
+      <p style="margin-top:0.75rem;">
+        As noted above, the final design combined multiple changes — gusset placement, stiffening, mass distribution — at once rather than testing each in isolation. If we did this again: change one variable, test, revert, then test the next — isolating each effect rather than only validating the combined result.
+      </p>
+      <p style="margin-top:0.75rem;">
+        Given the complexity, this read as much as a proof-of-concept and learning experience as a finished solution — our sponsor, himself a relatively early-career engineer, repeatedly noted how complex this was for an undergraduate capstone.
+      </p>
+    </div>
   </div>
 
   <!-- MY ROLE -->
@@ -730,7 +967,7 @@
       </div>
       <div>
         <!-- EDIT: photo + caption next to "My Role" text -->
-        <img src="hyster-yale-test-setup.jpg" alt="Accelerometer mounted on 3D-printed holder, wired to Arduino" style="width:100%; border:1px solid rgba(74,127,165,0.2); display:block;">
+        <img src="hyster-yale/hyster-yale-test-setup.jpg" alt="Accelerometer mounted on 3D-printed holder, wired to Arduino" class="clickable-img" onclick="openLightbox('hyster-yale/hyster-yale-test-setup.jpg', 'Accelerometer mounted on a 3D-printed holder, wired to the Arduino DAQ.')" style="width:100%; border:1px solid rgba(74,127,165,0.2); display:block;">
         <p class="img-caption">The data acquisition hardware — ICM-20649 accelerometer on a custom 3D-printed mount, wired to the Arduino used for register-level sensor configuration.</p>
       </div>
     </div>
@@ -802,49 +1039,53 @@
       Each strike generated a burst of raw accelerometer readings that, on their own, said nothing about resonance. Turning <strong>380 individual data sets</strong> (5 runs × 2 strike directions × 38 nodes) into a clear picture of the structure's natural frequencies took a five-stage pipeline, run in MATLAB for both the initial and final overhead guard.
     </p>
 
-    <!-- EDIT: steps 1–3 (with images) -->
-    <div class="pipeline-grid">
-      <div class="pipeline-step">
-        <div class="pipeline-num">01</div>
-        <img src="hyster-yale-raw-data.png" alt="Raw time and acceleration data in Excel" class="pipeline-img">
-        <div class="pipeline-title">Collect Raw Acceleration Data</div>
-        <div class="pipeline-desc">Each hammer strike was logged as raw time-vs-acceleration data across X, Y, and Z axes, recorded straight from the Arduino serial monitor into Excel.</div>
+    <div class="pipeline-sequence">
+      <!-- EDIT: steps 1–3 (with images) -->
+      <div class="pipeline-grid">
+        <div class="pipeline-step">
+          <div class="pipeline-num">01</div>
+          <img src="hyster-yale/hyster-yale-raw-data.png" alt="Raw time and acceleration data in Excel" class="pipeline-img clickable-img" onclick="openLightbox('hyster-yale/hyster-yale-raw-data.png', 'Each hammer strike was logged as raw time-vs-acceleration data across X, Y, and Z axes, recorded straight from the Arduino serial monitor into Excel.')">
+          <div class="pipeline-title">Collect Raw Acceleration Data</div>
+          <div class="pipeline-desc">Each hammer strike was logged as raw time-vs-acceleration data across X, Y, and Z axes, recorded straight from the Arduino serial monitor into Excel.</div>
+        </div>
+
+        <div class="pipeline-arrow">→</div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-num">02</div>
+          <img src="hyster-yale/hyster-yale-accel-plot.png" alt="Acceleration vs time plot" class="pipeline-img clickable-img" onclick="openLightbox('hyster-yale/hyster-yale-accel-plot.png', 'Raw values were reoriented to a universal frame coordinate system and plotted as acceleration vs. time \u2014 one plot per node, direction, and axis (38 \u00d7 6 subplots).')">
+          <div class="pipeline-title">Plot Relative to Frame Axes</div>
+          <div class="pipeline-desc">Raw values were reoriented to a universal frame coordinate system and plotted as acceleration vs. time — one plot per node, direction, and axis (38 × 6 subplots).</div>
+        </div>
+
+        <div class="pipeline-arrow">→</div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-num">03</div>
+          <img src="hyster-yale/hyster-yale-freq-plot.png" alt="FFT frequency spectrum plot" class="pipeline-img clickable-img" onclick="openLightbox('hyster-yale/hyster-yale-freq-plot.png', 'A Fast Fourier Transform converted each time-domain signal into a frequency spectrum, revealing which frequencies the structure responded to most strongly.')">
+          <div class="pipeline-title">Apply FFT</div>
+          <div class="pipeline-desc">A Fast Fourier Transform converted each time-domain signal into a frequency spectrum, revealing which frequencies the structure responded to most strongly.</div>
+        </div>
       </div>
 
-      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-row-connector">↓</div>
 
-      <div class="pipeline-step">
-        <div class="pipeline-num">02</div>
-        <img src="hyster-yale-accel-plot.png" alt="Acceleration vs time plot" class="pipeline-img">
-        <div class="pipeline-title">Plot Relative to Frame Axes</div>
-        <div class="pipeline-desc">Raw values were reoriented to a universal frame coordinate system and plotted as acceleration vs. time — one plot per node, direction, and axis (38 × 6 subplots).</div>
-      </div>
+      <!-- EDIT: steps 4–5 (no images, text only) -->
+      <div class="pipeline-grid" style="margin-top:1.5rem; grid-template-columns: 1fr auto 1fr;">
+        <div class="pipeline-step">
+          <div class="pipeline-num">04</div>
+          <div class="pipeline-title">Find Peaks Programmatically</div>
+          <div class="pipeline-desc">A MATLAB peak-finding routine scanned every frequency spectrum and flagged the dominant peaks — the candidate resonance frequencies — across all 228 node/direction/axis combinations.</div>
+        </div>
 
-      <div class="pipeline-arrow">→</div>
-
-      <div class="pipeline-step">
-        <div class="pipeline-num">03</div>
-        <img src="hyster-yale-freq-plot.png" alt="FFT frequency spectrum plot" class="pipeline-img">
-        <div class="pipeline-title">Apply FFT</div>
-        <div class="pipeline-desc">A Fast Fourier Transform converted each time-domain signal into a frequency spectrum, revealing which frequencies the structure responded to most strongly.</div>
-      </div>
-    </div>
-
-    <!-- EDIT: steps 4–5 (no images, text only) -->
-    <div class="pipeline-grid" style="margin-top:1.5rem; grid-template-columns: 1fr auto 1fr;">
-      <div class="pipeline-step">
-        <div class="pipeline-num">04</div>
-        <div class="pipeline-title">Find Peaks Programmatically</div>
-        <div class="pipeline-desc">A MATLAB peak-finding routine scanned every frequency spectrum and flagged the dominant peaks — the candidate resonance frequencies — across all 228 node/direction/axis combinations.</div>
-      </div>
-
-      <div class="pipeline-arrow">→</div>
+        <div class="pipeline-arrow">→</div>
 
       <div class="pipeline-step">
         <div class="pipeline-num">05</div>
         <div class="pipeline-title">Build the Histogram</div>
         <div class="pipeline-desc">Every identified peak across all nodes was aggregated into a single combined histogram, turning hundreds of individual readings into one clear view of the structure's dominant resonance frequencies.</div>
       </div>
+    </div>
     </div>
 
     <!-- EDIT: "Why This Mattered" callout box -->
@@ -853,6 +1094,72 @@
       <p>
         No single strike or node told the full story — accelerometer noise and inconsistent strikes made individual readings unreliable. But aggregating peaks across all 38 nodes into one histogram (the charts in the Results section above) let the true resonance frequencies emerge from the noise.
       </p>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- FEA / ANSYS MODAL ANALYSIS SECTION              -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Simulation</p>
+    <h2 class="section-title">FEA / Ansys Modal Analysis</h2>
+    <p style="font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--steel); margin-bottom:1rem;">Initial (unmodified) overhead guard — corresponds to the Initial Frequency Data below</p>
+    <div class="divider"></div>
+
+    <p class="body-text">
+      Before any physical testing happened, the <strong>initial, unmodified overhead guard's</strong> first nine vibration mode shapes were predicted in Ansys Mechanical using modal FEA. Each animation below shows how that original frame would deform at that mode's natural frequency — these predictions are what the physical impact-hammer testing on the initial frame was ultimately validating against. Select a mode below to see its animated deformation.
+    </p>
+
+    <div class="mode-selector" id="mode-selector">
+      <div class="mode-tab active" data-mode="1" onclick="selectMode(1)">
+        <span class="mode-tab-num">Mode 1</span>
+        <span class="mode-tab-freq">19.29 Hz</span>
+      </div>
+      <div class="mode-tab" data-mode="2" onclick="selectMode(2)">
+        <span class="mode-tab-num">Mode 2</span>
+        <span class="mode-tab-freq">25.05 Hz</span>
+      </div>
+      <div class="mode-tab" data-mode="3" onclick="selectMode(3)">
+        <span class="mode-tab-num">Mode 3</span>
+        <span class="mode-tab-freq">33.69 Hz</span>
+      </div>
+      <div class="mode-tab" data-mode="4" onclick="selectMode(4)">
+        <span class="mode-tab-num">Mode 4</span>
+        <span class="mode-tab-freq">38.42 Hz</span>
+      </div>
+      <div class="mode-tab" data-mode="5" onclick="selectMode(5)">
+        <span class="mode-tab-num">Mode 5</span>
+        <span class="mode-tab-freq">40.52 Hz</span>
+      </div>
+      <div class="mode-tab" data-mode="6" onclick="selectMode(6)">
+        <span class="mode-tab-num">Mode 6</span>
+        <span class="mode-tab-freq">72.15 Hz</span>
+      </div>
+      <div class="mode-tab" data-mode="7" onclick="selectMode(7)">
+        <span class="mode-tab-num">Mode 7</span>
+        <span class="mode-tab-freq">74.27 Hz</span>
+      </div>
+      <div class="mode-tab" data-mode="8" onclick="selectMode(8)">
+        <span class="mode-tab-num">Mode 8</span>
+        <span class="mode-tab-freq">85.19 Hz</span>
+      </div>
+      <div class="mode-tab" data-mode="9" onclick="selectMode(9)">
+        <span class="mode-tab-num">Mode 9</span>
+        <span class="mode-tab-freq">87.84 Hz</span>
+      </div>
+    </div>
+
+    <div class="mode-viewer">
+      <img
+        id="mode-viewer-img"
+        src="hyster-yale/hyster-yale-mode1.gif"
+        alt="Ansys Modal animation — Mode 1, 19.29 Hz"
+        onclick="openLightbox(this.src, document.getElementById('mode-viewer-desc').textContent)"
+      >
+      <div class="mode-viewer-caption">
+        <div class="mode-freq-line">Mode 1 — <span>19.29 Hz</span></div>
+        <p id="mode-viewer-desc">Total deformation max of 0.110 m, concentrated in the roof structure — the frame's lowest-frequency bending mode.</p>
+      </div>
     </div>
   </div>
 
@@ -866,32 +1173,26 @@
 
     <!-- EDIT: intro paragraph above the histogram images -->
     <p class="body-text">
-      The histograms below show the distribution of peak frequencies identified across all 38 nodes — aggregated across all directions and axes — for both the initial (unmodified) and final (modified) overhead guard. The <strong>dashed red lines</strong> mark the engine excitation frequencies the team aimed to avoid.
+      The histograms below show the distribution of peak frequencies identified across all 38 nodes — aggregated across all directions and axes — for both the initial (unmodified) and final (modified) overhead guard. The <strong>dashed red lines</strong> mark the engine excitation frequencies the team aimed to avoid. <strong>Gold-highlighted frequencies</strong> are the modes where the physical test data matched the Ansys FEA predictions almost exactly.
     </p>
 
     <!-- Initial Histogram -->
     <img
-      src="hyster-yale-initial-histogram.png"
+      src="hyster-yale/hyster-yale-initial-histogram.jpeg"
       alt="Initial Data — Combined Histogram of All Peak Frequencies"
-      class="img-full"
+      class="img-full clickable-img"
+      onclick="openLightbox('hyster-yale/hyster-yale-initial-histogram.jpeg', 'Fig. 1 \u2014 Initial OHG: Combined histogram of peak frequencies across all 38 nodes. Dominant peaks cluster near engine frequencies (26.66 Hz, 66.66 Hz, 80 Hz). Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly.')"
     />
-    <p class="img-caption">Fig. 1 — Initial OHG: Combined histogram of peak frequencies across all 38 nodes. Dominant peaks cluster near engine frequencies (26.66 Hz, 66.66 Hz, 80 Hz).</p>
-
-    <!-- EDIT: 2nd histogram image + caption -->
-    <img
-      src="hyster-yale-all-directions.png"
-      alt="Histogram of Peak Frequencies Across All Nodes — All Directions and Axes"
-      class="img-full"
-    />
-    <p class="img-caption">Fig. 2 — Initial data broken down by test direction (A/B) and axis (X, Y, Z), showing how frequency response varied across measurement orientations.</p>
+    <p class="img-caption">Fig. 1 — Initial OHG: Combined histogram of peak frequencies across all 38 nodes. Dominant peaks cluster near engine frequencies (26.66 Hz, 66.66 Hz, 80 Hz). Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly.</p>
 
     <!-- EDIT: 3rd histogram image + caption (final/post-modification) -->
     <img
-      src="hyster-yale-final-histogram.png"
+      src="hyster-yale/hyster-yale-final-histogram.jpeg"
       alt="Final Data — Combined Histogram of All Peak Frequencies"
-      class="img-full"
+      class="img-full clickable-img"
+      onclick="openLightbox('hyster-yale/hyster-yale-final-histogram.jpeg', 'Fig. 2 \u2014 Final OHG (post-modification): Peak frequencies visibly shifted. Mode 1 moved from ~19 Hz to ~24 Hz; Mode 7 shifted to 88 Hz \u2014 landing within the target range of 88\u201396 Hz. Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly.')"
     />
-    <p class="img-caption">Fig. 3 — Final OHG (post-modification): Peak frequencies visibly shifted. Mode 1 moved from ~19 Hz to ~24 Hz; Mode 7 shifted to 88 Hz — landing within the target range of 88–96 Hz.</p>
+    <p class="img-caption">Fig. 2 — Final OHG (post-modification): Peak frequencies visibly shifted. Mode 1 moved from ~19 Hz to ~24 Hz; Mode 7 shifted to 88 Hz — landing within the target range of 88–96 Hz. Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly.</p>
 
     <!-- EDIT: "Key Outcome" callout box -->
     <div class="callout">
@@ -902,7 +1203,7 @@
     </div>
 
     <!-- EDIT: team photo + caption -->
-    <img src="hyster-yale-team.jpg" alt="Modal Minds team presenting at the University of Idaho Engineering EXPO" class="img-full" style="margin-top:2.5rem;">
+    <img src="hyster-yale/hyster-yale-team.jpg" alt="Modal Minds team presenting at the University of Idaho Engineering EXPO" class="img-full" style="margin-top:2.5rem;">
     <p class="img-caption">Modal Minds at the University of Idaho Engineering EXPO — presenting the modified overhead guard, test rig, and final results to judges and sponsors.</p>
   </div>
 
@@ -924,6 +1225,16 @@
     <p class="body-text" style="margin-top:1rem;">
       Working in parallel with the simulation team reinforced how simulation and physical testing are most powerful when used together — not as substitutes for each other. When our histograms matched the Ansys output, confidence in both increased. When they diverged, it gave us something specific to investigate.
     </p>
+
+    <p class="body-text" style="margin-top:1.5rem;">
+      My main focus was building a physical testing method capable of actually verifying the theoretical work — which turned out to be a much harder constraint than I expected. The accelerometers shipped with example code sampling at roughly 30 Hz. Our highest predicted mode from Ansys was 87.84 Hz, and we wanted margin up to 100 Hz — which by the Nyquist criterion meant sampling at <strong>over 200 Hz</strong> just to avoid aliasing. Getting there meant setting the manufacturer's code aside, reading through the accelerometer's datasheet in detail, and hand-coding its 8-bit configuration registers directly. That work got the sensor reading at <strong>360 Hz</strong> — well above what the project needed.
+    </p>
+    <p class="body-text" style="margin-top:1rem;">
+      I also tried to solve a problem that commercial modal-testing kits — typically $2,000+ — are built to handle: confirming that hammer strikes are clean single hits, since "double hits" are a common testing error that corrupts the excitation signal. My approach was to mount a second accelerometer directly on the impact hammer, timestamp-synced with the one on the frame, for well under $100. That required running two accelerometers simultaneously with accurate, matched timestamps, which is why I wired the system over <strong>SPI</strong> rather than I2C — SPI supports multiple slave devices cleanly, at the cost of being meaningfully more complex to implement.
+    </p>
+    <p class="body-text" style="margin-top:1rem;">
+      Running two accelerometers at once dropped the sampling rate far below what we needed, so I tried adding an SD card to offload data faster — which I got working, but only for a single accelerometer; the Arduino could still only read one sensor at a time fast enough. From there I started implementing a FIFO-buffer approach on the accelerometers themselves, but the project ran out of time before that path was finished. We were ultimately not able to verify there were no double-hits contaminating the test data — an open limitation I'd flag for anyone continuing this work.
+    </p>
   </div>
 
   <!-- ============================================== -->
@@ -942,29 +1253,57 @@
     <!-- EDIT: each .gallery-item = one photo. To add a photo: copy a block, -->
     <!-- change the image filename (2 places) and the caption text.         -->
     <div class="gallery-grid">
-      <div class="gallery-item" onclick="openLightbox('gallery-frame-isometric.jpg')">
-        <img src="gallery-frame-isometric.jpg" alt="Bare overhead guard frame, isometric view">
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-frame-isometric.jpg', 'Unmodified overhead guard frame')">
+        <img src="hyster-yale/gallery-frame-isometric.jpg" alt="Bare overhead guard frame, isometric view">
         <div class="gallery-caption">Unmodified overhead guard frame</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gallery-accel-node.jpg')">
-        <img src="gallery-accel-node.jpg" alt="Accelerometer mounted on a test node">
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-accel-node.jpg', 'Accelerometer mounted at a test node during data collection')">
+        <img src="hyster-yale/gallery-accel-node.jpg" alt="Accelerometer mounted on a test node">
         <div class="gallery-caption">Accelerometer mounted at a test node during data collection</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gallery-wiring-mess.jpg')">
-        <img src="gallery-wiring-mess.jpg" alt="Tangle of accelerometer and Arduino wiring">
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-wiring-mess.jpg', 'The reality of prototyping a DAQ system from scratch')">
+        <img src="hyster-yale/gallery-wiring-mess.jpg" alt="Tangle of accelerometer and Arduino wiring">
         <div class="gallery-caption">The reality of prototyping a DAQ system from scratch</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gallery-expo-table.jpg')">
-        <img src="gallery-expo-table.jpg" alt="EXPO demo table with impact hammer and test equipment">
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-expo-table.jpg', 'Live demo setup at the Engineering EXPO')">
+        <img src="hyster-yale/gallery-expo-table.jpg" alt="EXPO demo table with impact hammer and test equipment">
         <div class="gallery-caption">Live demo setup at the Engineering EXPO</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gallery-both-teams.jpg')">
-        <img src="gallery-both-teams.jpg" alt="Both Hyster-Yale capstone teams together at EXPO">
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-both-teams.jpg', 'Both Hyster-Yale capstone teams at EXPO')">
+        <img src="hyster-yale/gallery-both-teams.jpg" alt="Both Hyster-Yale capstone teams together at EXPO">
         <div class="gallery-caption">Both Hyster-Yale capstone teams at EXPO</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('gallery-solo.jpg')">
-        <img src="gallery-solo.jpg" alt="Presenting the project poster at EXPO">
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-solo.jpg', 'Presenting our results at the Engineering EXPO')">
+        <img src="hyster-yale/gallery-solo.jpg" alt="Presenting the project poster at EXPO">
         <div class="gallery-caption">Presenting our results at the Engineering EXPO</div>
+      </div>
+      <div class="gallery-item fit" onclick="openLightbox('hyster-yale/gallery-wiring-diagram.png', 'SPI wiring schematic for the accelerometer to Arduino DAQ setup')">
+        <img src="hyster-yale/gallery-wiring-diagram.png" alt="SPI wiring diagram for ICM accelerometers on Arduino UNO and MEGA">
+        <div class="gallery-caption">SPI wiring schematic for the accelerometer to Arduino DAQ setup</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-testing-setup.jpg', 'Impact hammer testing on the overhead guard frame, with live data logging')">
+        <img src="hyster-yale/gallery-testing-setup.jpg" alt="Impact hammer testing setup with laptops logging accelerometer data">
+        <div class="gallery-caption">Impact hammer testing on the overhead guard frame, with live data logging</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-sd-bypass.jpg', 'SD card reader hacked to bypass an SPI wiring conflict \u2014 got it reading, but write speed couldn\u2019t keep up with dual high-rate accelerometers')">
+        <img src="hyster-yale/gallery-sd-bypass.jpg" alt="SD card reader module with a hand-soldered trace modification">
+        <div class="gallery-caption">SD card reader hacked to bypass an SPI wiring conflict — got it reading, but write speed couldn't keep up with dual high-rate accelerometers</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-gusset.jpg', 'Close-up of a welded gusset added to stiffen a corner joint and shift the local resonance frequency')">
+        <img src="hyster-yale/gallery-gusset.jpg" alt="Welded gusset reinforcement at a frame joint">
+        <div class="gallery-caption">Welded gusset added to stiffen a corner joint as part of the frequency-shifting modifications</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-frame-before.jpg', 'The overhead guard frame before structural modifications')">
+        <img src="hyster-yale/gallery-frame-before.jpg" alt="Overhead guard frame before modifications">
+        <div class="gallery-caption">The overhead guard frame before structural modifications</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-frame-after.jpg', 'The overhead guard frame after structural modifications were fabricated')">
+        <img src="hyster-yale/gallery-frame-after.jpg" alt="Overhead guard frame after modifications">
+        <div class="gallery-caption">The overhead guard frame after structural modifications were fabricated</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-frame-iso-shop.jpg', 'Isometric view of the modified frame in the fabrication shop')">
+        <img src="hyster-yale/gallery-frame-iso-shop.jpg" alt="Isometric view of the modified overhead guard frame in the shop">
+        <div class="gallery-caption">Isometric view of the modified frame in the fabrication shop</div>
       </div>
     </div>
   </div>
@@ -974,7 +1313,10 @@
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-  <img id="lightbox-img" src="" alt="Enlarged gallery image">
+  <div class="lightbox-content" onclick="event.stopPropagation()">
+    <img id="lightbox-img" src="" alt="Enlarged image">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
 </div>
 
 <!-- EDIT: footer text and link -->
@@ -989,12 +1331,37 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  function openLightbox(src) {
+  function openLightbox(src, caption) {
     document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-caption').textContent = caption || '';
     document.getElementById('lightbox').classList.add('active');
   }
   function closeLightbox() {
     document.getElementById('lightbox').classList.remove('active');
+  }
+
+  /* FEA modal animation selector */
+  const modeData = {
+    1: { file: 'hyster-yale/hyster-yale-mode1.gif', freq: '19.29 Hz', desc: 'Total deformation max of 0.110 m, concentrated in the roof structure — the frame\u2019s lowest-frequency bending mode.' },
+    2: { file: 'hyster-yale/hyster-yale-mode2.gif', freq: '25.05 Hz', desc: 'Total deformation max of 0.123 m. Roof bending mode with a twisting component across the canopy.' },
+    3: { file: 'hyster-yale/hyster-yale-mode3.gif', freq: '33.69 Hz', desc: 'Total deformation max of 0.180 m. Torsional mode concentrated in the roof bars and upper corner posts.' },
+    4: { file: 'hyster-yale/hyster-yale-mode4.gif', freq: '38.42 Hz', desc: 'Total deformation max of 0.457 m. Large-amplitude mode driven by lower frame/chassis flexing.' },
+    5: { file: 'hyster-yale/hyster-yale-mode5.gif', freq: '40.52 Hz', desc: 'Total deformation max of 0.542 m. Similar lower-frame flexing mode, highest deformation magnitude of the nine modes shown.' },
+    6: { file: 'hyster-yale/hyster-yale-mode6.gif', freq: '72.15 Hz', desc: 'Total deformation max of 0.327 m. Localized roof-panel mode within the engine excitation range the team aimed to avoid.' },
+    7: { file: 'hyster-yale/hyster-yale-mode7.gif', freq: '74.27 Hz', desc: 'Total deformation max of 0.480 m. Lower-frame mode close to the engine\u2019s operating-speed excitation frequency.' },
+    8: { file: 'hyster-yale/hyster-yale-mode8.gif', freq: '85.19 Hz', desc: 'Total deformation max of 0.267 m. Roof-bar mode sitting just below the target avoidance range.' },
+    9: { file: 'hyster-yale/hyster-yale-mode9.gif', freq: '87.84 Hz', desc: 'Total deformation max of 0.617 m. Highest-frequency mode shown, with deformation concentrated in the lower frame.' }
+  };
+
+  function selectMode(n) {
+    const m = modeData[n];
+    document.getElementById('mode-viewer-img').src = m.file;
+    document.getElementById('mode-viewer-img').alt = 'Ansys Modal animation — Mode ' + n + ', ' + m.freq;
+    document.querySelector('.mode-freq-line').innerHTML = 'Mode ' + n + ' — <span>' + m.freq + '</span>';
+    document.getElementById('mode-viewer-desc').textContent = m.desc;
+    document.querySelectorAll('.mode-tab').forEach(tab => {
+      tab.classList.toggle('active', tab.dataset.mode === String(n));
+    });
   }
 </script>
 
