@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<!--
+  REFRIGERATION CYCLE ANALYSIS PROJECT DETAIL PAGE
+  ------------------------------------------------------------------
+  This is the deep-dive page for the Refrigeration Cycle Heat Transfer
+  Analysis lab project, linked from the project card on index.html.
+
+  HOW TO FIND THINGS IN THIS FILE:
+  - All page TEXT lives in the BODY section below the closing STYLE
+    tag. Look for "EDIT:" comments -- those mark every spot meant
+    to be edited (titles, paragraphs, captions, stats).
+  - Section headers are marked with rows of equal signs and a
+    section name, e.g. SECTION NAME.
+  - Colors are defined once at the top (look for ":root" below) and
+    reused everywhere via var(--name) -- change a color there and it
+    updates the whole page.
+  - Images are referenced as "refrigeration/filename.jpg" and must
+    live in the refrigeration/ folder at the repo root.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Refrigeration Cycle Heat Transfer Analysis – Hylton Reber</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* === COLOR PALETTE — change a value here to recolor the whole page === */
+  :root {
+    --navy: #0D1B2A;       /* main background */
+    --navy-mid: #152436;   /* slightly lighter background (alt sections) */
+    --offwhite: #F0EFE9;   /* primary text / headings */
+    --steel: #4A7FA5;      /* secondary accent (links, borders) */
+    --amber: #C8883A;      /* primary accent (labels, highlights) */
+    --muted: #8A9BAD;      /* body text / less important text */
+    --card-bg: #192C3E;    /* card and box backgrounds */
+  }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
+
+  body {
+    background: var(--navy);
+    color: var(--offwhite);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    width: 100%;
+    max-width: 100vw;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background: rgba(13,27,42,0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(74,127,165,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--offwhite);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--amber); }
+
+  .back-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--amber); }
+
+  /* HERO */
+  /* === HERO BACKGROUND IMAGE — uses refrigeration/refrigeration_rig_full_hero.jpg === */
+  .project-hero {
+    width: 100%;
+    max-width: 100vw;
+    padding: 9rem 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(74,127,165,0.15);
+    background-image:
+      linear-gradient(110deg, rgba(13,27,42,0.97) 0%, rgba(13,27,42,0.88) 35%, rgba(13,27,42,0.65) 70%, rgba(13,27,42,0.4) 100%),
+      url('refrigeration/refrigeration_rig_full_hero.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .project-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(74,127,165,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,127,165,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .hero-inner { position: relative; max-width: 900px; }
+
+  .project-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+    color: var(--offwhite);
+  }
+
+  .project-subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .meta-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .meta-value {
+    font-size: 0.85rem;
+    color: var(--offwhite);
+    font-weight: 500;
+  }
+
+  /* CONTENT */
+  .content-wrap {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 3rem;
+    box-sizing: border-box;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 5rem 0;
+    border-bottom: 1px solid rgba(74,127,165,0.1);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    color: var(--offwhite);
+  }
+
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: var(--amber);
+    margin-bottom: 2rem;
+  }
+
+  .body-text {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.85;
+    max-width: 760px;
+  }
+
+  .body-text + .body-text { margin-top: 1rem; }
+
+  .body-text strong { color: var(--offwhite); font-weight: 500; }
+
+  /* TWO-COL */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+
+  .two-col > div { min-width: 0; }
+
+  /* ROLE CHIPS */
+  .role-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+
+  .chip {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--steel);
+    border: 1px solid rgba(74,127,165,0.4);
+    padding: 0.3rem 0.75rem;
+  }
+
+  /* STAT BOXES */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .stat-box {
+    background: var(--card-bg);
+    border: 1px solid rgba(74,127,165,0.15);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--offwhite);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+
+  .stat-num span { color: var(--amber); }
+  .stat-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; }
+
+  /* NUMBERED STEPS */
+  .steps { margin-top: 2rem; display: flex; flex-direction: column; gap: 2rem; }
+
+  .step {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--amber);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 2.5rem;
+    text-align: right;
+  }
+
+  .step-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--offwhite);
+    margin-bottom: 0.3rem;
+  }
+
+  .step-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .step-desc strong { color: var(--offwhite); font-weight: 500; }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--card-bg);
+    border-left: 3px solid var(--amber);
+    padding: 1.5rem 2rem;
+    margin-top: 2rem;
+    max-width: 760px;
+  }
+
+  .callout-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .callout p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .callout p + p { margin-top: 0.75rem; }
+
+  .callout p strong { color: var(--offwhite); font-weight: 500; }
+
+  /* click-to-enlarge affordance */
+  .clickable-img {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+  .clickable-img:hover { opacity: 0.88; }
+
+  /* IMAGES */
+  .img-full {
+    width: 100%;
+    margin-top: 2.5rem;
+    border: 1px solid rgba(74,127,165,0.2);
+    display: block;
+  }
+
+  .img-caption {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-top: 0.6rem;
+    font-style: italic;
+  }
+
+  .img-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .img-grid-item img {
+    width: 100%;
+    border: 1px solid rgba(74,127,165,0.2);
+    display: block;
+  }
+
+  .img-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  /* GALLERY */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(74,127,165,0.15);
+    cursor: pointer;
+    aspect-ratio: 4 / 3;
+    background: #0a1420;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  /* use on gallery-item for charts/screenshots: shows full image, no cropping */
+  .gallery-item.fit img {
+    object-fit: contain;
+  }
+
+  .gallery-item:hover img { transform: scale(1.08); }
+  .gallery-item.fit:hover img { transform: scale(1.03); }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(13,27,42,0.95), transparent);
+    color: var(--offwhite);
+    font-size: 0.75rem;
+    padding: 1.5rem 0.85rem 0.6rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .gallery-item:hover .gallery-caption { opacity: 1; }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8,14,22,0.92);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+  }
+
+  .lightbox.active { display: flex; }
+
+  .lightbox-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 80vh;
+    border: 1px solid rgba(74,127,165,0.3);
+    display: block;
+  }
+
+  .lightbox-caption {
+    color: var(--offwhite);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 1rem;
+    max-width: 70ch;
+    line-height: 1.5;
+  }
+  .lightbox-caption:empty { margin-top: 0; }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 2rem;
+    color: var(--offwhite);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  /* UNCERTAINTY TABLE */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    font-size: 0.85rem;
+  }
+
+  .data-table th {
+    background: var(--card-bg);
+    color: var(--steel);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(74,127,165,0.2);
+  }
+
+  .data-table td {
+    padding: 0.65rem 1rem;
+    color: var(--muted);
+    border-bottom: 1px solid rgba(74,127,165,0.08);
+  }
+
+  .data-table td strong { color: var(--offwhite); }
+  .data-table tr:last-child td { border-bottom: none; }
+
+  /* FOOTER */
+  footer {
+    padding: 1.5rem 3rem;
+    border-top: 1px solid rgba(74,127,165,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  footer a { color: var(--steel); text-decoration: none; }
+  footer a:hover { color: var(--amber); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* === MOBILE RESPONSIVE === */
+  @media (max-width: 900px) {
+    .project-hero { padding: 7rem 1.25rem 3rem; }
+    .meta-row { gap: 1.25rem; }
+
+    section, .section { padding: 3rem 0; }
+    .content-wrap { padding: 0 1.25rem; }
+
+    .two-col {
+      grid-template-columns: 1fr !important;
+      gap: 2rem;
+    }
+
+    .img-grid, .img-grid-3 {
+      grid-template-columns: 1fr !important;
+    }
+
+    .stat-row {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">H<span>.</span>REBER</a>
+  <a href="index.html#projects" class="back-link">← Back to Projects</a>
+</nav>
+
+<!-- ============================================== -->
+<!-- HERO SECTION — title, subtitle, and meta info  -->
+<!-- ============================================== -->
+<div class="project-hero">
+  <div class="hero-inner">
+
+    <!-- EDIT: small eyebrow tag above the title -->
+    <p class="project-tag">Thermal Systems Lab · Mechanical Measurements · December 2024</p>
+
+    <!-- EDIT: main page title (use <br> to control line breaks) -->
+    <h1 class="project-title">Refrigeration Cycle<br>Heat Transfer<br>Analysis</h1>
+
+    <!-- EDIT: subtitle / one-or-two-sentence project summary -->
+    <p class="project-subtitle">
+      An experimental investigation of heat rejected at the condenser and heat absorbed at the evaporator on a Scott Model 9086 R-134a refrigeration system — measuring both quantities across Low, Medium, and High fan speed settings using the airflow temperature-change method to study how heat loss to the ambient environment scales with fan speed.
+    </p>
+
+    <!-- EDIT: the meta boxes (Team / Instructor / Date / Equipment) -->
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="meta-label">Team</div>
+        <!-- EDIT: adjust team credit phrasing as preferred -->
+        <div class="meta-value">Hylton Reber · Jasmeen Manshahia · Samuel Mbah</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Instructor</div>
+        <div class="meta-value">Kamal Kumar</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Date</div>
+        <div class="meta-value">December 2024</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Equipment</div>
+        <div class="meta-value">Model 9086 (Technovate Inc.) · R-134a</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- ============================================== -->
+  <!-- OVERVIEW SECTION — "The Experiment"            -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Overview</p>
+    <h2 class="section-title">The Experiment</h2>
+    <div class="divider"></div>
+
+    <div class="two-col">
+      <div>
+        <!-- EDIT: overview paragraphs — adjust team credit phrasing as preferred -->
+        <p class="body-text">
+          The Scott Air Conditioning and Refrigeration Education System Model 9086 is a benchtop R-134a vapor-compression cycle rig: refrigerant is compressed, rejects heat through the condenser, expands, then absorbs heat through the evaporator before returning to the compressor. Both the condenser and evaporator are air-cooled, with fans whose speed — and therefore airflow — can be set to Low (LL), Medium (MM), or High (HH).
+        </p>
+        <p class="body-text">
+          <!-- EDIT: second overview paragraph — goal and rationale -->
+          The goal was to quantify how much heat the condenser rejects to the room and how much the evaporator absorbs from it, at each of the three fan speed settings, using a direct airflow measurement approach. By comparing heat rejected against heat absorbed at each speed, the team could estimate the compressor's work input and observe how heat loss to the ambient environment — an uninsulated rig in an open lab — changes as fan speed increases.
+        </p>
+        <div class="role-chips" style="margin-top:1.5rem;">
+          <span class="chip">R-134a Refrigeration</span>
+          <span class="chip">Anemometry</span>
+          <span class="chip">Thermocouple Measurement</span>
+          <span class="chip">Uncertainty Analysis</span>
+          <span class="chip">MATLAB</span>
+          <span class="chip">EES</span>
+        </div>
+      </div>
+      <div>
+        <!-- EDIT: photo + caption next to overview text -->
+        <img src="refrigeration/refrigeration_rig_full_angle_1.jpg" alt="Scott Model 9086 refrigeration rig, full view" class="clickable-img" onclick="openLightbox('refrigeration/refrigeration_rig_full_angle_1.jpg', 'Scott Air Conditioning and Refrigeration Education System Model 9086 (Technovate Inc.) — the R-134a test rig used for all experiments.')" style="width:100%; border:1px solid rgba(74,127,165,0.2); display:block;">
+        <p class="img-caption">Scott Model 9086 — the R-134a vapor-compression rig used for all experiments.</p>
+      </div>
+    </div>
+
+    <!-- EDIT: 4 quick-stat boxes -->
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Fan Speed Settings (LL / MM / HH)</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">10<span> pts</span></div>
+        <div class="stat-label">Airflow Measurement Points</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">25<span> min</span></div>
+        <div class="stat-label">Steady-State Window</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">R<span>-134a</span></div>
+        <div class="stat-label">Refrigerant</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================== -->
+  <!-- METHODOLOGY SECTION                            -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Approach</p>
+    <h2 class="section-title">Methodology</h2>
+    <div class="divider"></div>
+
+    <!-- EDIT: methodology intro paragraph -->
+    <p class="body-text">
+      Heat transfer rates were calculated using the airflow temperature-change method: measure the volumetric airflow rate through the heat exchanger, the temperature rise (or drop) across it, and apply <strong>q = ṁ · c<sub>p</sub> · ΔT</strong>. Getting there required a structured measurement procedure at both the condenser and evaporator.
+    </p>
+
+    <div class="steps" style="margin-top:2.5rem;">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-title">Air Velocity Measurement — Condenser</div>
+          <div class="step-desc">
+            A digital anemometer measured air velocity at <strong>6 points</strong> across the exit face of the condenser coil and at <strong>4 points</strong> at the inlet. The measurement grid was laid out to capture the full face area without missing the slower edges. The known face area of the condenser converted the average velocity into a <strong>volumetric airflow rate</strong>, which was then converted to a mass flow rate using air density at the measured temperature.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-title">Temperature Measurement — Condenser &amp; Evaporator</div>
+          <div class="step-desc">
+            Thermocouples placed at the inlet and exit of each heat exchanger gave the air temperature rise (condenser) and temperature drop (evaporator). Ambient thermocouple readings established the baseline. The same airflow measurement process — 4-point inlet, 6-point exit — was repeated for the evaporator, with the anemometer placed at the fan exit face.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-title">Steady-State Gauge Readings</div>
+          <div class="step-desc">
+            High-side and low-side refrigerant pressures were logged from the system's gauges every <strong>5 minutes over a 25-minute window</strong> after the rig reached steady state at each fan speed. These pressure readings — combined with the R-134a saturation tables — supported a parallel EES-based state-point analysis that the team intended to use for an independent latent-heat calculation (see Discussion).
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-title">Heat Rate Calculation</div>
+          <div class="step-desc">
+            For each heat exchanger at each fan speed: average velocity × face area → volumetric flow → mass flow (using air density) → heat rate via <strong>q = ṁ · c<sub>p</sub> · ΔT</strong>. The same formula applied to both condenser and evaporator, with the sign of ΔT determining whether heat was rejected or absorbed.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Methodology supporting images -->
+    <div class="img-grid" style="margin-top:3rem;">
+      <div class="img-grid-item">
+        <img src="refrigeration/refrigeration_condenser_closeup.jpg" alt="Condenser coil close-up" class="clickable-img" onclick="openLightbox('refrigeration/refrigeration_condenser_closeup.jpg', 'Close-up of the condenser coil face — the measurement grid covered this area for both inlet and exit velocity readings.')">
+        <p class="img-caption">Condenser coil face — velocity measurement grid applied here for both inlet and exit.</p>
+      </div>
+      <div class="img-grid-item">
+        <img src="refrigeration/refrigeration_condenser_anemometer_measurement.jpg" alt="Anemometer measurement at the condenser exit" class="clickable-img" onclick="openLightbox('refrigeration/refrigeration_condenser_anemometer_measurement.jpg', 'Taking an anemometer reading at the condenser exit face — one of the 6 measurement points used to determine average exit air velocity.')">
+        <p class="img-caption">Anemometer at the condenser exit — one of 6 measurement points used to determine average exit velocity.</p>
+      </div>
+    </div>
+
+    <div class="img-grid" style="margin-top:1.5rem;">
+      <div class="img-grid-item">
+        <img src="refrigeration/refrigeration_fan_closeup_thermocouples.jpg" alt="Thermocouples at the evaporator fan exit" class="clickable-img" onclick="openLightbox('refrigeration/refrigeration_fan_closeup_thermocouples.jpg', 'Thermocouples positioned at the evaporator fan exit — used to measure the air temperature drop across the evaporator coil.')">
+        <p class="img-caption">Thermocouples at the evaporator fan exit — measuring the temperature drop across the evaporator.</p>
+      </div>
+      <div class="img-grid-item">
+        <img src="refrigeration/refrigeration_anemometer_device.jpg" alt="Digital anemometer used for velocity measurements" class="clickable-img" onclick="openLightbox('refrigeration/refrigeration_anemometer_device.jpg', 'The digital anemometer used throughout the experiment — velocity resolution was one of the primary uncertainty drivers.')">
+        <p class="img-caption">Digital anemometer — velocity resolution was one of the primary contributors to measurement uncertainty.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================== -->
+  <!-- RESULTS SECTION                                -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Results</p>
+    <h2 class="section-title">Data &amp; Findings</h2>
+    <div class="divider"></div>
+
+    <!-- EDIT: results intro paragraph -->
+    <p class="body-text">
+      The chart below shows the primary results: heat absorbed by the evaporator and heat rejected by the condenser, plotted side-by-side for each of the three fan speed experiments. The pattern shifts noticeably from low speed to high — and not in the direction classical thermodynamics alone would predict.
+    </p>
+
+    <!-- Primary results chart -->
+    <img
+      src="refrigeration/refrigeration_heat_summary_chart_combined.jpg"
+      alt="Heat absorbed vs. heat rejected by fan speed — combined summary chart"
+      class="img-full clickable-img"
+      onclick="openLightbox('refrigeration/refrigeration_heat_summary_chart_combined.jpg', 'Summary chart: heat absorbed by the evaporator vs. heat rejected by the condenser, across all three fan speed experiments (LL, MM, HH). The reversal at higher fan speeds — where absorbed exceeds rejected — is the central finding.')"
+    />
+    <p class="img-caption">Fig. 1 — Heat absorbed (evaporator) vs. heat rejected (condenser) across all three fan speed settings. The reversal at higher speeds is the central finding.</p>
+
+    <!-- EDIT: key finding paragraph — fan speed reversal -->
+    <p class="body-text" style="margin-top:2rem;">
+      <!-- EDIT: adjust as needed after reviewing your own data interpretation -->
+      At low fan speed (Experiment 3, LL), heat rejected by the condenser exceeded heat absorbed by the evaporator — consistent with the classical refrigeration energy balance, where the difference equals the compressor work input. At medium and high fan speeds, however, heat absorbed by the evaporator <strong>exceeded heat rejected by the condenser</strong>. The team attributed this reversal to heat loss from the uninsulated rig to the ambient lab environment: at higher fan speeds, greater airflow increases convective heat loss from the refrigerant lines and chassis surfaces, effectively shedding energy to the room before it reaches the condenser measurement point.
+    </p>
+
+    <!-- Heat loss trend chart -->
+    <img
+      src="refrigeration/refrigeration_heat_loss_trend_chart.jpg"
+      alt="Heat loss trend across fan speed experiments"
+      class="img-full clickable-img"
+      onclick="openLightbox('refrigeration/refrigeration_heat_loss_trend_chart.jpg', 'Heat loss trend — the gap between heat absorbed and heat rejected grows with fan speed, consistent with increased ambient heat loss from the uninsulated rig at higher airflow rates.')"
+    />
+    <p class="img-caption">Fig. 2 — Heat loss trend: the gap between absorbed and rejected heat grows with fan speed, consistent with greater ambient losses at higher airflow.</p>
+
+    <p class="body-text" style="margin-top:2rem;">
+      The per-experiment breakdown charts below show evaporator and condenser heat rates individually, along with the implied compressor work estimates derived from the energy balance:
+    </p>
+
+    <!-- Per-experiment charts -->
+    <div class="img-grid" style="margin-top:1.5rem;">
+      <div class="img-grid-item">
+        <img src="refrigeration/refrigeration_heat_absorbed_evaporator_chart.jpg" alt="Heat absorbed at the evaporator by experiment" class="clickable-img" onclick="openLightbox('refrigeration/refrigeration_heat_absorbed_evaporator_chart.jpg', 'Heat absorbed by the evaporator across all experiments — increases with fan speed as higher airflow enhances heat exchange.')">
+        <p class="img-caption">Heat absorbed at the evaporator by experiment — increases with fan speed.</p>
+      </div>
+      <div class="img-grid-item">
+        <img src="refrigeration/refrigeration_heat_rejected_condenser_chart.jpg" alt="Heat rejected at the condenser by experiment" class="clickable-img" onclick="openLightbox('refrigeration/refrigeration_heat_rejected_condenser_chart.jpg', 'Heat rejected at the condenser by experiment — rises with fan speed, but at a lower rate than evaporator absorption at medium and high speeds.')">
+        <p class="img-caption">Heat rejected at the condenser by experiment — rises with fan speed, but below evaporator values at medium and high settings.</p>
+      </div>
+    </div>
+
+    <!-- Compressor work callout -->
+    <div class="callout">
+      <div class="callout-title">Estimated Compressor Work</div>
+      <p>
+        <!-- EDIT: verify these figures match your final report numbers -->
+        From the energy balance (W<sub>comp</sub> = Q<sub>rejected</sub> − Q<sub>absorbed</sub>) at low fan speed, where rejected exceeded absorbed as expected: <strong>Experiment 3 (LL) ≈ 16.2 W</strong>. At medium speed the balance had flipped — ambient losses dominated — making a direct compressor work estimate less reliable, but the implied figure for <strong>Experiment 5_ss (MM) ≈ 50.4 W</strong> and for <strong>Experiment 2 (HH) ≈ 60.8 W</strong>. The trend toward higher apparent "compressor work" at higher fan speeds reflects the growing ambient heat loss term more than any true change in compressor output.
+      </p>
+    </div>
+
+    <!-- Combined results chart -->
+    <img
+      src="refrigeration/refrigeration_heat_chart_final_by_experiment.jpg"
+      alt="Heat transfer results by experiment number"
+      class="img-full clickable-img"
+      onclick="openLightbox('refrigeration/refrigeration_heat_chart_final_by_experiment.jpg', 'Final heat transfer results organized by experiment number — showing both evaporator and condenser heat rates across all runs.')"
+    />
+    <p class="img-caption">Fig. 3 — Heat transfer results by experiment number, showing evaporator and condenser heat rates across all runs.</p>
+
+  </div>
+
+  <!-- ============================================== -->
+  <!-- UNCERTAINTY ANALYSIS SUBSECTION                -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Measurement Quality</p>
+    <h2 class="section-title">Uncertainty Analysis</h2>
+    <div class="divider"></div>
+
+    <!-- EDIT: uncertainty intro paragraph -->
+    <p class="body-text">
+      Measurement uncertainties were propagated through the heat rate calculation using the <strong>root-sum-of-squares (RSS) method</strong>, combining the independent contributions from anemometer velocity resolution, thermocouple temperature precision, and the area measurement used to convert point velocities to volumetric flow. Overall uncertainty ranged from approximately <strong>2–6%</strong> depending on the parameter and experiment, with anemometer velocity resolution and ΔT precision as the dominant drivers.
+    </p>
+
+    <!-- Uncertainty summary table -->
+    <table class="data-table" style="margin-top:2rem;">
+      <thead>
+        <tr>
+          <th>Location</th>
+          <th>Fan Speed</th>
+          <th>Airflow (ft³/min)</th>
+          <th>Heat Rate (W)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- EDIT: verify these figures match your final report -->
+        <tr>
+          <td><strong>Evaporator</strong></td>
+          <td>Medium (MM)</td>
+          <td>272.4 ± 7.2</td>
+          <td><strong>175 ± 17.5 W</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Condenser</strong></td>
+          <td>Medium (MM)</td>
+          <td>354.8 ± 9.1</td>
+          <td><strong>137.2 ± 14 W</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="img-caption" style="margin-top:0.75rem;">Uncertainty at medium fan speed — representative of mid-range operating conditions. Full RSS uncertainty breakdown in the final report.</p>
+
+    <div class="callout">
+      <div class="callout-title">Primary Uncertainty Sources</div>
+      <p>
+        The anemometer's velocity resolution dominated the airflow uncertainty, and the thermocouple precision drove the ΔT term. Both propagate directly into the heat rate. At lower fan speeds — smaller ΔT and lower velocity — the relative uncertainty grew, making the low-speed results the least precise of the three settings.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================== -->
+  <!-- DISCUSSION / LESSONS LEARNED SECTION           -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Reflection</p>
+    <h2 class="section-title">Discussion &amp; Lessons Learned</h2>
+    <div class="divider"></div>
+
+    <!-- EDIT: problems and lessons paragraphs — adjust team/individual credit phrasing as preferred -->
+    <p class="body-text">
+      The experiment surfaced several real problems that reshaped the approach mid-project. The rig's built-in flow meter was unreliable — readings were inconsistent between runs and couldn't be independently verified. The team abandoned the latent-heat method that would have relied on those readings and switched entirely to the airflow temperature-change approach described above. That pivot worked, but it cost time and required re-deriving the measurement plan partway through.
+    </p>
+
+    <p class="body-text">
+      Ambient temperature rise in the lab affected readings taken later in the session, after the rig had been running long enough to meaningfully warm the surrounding air. Because the method relies on a temperature difference between inlet and outlet air, any drift in the ambient baseline — which sets the inlet temperature — propagates directly into the calculated heat rate. Later experiments in a session may be slightly less accurate as a result.
+    </p>
+
+    <p class="body-text">
+      <!-- EDIT: the evaporator fan failure / short circuit — adjust level of detail if preferred -->
+      Midway through the project, the evaporator fan failed — followed by an accidental short circuit during troubleshooting that took two lab sessions to resolve and set the schedule back significantly. It also meant the team had less time to gather steady-state data at all three fan speeds, which is reflected in the uneven experiment numbering in the results.
+    </p>
+
+    <p class="body-text">
+      The system's gauges added another layer of uncertainty: they were originally calibrated for R-12 and R-22, not R-134a. Pressure readings required a conversion factor, introducing an additional source of systematic error that affected the EES state-point analysis more than the airflow-based heat rates.
+    </p>
+
+    <!-- EDIT: closing lesson — what the team would do differently -->
+    <div class="callout" style="margin-top:2rem;">
+      <div class="callout-title">What We'd Do Differently</div>
+      <p>
+        The airflow method is a workable approach, but it's a relatively indirect and noisy way to measure heat transfer in a refrigeration cycle. The refrigerant itself carries more precise thermodynamic information: with accurate high-side and low-side temperatures and pressures, the EES state-point model can calculate condenser and evaporator heat duties directly from the refrigerant's own enthalpy change — no airflow measurement, no area estimation, no ambient drift.
+      </p>
+      <p>
+        <!-- EDIT: adjust to reflect how much of the EES work was completed -->
+        In a re-run, the team would prioritize getting clean P-T data at steady state and feeding those into EES first — using the airflow method as a cross-check rather than the primary calculation. That would yield more defensible numbers and reduce the sensitivity to the lab's ambient conditions and the flowmeter's unreliability.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================== -->
+  <!-- GALLERY SECTION — photo grid + lightbox        -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Behind the Project</p>
+    <h2 class="section-title">Gallery</h2>
+    <div class="divider"></div>
+
+    <!-- EDIT: gallery intro line -->
+    <p class="body-text">
+      A closer look at the rig, measurement setup, and data collected during the experiment.
+    </p>
+
+    <!-- EDIT: each .gallery-item = one photo. To add: copy a block, -->
+    <!-- change the image filename (2 places) and the caption text.  -->
+    <div class="gallery-grid">
+      <div class="gallery-item" onclick="openLightbox('refrigeration/refrigeration_rig_full_hero.jpg', 'Scott Model 9086 refrigeration education system — full view of the test rig')">
+        <img src="refrigeration/refrigeration_rig_full_hero.jpg" alt="Scott Model 9086 refrigeration rig, full view">
+        <div class="gallery-caption">Scott Model 9086 — full rig view</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('refrigeration/refrigeration_dual_fan_assembly_wide.jpg', 'Dual-fan assembly on the rig — condenser and evaporator fans visible from the side')">
+        <img src="refrigeration/refrigeration_dual_fan_assembly_wide.jpg" alt="Dual fan assembly, wide view">
+        <div class="gallery-caption">Dual-fan assembly — condenser and evaporator</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('refrigeration/refrigeration_fan_closeup_thermocouples.jpg', 'Thermocouples positioned at the evaporator fan exit for temperature measurement')">
+        <img src="refrigeration/refrigeration_fan_closeup_thermocouples.jpg" alt="Fan close-up with thermocouples">
+        <div class="gallery-caption">Thermocouple placement at the evaporator fan exit</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('refrigeration/refrigeration_condenser_closeup.jpg', 'Condenser coil face — the 6-point exit velocity measurement grid was applied here')">
+        <img src="refrigeration/refrigeration_condenser_closeup.jpg" alt="Condenser coil close-up">
+        <div class="gallery-caption">Condenser coil — velocity measurement face</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('refrigeration/refrigeration_anemometer_device.jpg', 'Digital anemometer used for all air velocity measurements at the condenser and evaporator')">
+        <img src="refrigeration/refrigeration_anemometer_device.jpg" alt="Digital anemometer device">
+        <div class="gallery-caption">Digital anemometer used for velocity measurements</div>
+      </div>
+      <div class="gallery-item fit" onclick="openLightbox('refrigeration/refrigeration_heat_summary_chart_combined.jpg', 'Summary chart: heat absorbed vs. heat rejected across all three fan speed settings')">
+        <img src="refrigeration/refrigeration_heat_summary_chart_combined.jpg" alt="Heat absorbed vs rejected summary chart">
+        <div class="gallery-caption">Heat absorbed vs. rejected — summary chart</div>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- end content-wrap -->
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <div class="lightbox-content" onclick="event.stopPropagation()">
+    <img id="lightbox-img" src="" alt="Enlarged image">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+</div>
+
+<!-- EDIT: footer text -->
+<footer>
+  <span>© 2026 Hylton Reber</span>
+  <a href="index.html#projects">← Back to all projects</a>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function openLightbox(src, caption) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-caption').textContent = caption || '';
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+  }
+</script>
+
+</body>
+</html>
