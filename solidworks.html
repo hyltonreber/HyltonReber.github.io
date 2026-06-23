@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<!--
+  SOLIDWORKS DESIGN & REDESIGN PROJECT DETAIL PAGE
+  ------------------------------------------------------------------
+  This is the deep-dive page for the two SolidWorks projects —
+  the sophomore steam engine assembly and the senior flywheel
+  redesign — linked from the project card on index.html.
+
+  HOW TO FIND THINGS IN THIS FILE:
+  - All page TEXT lives in the BODY section below the closing STYLE
+    tag. Look for "EDIT:" and "VERIFY:" comments — those mark spots
+    meant to be edited or confirmed before publishing.
+  - Colors are defined once at the top (":root") and reused everywhere
+    via var(--name) — change a value there and it updates the whole page.
+  - Images are referenced as "solidworks/filename.jpg" and must live
+    in a solidworks/ folder at the repo root.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SolidWorks Design & Redesign – Hylton Reber</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  img { max-width: 100%; display: block; }
+
+  /* === COLOR PALETTE — change a value here to recolor the whole page === */
+  :root {
+    --navy: #0D1B2A;
+    --navy-mid: #152436;
+    --offwhite: #F0EFE9;
+    --steel: #4A7FA5;
+    --amber: #C8883A;
+    --muted: #8A9BAD;
+    --card-bg: #192C3E;
+  }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
+
+  body {
+    background: var(--navy);
+    color: var(--offwhite);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    width: 100%; max-width: 100vw;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background: rgba(13,27,42,0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(74,127,165,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--offwhite);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--amber); }
+
+  .back-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--amber); }
+
+  /* HERO */
+  .project-hero {
+    width: 100%; max-width: 100vw;
+    padding: 9rem 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(74,127,165,0.15);
+    background-image:
+      linear-gradient(110deg, rgba(13,27,42,0.97) 0%, rgba(13,27,42,0.88) 35%, rgba(13,27,42,0.65) 70%, rgba(13,27,42,0.4) 100%),
+      url('solidworks/solidworks_Sophomore_Full_Assembly_View_1.jpg');
+    background-size: cover;
+    background-position: center right;
+  }
+
+  .project-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(74,127,165,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,127,165,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .hero-inner { position: relative; max-width: 900px; }
+
+  .project-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+    color: var(--offwhite);
+  }
+
+  .project-subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .meta-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .meta-value {
+    font-size: 0.85rem;
+    color: var(--offwhite);
+    font-weight: 500;
+  }
+
+  /* CONTENT */
+  .content-wrap {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 3rem;
+    box-sizing: border-box;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 5rem 0;
+    border-bottom: 1px solid rgba(74,127,165,0.1);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    color: var(--offwhite);
+  }
+
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: var(--amber);
+    margin-bottom: 2rem;
+  }
+
+  .body-text {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.85;
+    max-width: 760px;
+  }
+  .body-text + .body-text { margin-top: 1rem; }
+  .body-text strong { color: var(--offwhite); font-weight: 500; }
+
+  /* TWO-COL */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+  .two-col > div { min-width: 0; }
+
+  /* ROLE CHIPS */
+  .role-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+
+  .chip {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--steel);
+    border: 1px solid rgba(74,127,165,0.4);
+    padding: 0.3rem 0.75rem;
+  }
+
+  /* STAT BOXES */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .stat-box {
+    background: var(--card-bg);
+    border: 1px solid rgba(74,127,165,0.15);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--offwhite);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+  .stat-num span { color: var(--amber); }
+  .stat-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; }
+
+  /* PIPELINE */
+  .pipeline-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 1.25rem;
+    align-items: start;
+    margin-top: 2.5rem;
+  }
+
+  .pipeline-step {
+    background: var(--card-bg);
+    border: 1px solid rgba(74,127,165,0.15);
+    padding: 1.25rem;
+  }
+
+  .pipeline-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--amber);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .pipeline-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--offwhite);
+    margin-bottom: 0.4rem;
+  }
+
+  .pipeline-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .pipeline-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--steel);
+    height: 100%;
+    padding-top: 3rem;
+  }
+
+  .pipeline-sequence { position: relative; }
+
+  .pipeline-row-connector {
+    position: relative;
+    height: 56px;
+  }
+
+  .pipeline-row-connector .conn-seg { position: absolute; background: var(--steel); }
+
+  .pipeline-row-connector .conn-down1 {
+    top: 0; left: var(--start-x);
+    width: 2px; height: 27px;
+    transform: translateX(-1px);
+  }
+
+  .pipeline-row-connector .conn-across {
+    top: 26px; height: 2px;
+    left: min(var(--start-x), var(--end-x));
+    width: calc(max(var(--start-x), var(--end-x)) - min(var(--start-x), var(--end-x)));
+  }
+
+  .pipeline-row-connector .conn-down2 {
+    top: 27px; left: var(--end-x);
+    width: 2px; height: 19px;
+    transform: translateX(-1px);
+  }
+
+  .pipeline-row-connector .conn-arrow {
+    position: absolute;
+    top: 45px; left: var(--end-x);
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid var(--steel);
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--card-bg);
+    border-left: 3px solid var(--amber);
+    padding: 1.5rem 2rem;
+    margin-top: 2rem;
+    max-width: 760px;
+  }
+
+  .callout-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .callout p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .callout p + p { margin-top: 0.75rem; }
+  .callout p strong { color: var(--offwhite); font-weight: 500; }
+
+  /* click-to-enlarge */
+  .clickable-img { cursor: pointer; transition: opacity 0.2s ease; }
+  .clickable-img:hover { opacity: 0.88; }
+
+  /* IMAGES */
+  .img-full {
+    width: 100%;
+    margin-top: 2.5rem;
+    border: 1px solid rgba(74,127,165,0.2);
+    display: block;
+  }
+
+  .img-caption {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-top: 0.6rem;
+    font-style: italic;
+  }
+
+  .img-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .img-grid-item img {
+    width: 100%;
+    border: 1px solid rgba(74,127,165,0.2);
+    display: block;
+  }
+
+  /* GALLERY */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(74,127,165,0.15);
+    cursor: pointer;
+    aspect-ratio: 4 / 3;
+    background: #0a1420;
+  }
+
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  /* for drawings/diagrams: full image visible, no cropping */
+  .gallery-item.fit img { object-fit: contain; }
+
+  .gallery-item:hover img { transform: scale(1.08); }
+  .gallery-item.fit:hover img { transform: scale(1.03); }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(13,27,42,0.95), transparent);
+    color: var(--offwhite);
+    font-size: 0.75rem;
+    padding: 1.5rem 0.85rem 0.6rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .gallery-item:hover .gallery-caption { opacity: 1; }
+
+  /* gallery sub-group label — same visual weight as .img-caption */
+  .gallery-subheading {
+    font-size: 0.75rem;
+    color: var(--steel);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 2.5rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(74,127,165,0.15);
+  }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8,14,22,0.92);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+  }
+
+  .lightbox.active { display: flex; }
+
+  .lightbox-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 80vh;
+    border: 1px solid rgba(74,127,165,0.3);
+    display: block;
+  }
+
+  .lightbox-caption {
+    color: var(--offwhite);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 1rem;
+    max-width: 70ch;
+    line-height: 1.5;
+  }
+  .lightbox-caption:empty { margin-top: 0; }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 2rem;
+    color: var(--offwhite);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  /* PLACEHOLDER for assets not yet added */
+  .photo-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: var(--card-bg);
+    border: 2px dashed rgba(74,127,165,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .photo-placeholder span {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .photo-placeholder .icon { font-size: 2rem; opacity: 0.3; }
+
+  /* FOOTER */
+  footer {
+    padding: 1.5rem 3rem;
+    border-top: 1px solid rgba(74,127,165,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  footer a { color: var(--steel); text-decoration: none; }
+  footer a:hover { color: var(--amber); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* === MOBILE RESPONSIVE === */
+  @media (max-width: 900px) {
+    .project-hero { padding: 7rem 1.25rem 3rem; }
+    .meta-row { gap: 1.25rem; }
+
+    section, .section { padding: 3rem 0; }
+    .content-wrap { padding: 0 1.25rem; }
+
+    .two-col {
+      grid-template-columns: 1fr !important;
+      gap: 2rem;
+    }
+
+    .img-grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    .stat-row {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .pipeline-grid, .pipeline-grid[style] {
+      grid-template-columns: 1fr !important;
+    }
+    .pipeline-arrow {
+      transform: rotate(90deg);
+      padding: 0.5rem 0;
+    }
+
+    .pipeline-row-connector {
+      height: auto;
+      padding: 0.5rem 0;
+      display: flex;
+      justify-content: center;
+    }
+    .pipeline-row-connector .conn-seg,
+    .pipeline-row-connector .conn-arrow { display: none; }
+    .pipeline-row-connector::after {
+      content: '↓';
+      font-size: 1.5rem;
+      color: var(--steel);
+    }
+
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">H<span>.</span>REBER</a>
+  <a href="index.html#projects" class="back-link">← Back to Projects</a>
+</nav>
+
+<!-- ============================================== -->
+<!-- HERO SECTION                                   -->
+<!-- ============================================== -->
+<div class="project-hero">
+  <div class="hero-inner">
+
+    <!-- EDIT: eyebrow tag -->
+    <p class="project-tag">SolidWorks · Two Capstone-Style Modeling Projects</p>
+
+    <!-- EDIT: page title -->
+    <h1 class="project-title">SolidWorks<br>Design &amp; Redesign</h1>
+
+    <!-- EDIT: subtitle -->
+    <p class="project-subtitle">
+      Two SolidWorks projects spanning sophomore and senior year — modeling a complete steam engine assembly from a full engineering drawing package, and redesigning a flywheel-and-motion mechanism culminating in the Certified SolidWorks Expert (CSWE) exam.
+    </p>
+
+    <!-- EDIT: meta boxes — verify Role wording before publishing -->
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="meta-label">Software</div>
+        <div class="meta-value">SolidWorks (CSWE)</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Skills</div>
+        <div class="meta-value">Assembly Modeling · GD&amp;T · Renderings · Motion Animation</div>
+      </div>
+      <div class="meta-item">
+        <!-- VERIFY: was either project solo or team work? Update "Role" text accordingly. -->
+        <div class="meta-label">Role</div>
+        <div class="meta-value">Individual Work<!-- VERIFY: confirm solo vs. team for each project --></div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Years</div>
+        <div class="meta-value">Sophomore &amp; Senior Year, University of Idaho</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- ============================================== -->
+  <!-- OVERVIEW SECTION                               -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Overview</p>
+    <h2 class="section-title">Two Projects, One Toolset</h2>
+    <div class="divider"></div>
+
+    <!-- EDIT: overview paragraphs -->
+    <p class="body-text">
+      The first project came sophomore year: a from-scratch modeling exercise built around a complete engineering drawing package for a steam engine. Every part had to be modeled individually in SolidWorks — translated from 2D drawings, with all tolerances and geometry respected — then mated into a working assembly and rendered. No shortcuts; if it was on the drawing, it had to be in the model.
+    </p>
+    <p class="body-text">
+      <!-- VERIFY: confirm the coffee-cup heat differential description of the senior engine is accurate -->
+      The senior project shifted emphasis. Most of the course was structured around preparation for the <strong>Certified SolidWorks Expert (CSWE)</strong> exam — rigorous, exam-focused training that covered the full breadth of SolidWorks capabilities. The hands-on design component ran alongside that: taking a small steam engine that runs on the heat differential from a hot cup of coffee and redesigning the flywheel, the legs, and the motion mechanism the flywheel drives, then fabricating the new parts via 3D printing.
+    </p>
+    <p class="body-text">
+      The two projects are different in scope and depth by design. The sophomore assembly was a sustained, end-to-end modeling exercise. The senior redesign was intentionally smaller — a vehicle for applying specific skills while the bulk of the term was invested in the CSWE.
+    </p>
+
+    <!-- EDIT: stat boxes — add/remove/change as needed -->
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-num">21<span>+</span></div>
+        <div class="stat-label">Parts Modeled (Sophomore)</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">CSWE</div>
+        <div class="stat-label">Certification Achieved</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">2<span>×</span></div>
+        <div class="stat-label">Distinct Projects</div>
+      </div>
+      <div class="stat-box">
+        <!-- VERIFY: confirm 3D printing was the fabrication method -->
+        <div class="stat-num">3D<span>P</span></div>
+        <div class="stat-label">Fabrication Method (Senior)</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Scope</div>
+      <p>
+        The sophomore project is the meatier of the two — it represents what you can do when you give a SolidWorks user a real drawing package and enough time to build every single component. The senior redesign is a narrower, applied exercise. Both are worth showing, but for different reasons: one demonstrates modeling depth and GD&amp;T fluency; the other shows design decision-making and the ability to take an existing mechanism apart and improve specific subsystems.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================== -->
+  <!-- SECTION 1: SOPHOMORE STEAM ENGINE ASSEMBLY     -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Project One · Sophomore Year</p>
+    <h2 class="section-title">Steam Engine Assembly</h2>
+    <div class="divider"></div>
+
+    <!-- EDIT: assembly description paragraphs -->
+    <p class="body-text">
+      Received a complete engineering drawing package for a steam engine and built every part from scratch in SolidWorks. The mechanism is a <strong>belt-driven, gear-reduced, twin-piston design</strong>: a belt drives a pulley shaft; a spur gear and pinion step the speed down; the pinion drives a crank shaft; and the crank converts that rotation into the reciprocating motion of two pistons running in the engine body. An integrated air chamber in the casting smooths the output pressure pulses between strokes.
+    </p>
+    <p class="body-text">
+      Parts modeled from the drawing package include the spur gear and pinion, the crank shaft, the guide rod and piston rod that constrain the piston travel, the yoke slider-crank linkage, twin pistons sealed with cup leather packing, the cast engine body with its integrated air chamber, the structural slide base with guide rod brackets, and all gaskets and fasteners. Each part was built to the dimensions and tolerances on the original drawings, then assembled with mates that capture the actual mechanism motion — meaning gear teeth had to mesh at the correct center distance, the slider-crank had to clear its housing through the full stroke, and the piston seals had to be specified to hold pressure.
+    </p>
+
+    <!-- PIPELINE: 5-step workflow for the assembly project -->
+    <div class="pipeline-sequence">
+      <div class="pipeline-grid">
+        <div class="pipeline-step">
+          <div class="pipeline-num">01</div>
+          <div class="pipeline-title">Received Drawing Package</div>
+          <div class="pipeline-desc">Started from a full engineering drawing package — every part fully dimensioned with tolerances and GD&amp;T callouts.</div>
+        </div>
+
+        <div class="pipeline-arrow">→</div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-num">02</div>
+          <div class="pipeline-title">Modeled Every Part</div>
+          <div class="pipeline-desc">Translated each 2D drawing into a 3D SolidWorks part — spur gear, pinion, crank shaft, guide rod, pistons, engine body, slide base, gaskets, and fasteners.</div>
+        </div>
+
+        <div class="pipeline-arrow">→</div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-num">03</div>
+          <div class="pipeline-title">Built the Full Assembly</div>
+          <div class="pipeline-desc">Mated all parts into a working assembly with constraints that capture the actual mechanism motion — gear mesh, slider-crank travel, and piston clearances through the full stroke.</div>
+        </div>
+      </div>
+
+      <div class="pipeline-row-connector" style="--start-x:85.7%; --end-x:14.3%;">
+        <div class="conn-seg conn-down1"></div>
+        <div class="conn-seg conn-across"></div>
+        <div class="conn-seg conn-down2"></div>
+        <div class="conn-arrow"></div>
+      </div>
+
+      <div class="pipeline-grid" style="margin-top:1.5rem; grid-template-columns: 1fr auto 1fr;">
+        <div class="pipeline-step">
+          <div class="pipeline-num">04</div>
+          <div class="pipeline-title">Applied GD&amp;T &amp; Tolerancing</div>
+          <div class="pipeline-desc">Verified all part geometries against the drawing tolerances and applied GD&amp;T callouts — ensuring fits, clearances, and surface conditions matched the original engineering intent.</div>
+        </div>
+
+        <div class="pipeline-arrow">→</div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-num">05</div>
+          <div class="pipeline-title">Produced Renderings</div>
+          <!-- TODO: if/when a motion animation file is recovered, add a 6th step
+               "06 Animated the Mechanism" here and a matching gallery item below.
+               Do not fabricate this asset — leave it out until a real file exists. -->
+          <div class="pipeline-desc">Rendered the completed assembly and key sub-assemblies, along with standalone part renders for all major components.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDIT: "Why It Mattered" callout -->
+    <div class="callout">
+      <div class="callout-title">Why It Mattered</div>
+      <p>
+        This was the first time building a full multi-part assembly from a real engineering drawing package — not a guided tutorial or a single-part exercise, but a complete mechanism where every component had to be correct before any of it would work together. Translating 2D dimensioning and tolerancing standards into 3D geometry that actually <em>meshes, slides, and seals correctly</em> is a different skill than modeling parts in isolation. Gear teeth that have to mesh at the right center distance. A slider-crank that has to clear its own housing through the full stroke. Piston seals that have to be specified to hold pressure. Getting all of that right simultaneously is what the project was testing.
+      </p>
+    </div>
+
+    <!-- ===================== GALLERY — SECTION 1 ===================== -->
+    <!-- Sub-group: Renderings -->
+    <p class="gallery-subheading">Renderings</p>
+    <div class="gallery-grid">
+
+      <!-- EDIT: rendering gallery items — change captions as needed -->
+      <div class="gallery-item" onclick="openLightbox('solidworks/solidworks_Sophomore_Full_Assembly_View_1.jpg', 'The completed steam engine assembly — pulley-driven, gear-reduced, twin-piston mechanism with an air chamber to smooth output pressure.')">
+        <img src="solidworks/solidworks_Sophomore_Full_Assembly_View_1.jpg" alt="Full assembly rendering, view 1">
+        <div class="gallery-caption">Full assembly — view 1</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('solidworks/solidworks_Sophomore_Full_Assembly_View_2.jpg', 'Opposite-angle view of the full assembly, showing the spur gear and pinion reduction driving the crank.')">
+        <img src="solidworks/solidworks_Sophomore_Full_Assembly_View_2.jpg" alt="Full assembly rendering, view 2">
+        <div class="gallery-caption">Full assembly — opposite angle</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('solidworks/solidworks_Sophomore_Pump_Body_Subassembly.jpg', 'Engine body and air chamber sub-assembly — the housing for both pistons and the inlet/outlet ports.')">
+        <img src="solidworks/solidworks_Sophomore_Pump_Body_Subassembly.jpg" alt="Engine body and air chamber sub-assembly">
+        <div class="gallery-caption">Engine body &amp; air chamber sub-assembly</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('solidworks/solidworks_Sophomore_Slide_Base_Subassembly_Exploded.jpg', 'Exploded view of the slide base sub-assembly, showing the guide rod brackets and fasteners.')">
+        <img src="solidworks/solidworks_Sophomore_Slide_Base_Subassembly_Exploded.jpg" alt="Slide base sub-assembly exploded view">
+        <div class="gallery-caption">Slide base — exploded view</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('solidworks/solidworks_Sophomore_Pump_Body_Casting.jpg', 'Standalone render of the engine body casting, showing the twin cylinder bores.')">
+        <img src="solidworks/solidworks_Sophomore_Pump_Body_Casting.jpg" alt="Engine body casting part render">
+        <div class="gallery-caption">Engine body casting — standalone render</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('solidworks/solidworks_Sophomore_Slide_Base_Part.jpg', 'Standalone render of the slide base, the structural mount for the guide rods.')">
+        <img src="solidworks/solidworks_Sophomore_Slide_Base_Part.jpg" alt="Slide base part render">
+        <div class="gallery-caption">Slide base — standalone render</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('solidworks/solidworks_Sophomore_Crank_Shaft_Part.jpg', 'Standalone render of the crank shaft that converts gear rotation into reciprocating piston motion.')">
+        <img src="solidworks/solidworks_Sophomore_Crank_Shaft_Part.jpg" alt="Crank shaft part render">
+        <div class="gallery-caption">Crank shaft — standalone render</div>
+      </div>
+
+    </div><!-- end renderings gallery-grid -->
+
+    <!-- Sub-group: Engineering Drawings -->
+    <p class="gallery-subheading" style="margin-top:3rem;">Engineering Drawings</p>
+    <div class="gallery-grid">
+
+      <!-- EDIT: drawing gallery items — all use .fit so the full drawing is visible -->
+      <div class="gallery-item fit" onclick="openLightbox('solidworks/solidworks_Sophomore_Drawing_Drain_Plug_Gasket.jpg', 'Drain plug gasket — rubber, sealing the engine body\'s drain port.')">
+        <img src="solidworks/solidworks_Sophomore_Drawing_Drain_Plug_Gasket.jpg" alt="Drain plug gasket engineering drawing">
+        <div class="gallery-caption">Drain plug gasket</div>
+      </div>
+
+      <div class="gallery-item fit" onclick="openLightbox('solidworks/solidworks_Sophomore_Drawing_Priming_Plug_Gasket.jpg', 'Priming plug gasket — rubber, sealing the port used to clear air before operation.')">
+        <img src="solidworks/solidworks_Sophomore_Drawing_Priming_Plug_Gasket.jpg" alt="Priming plug gasket engineering drawing">
+        <div class="gallery-caption">Priming plug gasket</div>
+      </div>
+
+      <div class="gallery-item fit" onclick="openLightbox('solidworks/solidworks_Sophomore_Drawing_Washer.jpg', 'Steel washer used throughout the piston sub-assembly.')">
+        <img src="solidworks/solidworks_Sophomore_Drawing_Washer.jpg" alt="Washer engineering drawing">
+        <div class="gallery-caption">Steel washer</div>
+      </div>
+
+      <div class="gallery-item fit" onclick="openLightbox('solidworks/solidworks_Sophomore_Drawing_Gasket.jpg', 'Main body gasket sealing the engine housing\'s mating face.')">
+        <img src="solidworks/solidworks_Sophomore_Drawing_Gasket.jpg" alt="Main body gasket engineering drawing">
+        <div class="gallery-caption">Main body gasket</div>
+      </div>
+
+      <div class="gallery-item fit" onclick="openLightbox('solidworks/solidworks_Sophomore_Drawing_Cup_Leather_Packing.jpg', 'Cup leather packing — the traditional sealing method used on each piston.')">
+        <img src="solidworks/solidworks_Sophomore_Drawing_Cup_Leather_Packing.jpg" alt="Cup leather packing engineering drawing">
+        <div class="gallery-caption">Cup leather packing</div>
+      </div>
+
+      <div class="gallery-item fit" onclick="openLightbox('solidworks/solidworks_Sophomore_Drawing_Gland.jpg', 'Aluminum bronze gland — drawn but ultimately unused in the final design.')">
+        <img src="solidworks/solidworks_Sophomore_Drawing_Gland.jpg" alt="Gland engineering drawing">
+        <div class="gallery-caption">Gland (aluminum bronze — not used in final)</div>
+      </div>
+
+      <div class="gallery-item fit" onclick="openLightbox('solidworks/solidworks_Sophomore_Drawing_Pinion.jpg', 'Pinion gear, plain carbon steel — part of the gear reduction driving the crank.')">
+        <img src="solidworks/solidworks_Sophomore_Drawing_Pinion.jpg" alt="Pinion gear engineering drawing">
+        <div class="gallery-caption">Pinion gear</div>
+      </div>
+
+      <div class="gallery-item fit" onclick="openLightbox('solidworks/solidworks_Sophomore_Drawing_Spur_Gear.jpg', 'Main spur gear, paired with the pinion for speed reduction.')">
+        <img src="solidworks/solidworks_Sophomore_Drawing_Spur_Gear.jpg" alt="Spur gear engineering drawing">
+        <div class="gallery-caption">Spur gear</div>
+      </div>
+
+      <div class="gallery-item fit" onclick="openLightbox('solidworks/solidworks_Sophomore_Drawing_Pulley_Shaft.jpg', 'Pulley shaft — the belt-driven input shaft for the whole mechanism.')">
+        <img src="solidworks/solidworks_Sophomore_Drawing_Pulley_Shaft.jpg" alt="Pulley shaft engineering drawing">
+        <div class="gallery-caption">Pulley shaft</div>
+      </div>
+
+      <div class="gallery-item fit" onclick="openLightbox('solidworks/solidworks_Sophomore_Drawing_Guide_Rod.jpg', 'Guide rod that keeps the piston assembly traveling in a straight line.')">
+        <img src="solidworks/solidworks_Sophomore_Drawing_Guide_Rod.jpg" alt="Guide rod engineering drawing">
+        <div class="gallery-caption">Guide rod</div>
+      </div>
+
+      <div class="gallery-item fit" onclick="openLightbox('solidworks/solidworks_Sophomore_Drawing_Crank_Shaft.jpg', 'Crank shaft drawing — converts rotary gear motion into the pistons\' reciprocating stroke.')">
+        <img src="solidworks/solidworks_Sophomore_Drawing_Crank_Shaft.jpg" alt="Crank shaft engineering drawing">
+        <div class="gallery-caption">Crank shaft</div>
+      </div>
+
+      <div class="gallery-item fit" onclick="openLightbox('solidworks/solidworks_Sophomore_Drawing_Slide_Base_Sheet_1.jpg', 'Slide base drawing, sheet 1 of 2 — the cast iron structural mount.')">
+        <img src="solidworks/solidworks_Sophomore_Drawing_Slide_Base_Sheet_1.jpg" alt="Slide base drawing sheet 1">
+        <div class="gallery-caption">Slide base — sheet 1 of 2</div>
+      </div>
+
+      <div class="gallery-item fit" onclick="openLightbox('solidworks/solidworks_Sophomore_Drawing_Slide_Base_Sheet_2.jpg', 'Slide base drawing, sheet 2 of 2 — section view showing the guide rod bore.')">
+        <img src="solidworks/solidworks_Sophomore_Drawing_Slide_Base_Sheet_2.jpg" alt="Slide base drawing sheet 2">
+        <div class="gallery-caption">Slide base — sheet 2 of 2</div>
+      </div>
+
+      <div class="gallery-item fit" onclick="openLightbox('solidworks/solidworks_Sophomore_Drawing_SubAssembly_Piston_Yoke_Exploded.jpg', 'Exploded BOM drawing for the piston/yoke sub-assembly — guide rod, piston rod, yoke, pistons, cup leather packing, bearings, and fasteners.')">
+        <img src="solidworks/solidworks_Sophomore_Drawing_SubAssembly_Piston_Yoke_Exploded.jpg" alt="Piston/yoke sub-assembly exploded BOM drawing">
+        <div class="gallery-caption">Piston / yoke sub-assembly — exploded BOM</div>
+      </div>
+
+    </div><!-- end drawings gallery-grid -->
+
+  </div><!-- end section 1 -->
+
+  <!-- ============================================== -->
+  <!-- SECTION 2: SENIOR FLYWHEEL & MOTION REDESIGN   -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Project Two · Senior Year</p>
+    <h2 class="section-title">Flywheel &amp; Motion Redesign</h2>
+    <div class="divider"></div>
+
+    <!-- EDIT: senior project description paragraphs -->
+    <!-- VERIFY: confirm the coffee-cup heat differential description is accurate -->
+    <p class="body-text">
+      The subject of the senior redesign is a small steam engine that runs on the heat differential between a hot cup of coffee and ambient air — a low-temperature Stirling-type device small enough to sit on a desktop. The engine already existed; the task was to improve it. Specifically: redesign the <strong>flywheel</strong>, the <strong>legs</strong> that support the engine body, and the <strong>motion mechanism</strong> the flywheel drives — then fabricate the new parts via 3D printing and assemble them onto the engine.
+    </p>
+    <p class="body-text">
+      <!-- VERIFY: confirm the motion mechanism description — what does the flywheel drive? a crank, a displacer, something else? update accordingly -->
+      The redesign focused on improving the aesthetic and functional geometry of the flywheel, increasing the structural stability of the leg assembly, and refining the linkage that connects flywheel rotation to the piston or displacer motion. Each component was modeled in SolidWorks, evaluated against the existing mechanism's constraints, and then sent to a 3D printer for fabrication.
+    </p>
+
+    <!-- EDIT: context callout — honest about scope -->
+    <div class="callout">
+      <div class="callout-title">Context</div>
+      <p>
+        Most of the senior course went to CSWE exam preparation — a comprehensive, structured training program covering the full range of SolidWorks professional capabilities. The redesign project was intentionally smaller, running alongside that exam prep rather than competing with it. That's not a disclaimer; it's a deliberate trade-off: the CSWE was the primary investment, and the redesign was the applied component that gave the certification work a concrete output. Both are on this page because they came from the same course and used the same skills.
+      </p>
+    </div>
+
+    <!-- GALLERY: senior project — placeholder items until renders/photos are ready -->
+    <p class="gallery-subheading" style="margin-top:2.5rem;">Renders &amp; Fabrication</p>
+    <div class="gallery-grid">
+
+      <!-- TODO: replace each placeholder with a real gallery-item once images are available.
+           Suggested shots:
+           1. Original engine before redesign (photo)
+           2. Redesigned flywheel render (SolidWorks rendering)
+           3. Redesigned legs / motion mechanism render
+           4. 3D printed parts post-fabrication (photo)
+           5. Assembled final result (photo)
+      -->
+
+      <div class="gallery-item">
+        <div class="photo-placeholder">
+          <span class="icon">⚙</span>
+          <span>Original Engine</span>
+          <span style="font-size:0.65rem; opacity:0.6;">TODO: add photo</span>
+        </div>
+        <div class="gallery-caption">Original engine before redesign</div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="photo-placeholder">
+          <span class="icon">⚙</span>
+          <span>Flywheel Render</span>
+          <span style="font-size:0.65rem; opacity:0.6;">TODO: add render</span>
+        </div>
+        <div class="gallery-caption">Redesigned flywheel — SolidWorks render</div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="photo-placeholder">
+          <span class="icon">⚙</span>
+          <span>Legs &amp; Mechanism</span>
+          <span style="font-size:0.65rem; opacity:0.6;">TODO: add render</span>
+        </div>
+        <div class="gallery-caption">Redesigned legs and motion mechanism</div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="photo-placeholder">
+          <span class="icon">⚙</span>
+          <span>3D Printed Parts</span>
+          <span style="font-size:0.65rem; opacity:0.6;">TODO: add photo</span>
+        </div>
+        <div class="gallery-caption">3D printed parts post-fabrication</div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="photo-placeholder">
+          <span class="icon">⚙</span>
+          <span>Final Assembly</span>
+          <span style="font-size:0.65rem; opacity:0.6;">TODO: add photo</span>
+        </div>
+        <div class="gallery-caption">Assembled final result</div>
+      </div>
+
+    </div><!-- end senior gallery-grid -->
+
+  </div><!-- end section 2 -->
+
+</div><!-- end content-wrap -->
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <div class="lightbox-content" onclick="event.stopPropagation()">
+    <img id="lightbox-img" src="" alt="Enlarged image">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+</div>
+
+<!-- EDIT: footer -->
+<footer>
+  <span>© 2026 Hylton Reber</span>
+  <a href="index.html#projects">← Back to all projects</a>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function openLightbox(src, caption) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-caption').textContent = caption || '';
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+  }
+</script>
+
+</body>
+</html>
