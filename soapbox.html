@@ -685,60 +685,99 @@
   </div>
 
   <!-- ============================================== -->
-  <!-- STEERING FIX & BRAKE EMERGENCY SECTION         -->
+  <!-- STEERING FIX SECTION                           -->
   <!-- ============================================== -->
   <div class="section reveal">
-    <p class="section-label">Late Build</p>
-    <h2 class="section-title">Steering Fix &amp; Brake Emergency</h2>
+    <p class="section-label">Late Build · Part One</p>
+    <h2 class="section-title">Steering Fix</h2>
     <div class="divider"></div>
 
+    <!-- EDIT: steering fix body copy -->
     <p class="body-text">
-      Two separate engineering problems surfaced in the final stretch of the build — both requiring fast diagnosis and faster solutions under a hard race-day deadline.
+      The front leaf springs were removed entirely — both to save weight and to achieve the <strong>7 inches of ground clearance</strong> Red Bull's technical inspection required. Getting there meant inverting the steering linkage and reworking the front suspension geometry at the same time. The first attempt at the inverted configuration didn't work at all. The second got the suspension geometry right.
     </p>
-
-    <!-- EDIT: each .step = one numbered problem/solution -->
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-content">
-          <div class="step-title">Steering Inversion Fix</div>
-          <div class="step-desc">
-            During final assembly and inspection of the completed steering system, the linkage geometry turned out to be inverted — turning the wheel left caused the vehicle to steer right. Rather than rebuilding the steering from scratch, the fix was a <strong>steering arm extension</strong> that reversed the effective input geometry of the linkage without touching the core hardware. The vehicle passed technical inspection with the corrected geometry in place.
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-content">
-          <div class="step-title">Hydraulic Brake Failure — 24 Hours Out</div>
-          <div class="step-desc">
-            With 24 hours until race day, the hydraulic brake system failed. There was no time to source replacement parts or rebuild the hydraulic circuit. The team engineered a <strong>field-replacement mechanical brake system</strong> using on-hand materials, fabricated it overnight, and had it installed and passing Red Bull's technical inspection by race morning.
-          </div>
-        </div>
-      </div>
-    </div>
+    <p class="body-text">
+      What the team didn't fully account for: inverting the linkage for clearance also inverted the steering input. Turning the wheel right made the vehicle go left. The fix was a <strong>steering arm extension</strong> mounted behind the spindle, which reversed the effective linkage geometry without requiring a full teardown and rebuild.
+    </p>
+    <p class="body-text">
+      That fixed the direction problem — but introduced a new one. The arm extension reduced mechanical advantage in the linkage, making the steering significantly more sensitive. A separate weight-saving decision compounded it: the steering reduction gears were cut to shed 4 lbs, removing the mechanical advantage the system had been relying on to dampen driver inputs.
+    </p>
 
     <!-- Steering fix images -->
     <div class="img-grid">
       <div class="img-grid-item">
-        <img src="soapbox/soapbox-steering-fix.jpg" alt="Corrected steering geometry after the inversion fix" class="clickable-img" onclick="openLightbox('soapbox/soapbox-steering-fix.jpg', 'Corrected steering geometry after the inversion fix was applied.')">
+        <img src="soapbox/soapbox-steering-fix.jpg" alt="Corrected steering geometry after the inversion fix" class="clickable-img" onclick="openLightbox('soapbox/soapbox-steering-fix.jpg', 'Corrected steering geometry after the inversion fix — arm extension mounted behind the spindle.')">
         <p class="img-caption">Corrected steering geometry after the inversion fix.</p>
       </div>
       <div class="img-grid-item">
-        <img src="soapbox/soapbox-steering-arm.jpg" alt="Steering arm extension that reversed the linkage geometry" class="clickable-img" onclick="openLightbox('soapbox/soapbox-steering-arm.jpg', 'Steering arm extension — reversed the effective linkage geometry without a full rebuild.')">
+        <img src="soapbox/soapbox-steering-arm.jpg" alt="Steering arm extension that reversed the linkage geometry" class="clickable-img" onclick="openLightbox('soapbox/soapbox-steering-arm.jpg', 'The steering arm extension — reversed the effective linkage geometry without a full rebuild, but reduced mechanical advantage in the process.')">
         <p class="img-caption">Steering arm extension — reversed the linkage geometry without a full rebuild.</p>
       </div>
     </div>
 
-    <!-- EDIT: race day outcome callout -->
+    <!-- EDIT: steering race-day outcome callout -->
+    <div class="callout" style="margin-top:2rem;">
+      <div class="callout-title">Race Day Effect</div>
+      <p>
+        On race day the steering was still slightly toed out and oversensitive — the vehicle tracked inconsistently through the course and the team posted a slow time as a result. The direction problem was solved; the sensitivity wasn't.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- BRAKE EMERGENCY SECTION                        -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Late Build · Part Two</p>
+    <h2 class="section-title">Brake Emergency</h2>
+    <div class="divider"></div>
+
+    <!-- EDIT: brake emergency body copy -->
+    <p class="body-text">
+      The chassis arrived with hydraulic brakes already installed. The team got the system leak-free and briefly functional before the trip to Denver — bled, refilled, and confirmed working.
+    </p>
+    <p class="body-text">
+      On race morning, bleeding and refilling the lines one final time, they discovered the calipers weren't actuating at all. The pistons weren't moving. About an hour of on-site troubleshooting couldn't save the hydraulic system, and it was ruled a lost cause.
+    </p>
+
+    <!-- Failed caliper image — shown near failure description -->
+    <div class="img-grid" style="margin-top:2rem;">
+      <div class="img-grid-item">
+        <img src="soapbox/soapbox-caliper-failed.jpg" alt="Failed hydraulic caliper pulled apart on race morning" class="clickable-img" onclick="openLightbox('soapbox/soapbox-caliper-failed.jpg', 'The failed hydraulic caliper, pulled apart during on-site troubleshooting on race morning — pistons not actuating.')">
+        <p class="img-caption">The failed hydraulic caliper, pulled apart during race-morning troubleshooting.</p>
+      </div>
+    </div>
+
+    <p class="body-text" style="margin-top:2rem;">
+      The team had brought a full rolling toolkit to Denver — but not brake parts. With no replacement hardware available and the clock running, the fix was improvised entirely from what was on hand: <strong>spare brake pads were welded directly onto the jaws of a pair of channel-lock pliers</strong>. One arm of the pliers was welded to the frame. The other arm was extended using a disassembled pair of quick-grip clamps, welded in place so the driver could reach and operate it from the seat.
+    </p>
+
+    <!-- Improvised brake fix images -->
+    <div class="img-grid" style="margin-top:1.5rem;">
+      <div class="img-grid-item">
+        <img src="soapbox/soapbox-brake-fix-closeup.jpg" alt="Close-up of the improvised brake — welded pads on channel-lock plier jaws" class="clickable-img" onclick="openLightbox('soapbox/soapbox-brake-fix-closeup.jpg', 'Close-up of the improvised brake — brake pads welded directly onto the jaws of channel-lock pliers.')">
+        <p class="img-caption">Brake pads welded onto channel-lock plier jaws — the core of the improvised system.</p>
+      </div>
+      <div class="img-grid-item">
+        <img src="soapbox/soapbox-brake-fix-mounted.jpg" alt="Improvised brake arm welded to the frame" class="clickable-img" onclick="openLightbox('soapbox/soapbox-brake-fix-mounted.jpg', 'One arm of the pliers welded to the frame — the fixed jaw of the improvised caliper.')">
+        <p class="img-caption">Fixed arm welded to the frame — the anchor point for the improvised caliper.</p>
+      </div>
+    </div>
+    <div class="img-grid" style="margin-top:1.5rem;">
+      <div class="img-grid-item">
+        <img src="soapbox/soapbox-brake-fix-wide.jpg" alt="Full improvised brake mechanism in context with tools visible" class="clickable-img" onclick="openLightbox('soapbox/soapbox-brake-fix-wide.jpg', 'The full improvised brake mechanism in context — quick-grip clamp extensions welded to the actuating arm so the driver can reach it from the seat.')">
+        <p class="img-caption">Full mechanism in context — quick-grip extensions welded to the actuating arm for driver reach.</p>
+      </div>
+    </div>
+
+    <!-- EDIT: brake race-day outcome callout -->
     <div class="callout" style="margin-top:2rem;">
       <div class="callout-title">Race Day — June 13, 2026</div>
       <p>
-        The vehicle finished the Red Bull Soapbox Race Denver — passing inspection, completing the course, and crossing the finish line. The steering was still slightly toed out and too sensitive on race day, which caused the vehicle to track inconsistently and the team posted a slow time as a result.
+        Fabricated and installed race morning. Passed Red Bull's technical inspection. The vehicle completed the course.
       </p>
       <p>
-        <strong>The fact that it finished at all — after a hydraulic brake failure less than 24 hours before the event — was the engineering win.</strong>
+        <strong>The fact that it finished at all — after a hydraulic brake failure on race morning with no spare parts — was the engineering win.</strong>
       </p>
     </div>
   </div>
@@ -790,6 +829,10 @@
       <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-gallery-working.jpg', 'Hands-on fabrication during the build')">
         <img src="soapbox/soapbox-gallery-working.jpg" alt="Working on the vehicle during fabrication">
         <div class="gallery-caption">Hands-on fabrication during the build</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-garage-workspace.jpg', 'The build space — tools laid out, team banner on the wall, and the cart up on sawhorses')">
+        <img src="soapbox/soapbox-garage-workspace.jpg" alt="Garage workspace with tools, team banner, and cart on sawhorses">
+        <div class="gallery-caption">The build space — tools, team banner, and cart on sawhorses</div>
       </div>
     </div>
   </div>
