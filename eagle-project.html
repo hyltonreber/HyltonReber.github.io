@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<!--
+  EAGLE SCOUT PROJECT DETAIL PAGE
+  ------------------------------------------------------------------
+  This is the deep-dive page for the Eagle Scout service project —
+  Eagle Project trophy case for Hope Lutheran Church & School.
+  Linked from the project card on index.html.
+
+  HOW TO FIND THINGS IN THIS FILE:
+  - All page TEXT lives in the BODY section below the closing STYLE tag.
+    Look for "EDIT:" comments — those mark spots meant to be edited.
+  - Colors are defined once at the top (":root") and reused everywhere
+    via var(--name) — change a value there and it updates the whole page.
+  - Images live in eagle_project/ at the repo root.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Eagle Project — Hope Lutheran Trophy Case – Hylton Reber</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  img { max-width: 100%; display: block; }
+
+  /* === COLOR PALETTE === */
+  :root {
+    --navy: #0D1B2A;
+    --navy-mid: #152436;
+    --offwhite: #F0EFE9;
+    --steel: #4A7FA5;
+    --amber: #C8883A;
+    --muted: #8A9BAD;
+    --card-bg: #192C3E;
+  }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
+
+  body {
+    background: var(--navy);
+    color: var(--offwhite);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    width: 100%; max-width: 100vw;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background: rgba(13,27,42,0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(74,127,165,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--offwhite);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--amber); }
+
+  .back-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--amber); }
+
+  /* HERO */
+  .project-hero {
+    width: 100%; max-width: 100vw;
+    padding: 9rem 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(74,127,165,0.15);
+    background-image:
+      linear-gradient(110deg, rgba(13,27,42,0.97) 0%, rgba(13,27,42,0.88) 35%, rgba(13,27,42,0.65) 70%, rgba(13,27,42,0.4) 100%),
+      url('eagle_project/eagle_project_hero_bg.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .project-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(74,127,165,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,127,165,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .hero-inner { position: relative; max-width: 900px; }
+
+  .project-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+    color: var(--offwhite);
+  }
+
+  .project-subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .meta-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .meta-value {
+    font-size: 0.85rem;
+    color: var(--offwhite);
+    font-weight: 500;
+  }
+
+  /* CONTENT */
+  .content-wrap {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 3rem;
+    box-sizing: border-box;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 5rem 0;
+    border-bottom: 1px solid rgba(74,127,165,0.1);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    color: var(--offwhite);
+  }
+
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: var(--amber);
+    margin-bottom: 2rem;
+  }
+
+  .body-text {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.85;
+    max-width: 760px;
+  }
+  .body-text + .body-text { margin-top: 1rem; }
+  .body-text strong { color: var(--offwhite); font-weight: 500; }
+
+  /* STAT BOXES */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .stat-box {
+    background: var(--card-bg);
+    border: 1px solid rgba(74,127,165,0.15);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--offwhite);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+  .stat-num span { color: var(--amber); }
+  .stat-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--card-bg);
+    border-left: 3px solid var(--amber);
+    padding: 1.5rem 2rem;
+    margin-top: 2rem;
+    max-width: 760px;
+  }
+
+  .callout-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .callout p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+  .callout p + p { margin-top: 0.75rem; }
+  .callout p strong { color: var(--offwhite); font-weight: 500; }
+
+  /* GALLERY */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(74,127,165,0.15);
+    cursor: pointer;
+    aspect-ratio: 4 / 3;
+    background: #0a1420;
+  }
+
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-item:hover img { transform: scale(1.08); }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(13,27,42,0.95), transparent);
+    color: var(--offwhite);
+    font-size: 0.75rem;
+    padding: 1.5rem 0.85rem 0.6rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .gallery-item:hover .gallery-caption { opacity: 1; }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8,14,22,0.92);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+  }
+  .lightbox.active { display: flex; }
+
+  .lightbox-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 80vh;
+    border: 1px solid rgba(74,127,165,0.3);
+    display: block;
+  }
+
+  .lightbox-caption {
+    color: var(--offwhite);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 1rem;
+    max-width: 70ch;
+    line-height: 1.5;
+  }
+  .lightbox-caption:empty { margin-top: 0; }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 2rem;
+    color: var(--offwhite);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 1.5rem 3rem;
+    border-top: 1px solid rgba(74,127,165,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  footer a { color: var(--steel); text-decoration: none; }
+  footer a:hover { color: var(--amber); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* === MOBILE RESPONSIVE === */
+  @media (max-width: 900px) {
+    .project-hero { padding: 7rem 1.25rem 3rem; }
+    .meta-row { gap: 1.25rem; }
+    section, .section { padding: 3rem 0; }
+    .content-wrap { padding: 0 1.25rem; }
+    .stat-row { grid-template-columns: repeat(2, 1fr) !important; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">H<span>.</span>REBER</a>
+  <a href="index.html#projects" class="back-link">← Back to Projects</a>
+</nav>
+
+<!-- ============================================== -->
+<!-- HERO                                           -->
+<!-- ============================================== -->
+<div class="project-hero">
+  <div class="hero-inner">
+
+    <!-- EDIT: eyebrow tag -->
+    <p class="project-tag">Eagle Scout Service Project · Troop 310</p>
+
+    <!-- EDIT: title -->
+    <h1 class="project-title">Eagle Project<br>Hope Lutheran Trophy Case</h1>
+
+    <!-- EDIT: subtitle -->
+    <p class="project-subtitle">
+      Designed, built, and installed a permanent display case for the elementary school where I earned some of the very trophies now inside it.
+    </p>
+
+    <!-- EDIT: meta boxes -->
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="meta-label">Beneficiary</div>
+        <div class="meta-value">Hope Lutheran Church &amp; School</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Troop</div>
+        <div class="meta-value">Troop 310</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value">Eagle Scout Candidate / Project Leader</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Built</div>
+        <div class="meta-value">Aug 23 – Sep 20, 2020</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- ============================================== -->
+  <!-- OVERVIEW SECTION                               -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Overview</p>
+    <h2 class="section-title">The Project</h2>
+    <div class="divider"></div>
+
+    <!-- EDIT: overview paragraphs -->
+    <p class="body-text">
+      Hope Lutheran Church &amp; School — the elementary school I attended, and where I'd won several FIRST LEGO League robotics trophies — had no permanent way to display its students' competition history. Trophies and plaques were scattered around the building instead of telling one cohesive story.
+    </p>
+    <p class="body-text">
+      For my Eagle Scout service project, I designed, built, and installed a wall-mounted display case to fix that — a permanent trophy case for the school's robotics, geography bee, and spelling bee trophies, with adjustable glass shelving sized to grow with future wins.
+    </p>
+
+    <!-- EDIT: stat boxes -->
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-num">99<span>.95 hrs</span></div>
+        <div class="stat-label">Volunteer Hours</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">11</div>
+        <div class="stat-label">Volunteers Led</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">$577<span>.54</span></div>
+        <div class="stat-label">Total Project Cost</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Competitions Honored</div>
+      </div>
+    </div>
+
+    <!-- EDIT: Design & Build callout -->
+    <div class="callout">
+      <div class="callout-title">Design &amp; Build</div>
+      <p>
+        The case is a wood frame with sliding glass doors and adjustable glass shelves, stained dark walnut to match the existing hallway trim and plaques. It was originally planned to stand on the floor, but my project coach and I redesigned it mid-planning to mount flush against the wall instead — it fit the hallway better, and anchoring it to the wall meant it couldn't tip over.
+      </p>
+      <p>
+        Because of COVID-19 restrictions, we also moved the entire build off-site to my coach's home shop, where tools, space, and materials were already in place.
+      </p>
+    </div>
+
+    <!-- EDIT: Leading the Project callout -->
+    <div class="callout">
+      <div class="callout-title">Leading the Project</div>
+      <p>
+        I recruited and led <strong>10 volunteers</strong> — fellow Scouts from Troop 310, adult leaders, and family — through planning, fundraising, and a multi-day build, raising the money almost entirely through congregation donations.
+      </p>
+      <p>
+        The hardest part wasn't the woodworking — it was finding enough meaningful work to keep every volunteer busy at once. The biggest lesson: <strong>leadership isn't about doing every task yourself</strong>, it's connecting the people who have the right skills to the work that needs to get done.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================== -->
+  <!-- GALLERY                                        -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Behind the Project</p>
+    <h2 class="section-title">Gallery</h2>
+    <div class="divider"></div>
+
+    <p class="body-text">A look at the build process, the team, and the finished installation.</p>
+
+    <!-- EDIT: each .gallery-item = one photo. Change image path and caption to update. -->
+    <div class="gallery-grid">
+
+      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_group_shop.jpg', 'The team with the case body, fresh out of the clamps')">
+        <img src="eagle_project/eagle_project_group_shop.jpg" alt="The team with the case body in the shop">
+        <div class="gallery-caption">The team with the case body, fresh out of the clamps</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_glueup.jpg', 'Gluing up the frame')">
+        <img src="eagle_project/eagle_project_glueup.jpg" alt="Gluing up the frame">
+        <div class="gallery-caption">Gluing up the frame</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_drilling_track.jpg', 'Drilling the glass door track hardware')">
+        <img src="eagle_project/eagle_project_drilling_track.jpg" alt="Drilling the glass door track hardware">
+        <div class="gallery-caption">Drilling the glass door track hardware</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_track_detail.jpg', 'Drill press detail on the aluminum sliding track')">
+        <img src="eagle_project/eagle_project_track_detail.jpg" alt="Drill press detail on the aluminum sliding track">
+        <div class="gallery-caption">Drill press detail on the aluminum sliding track</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_staining.jpg', 'Applying the dark walnut stain')">
+        <img src="eagle_project/eagle_project_staining.jpg" alt="Applying the dark walnut stain">
+        <div class="gallery-caption">Applying the dark walnut stain</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_sanding_shelves.jpg', 'All hands sanding the shelving stock')">
+        <img src="eagle_project/eagle_project_sanding_shelves.jpg" alt="All hands sanding the shelving stock">
+        <div class="gallery-caption">All hands sanding the shelving stock</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_shelf_standards.jpg', 'Installing the adjustable shelf standards')">
+        <img src="eagle_project/eagle_project_shelf_standards.jpg" alt="Installing the adjustable shelf standards">
+        <div class="gallery-caption">Installing the adjustable shelf standards</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_glass_track_install.jpg', 'Fitting the sliding glass door track')">
+        <img src="eagle_project/eagle_project_glass_track_install.jpg" alt="Fitting the sliding glass door track">
+        <div class="gallery-caption">Fitting the sliding glass door track</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_install_day.jpg', 'Move-in day — leveling the case before mounting it in the school hallway')">
+        <img src="eagle_project/eagle_project_install_day.jpg" alt="Move-in day, leveling the case in the hallway">
+        <div class="gallery-caption">Move-in day — leveling the case before mounting</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_hallway_wide.jpg', 'Mounted and ready in the school hallway')">
+        <img src="eagle_project/eagle_project_hallway_wide.jpg" alt="Case mounted in the school hallway, wide view">
+        <div class="gallery-caption">Mounted and ready in the school hallway</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_finished.jpg', 'The finished case, stocked with trophies')">
+        <img src="eagle_project/eagle_project_finished.jpg" alt="The finished case stocked with trophies">
+        <div class="gallery-caption">The finished case, stocked with trophies</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_finished_with_me.jpg', 'Installed and stocked with trophies — including a few I helped win myself')">
+        <img src="eagle_project/eagle_project_finished_with_me.jpg" alt="Finished case with Hylton">
+        <div class="gallery-caption">Installed and stocked — including a few I helped win myself</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_with_coach.jpg', 'With my project coach after the install')">
+        <img src="eagle_project/eagle_project_with_coach.jpg" alt="With project coach after the install">
+        <div class="gallery-caption">With my project coach after the install</div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- end content-wrap -->
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <div class="lightbox-content" onclick="event.stopPropagation()">
+    <img id="lightbox-img" src="" alt="Enlarged image">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+</div>
+
+<!-- EDIT: footer -->
+<footer>
+  <span>© 2026 Hylton Reber</span>
+  <a href="index.html#projects">← Back to all projects</a>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function openLightbox(src, caption) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-caption').textContent = caption || '';
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+  }
+</script>
+
+</body>
+</html>
