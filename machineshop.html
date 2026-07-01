@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Machine Shop Projects – Hylton Reber</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  img { max-width: 100%; display: block; }
+
+  :root {
+    --navy: #0D1B2A;
+    --navy-mid: #152436;
+    --offwhite: #F0EFE9;
+    --steel: #4A7FA5;
+    --amber: #C8883A;
+    --muted: #8A9BAD;
+    --card-bg: #192C3E;
+  }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
+
+  body {
+    background: var(--navy);
+    color: var(--offwhite);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    width: 100%; max-width: 100vw;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background: rgba(13,27,42,0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(74,127,165,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--offwhite);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--amber); }
+
+  .back-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--amber); }
+
+  /* HERO */
+  .project-hero {
+    width: 100%; max-width: 100vw;
+    padding: 9rem 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(74,127,165,0.15);
+    background-image:
+      linear-gradient(110deg, rgba(13,27,42,0.97) 0%, rgba(13,27,42,0.88) 35%, rgba(13,27,42,0.65) 70%, rgba(13,27,42,0.4) 100%),
+      url('machineshop/machineshop_tap_wrench_assembled.jpg');
+    background-size: cover;
+    background-position: center right;
+  }
+
+  .project-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(74,127,165,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,127,165,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .hero-inner { position: relative; max-width: 900px; }
+
+  .project-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+    color: var(--offwhite);
+  }
+
+  .project-subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .meta-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .meta-value {
+    font-size: 0.85rem;
+    color: var(--offwhite);
+    font-weight: 500;
+  }
+
+  /* CONTENT */
+  .content-wrap {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 3rem;
+    box-sizing: border-box;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 5rem 0;
+    border-bottom: 1px solid rgba(74,127,165,0.1);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    color: var(--offwhite);
+  }
+
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: var(--amber);
+    margin-bottom: 2rem;
+  }
+
+  .body-text {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.85;
+    max-width: 760px;
+  }
+  .body-text + .body-text { margin-top: 1rem; }
+  .body-text strong { color: var(--offwhite); font-weight: 500; }
+
+  /* ROLE CHIPS */
+  .role-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+
+  .chip {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--steel);
+    border: 1px solid rgba(74,127,165,0.4);
+    padding: 0.3rem 0.75rem;
+  }
+
+  /* PROCESS STEPS */
+  .steps { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .step { display: flex; gap: 1.5rem; align-items: flex-start; }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--amber);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 2.5rem;
+    text-align: right;
+  }
+
+  .step-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--offwhite);
+    margin-bottom: 0.3rem;
+  }
+
+  .step-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--card-bg);
+    border-left: 3px solid var(--amber);
+    padding: 1.5rem 2rem;
+    margin-top: 2rem;
+    max-width: 760px;
+  }
+
+  .callout-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .callout p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+  .callout p strong { color: var(--offwhite); font-weight: 500; }
+
+  /* click-to-enlarge */
+  .clickable-img { cursor: pointer; transition: opacity 0.2s ease; }
+  .clickable-img:hover { opacity: 0.88; }
+
+  /* IMAGES */
+  .img-full {
+    width: 100%;
+    margin-top: 2.5rem;
+    border: 1px solid rgba(74,127,165,0.2);
+    display: block;
+  }
+
+  .img-caption {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-top: 0.6rem;
+    font-style: italic;
+  }
+
+  /* GALLERY */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(74,127,165,0.15);
+    cursor: pointer;
+    aspect-ratio: 4 / 3;
+    background: #0a1420;
+  }
+
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-item.fit img { object-fit: contain; }
+
+  .gallery-item:hover img { transform: scale(1.08); }
+  .gallery-item.fit:hover img { transform: scale(1.03); }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(13,27,42,0.95), transparent);
+    color: var(--offwhite);
+    font-size: 0.75rem;
+    padding: 1.5rem 0.85rem 0.6rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .gallery-item:hover .gallery-caption { opacity: 1; }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8,14,22,0.92);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+  }
+
+  .lightbox.active { display: flex; }
+
+  .lightbox-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 80vh;
+    border: 1px solid rgba(74,127,165,0.3);
+    display: block;
+  }
+
+  .lightbox-caption {
+    color: var(--offwhite);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 1rem;
+    max-width: 70ch;
+    line-height: 1.5;
+  }
+  .lightbox-caption:empty { margin-top: 0; }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 2rem;
+    color: var(--offwhite);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 1.5rem 3rem;
+    border-top: 1px solid rgba(74,127,165,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  footer a { color: var(--steel); text-decoration: none; }
+  footer a:hover { color: var(--amber); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* === MOBILE RESPONSIVE === */
+  @media (max-width: 900px) {
+    .project-hero { padding: 7rem 1.25rem 3rem; }
+    .meta-row { gap: 1.25rem; }
+
+    section, .section { padding: 3rem 0; }
+    .content-wrap { padding: 0 1.25rem; }
+
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">H<span>.</span>REBER</a>
+  <a href="index.html#projects" class="back-link">← Back to Projects</a>
+</nav>
+
+<!-- ============================================== -->
+<!-- HERO                                           -->
+<!-- ============================================== -->
+<div class="project-hero">
+  <div class="hero-inner">
+
+    <p class="project-tag">Machining · Class Projects</p>
+
+    <h1 class="project-title">Machine Shop<br>Projects</h1>
+
+    <p class="project-subtitle">
+      Two machining projects completed in the University of Idaho machine shop — a custom tap wrench turned from raw stock on a manual lathe, and a nested cube milled from a single billet on a CNC mill.
+    </p>
+
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="meta-label">Equipment</div>
+        <div class="meta-value">Manual Lathe · CNC Mill</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Skills</div>
+        <div class="meta-value">Turning · Threading · Milling · G-Code</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Context</div>
+        <div class="meta-value">University of Idaho — Machine Shop Course</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- ============================================== -->
+  <!-- SECTION 1: CUSTOM TAP WRENCH                   -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Project One · Manual Lathe</p>
+    <h2 class="section-title">Custom Tap Wrench</h2>
+    <div class="divider"></div>
+
+    <p class="body-text">
+      The tap wrench was machined entirely on a <strong>manual lathe</strong> from raw bar stock. The project required turning the body to a precise outer diameter, boring the internal tap socket to a close tolerance, cutting external threads by hand on the lathe, and parting the T-handle from the same stock — all without CNC assistance. Every cut was controlled manually: feed rate, depth of cut, and tool path were set by hand.
+    </p>
+    <p class="body-text">
+      The challenge of a tap wrench is that multiple features have to align: the socket bore has to be on-center with the body, the threads have to be clean enough to engage correctly, and the finished part has to be symmetric enough to turn smoothly under hand pressure. Lathe work teaches that precision comes from process control, not correction after the fact — if the setup is wrong, the part is wrong.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-title">Face &amp; Center Drill</div>
+          <div class="step-desc">Faced the stock end square and center-drilled to provide a live center reference for subsequent turning operations.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-title">Turn Outside Diameter</div>
+          <div class="step-desc">Turned the body to finished diameter in successive passes, controlling depth of cut and feed to achieve a clean surface finish.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-title">Bore Internal Socket</div>
+          <div class="step-desc">Bored the tap-holding socket on-center to a close tolerance, sized to grip a tap shank without slipping under torque.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-title">Cut External Threads</div>
+          <div class="step-desc">Cut the T-handle threads manually on the lathe using the threading dial — requires coordinating carriage engagement and disengagement precisely to produce clean, consistent thread form.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <div class="step-title">Part Off &amp; Assemble</div>
+          <div class="step-desc">Parted the T-handle from stock, deburred all edges, and assembled the two-piece wrench for final inspection.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-grid">
+
+      <div class="gallery-item" onclick="openLightbox('machineshop/machineshop_tap_wrench_assembled.jpg', 'Finished tap wrench — assembled and ready for use. Both pieces machined from raw bar stock on a manual lathe.')">
+        <img src="machineshop/machineshop_tap_wrench_assembled.jpg" alt="Finished tap wrench assembled">
+        <div class="gallery-caption">Finished tap wrench — assembled</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('machineshop/machineshop_tap_wrench_disassembled.jpg', 'Tap wrench disassembled — showing the threaded T-handle and the bored body separately.')">
+        <img src="machineshop/machineshop_tap_wrench_disassembled.jpg" alt="Tap wrench disassembled showing T-handle and body">
+        <div class="gallery-caption">Disassembled — T-handle and body</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('machineshop/machineshop_tap_wrench_in_hand.jpg', 'Tap wrench in hand — showing finished scale and grip.')">
+        <img src="machineshop/machineshop_tap_wrench_in_hand.jpg" alt="Tap wrench held in hand showing scale">
+        <div class="gallery-caption">Finished part — scale reference</div>
+      </div>
+
+    </div>
+
+  </div><!-- end section 1 -->
+
+  <!-- ============================================== -->
+  <!-- SECTION 2: NESTED CUBE                         -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Project Two · CNC Mill</p>
+    <h2 class="section-title">Nested Cube</h2>
+    <div class="divider"></div>
+
+    <p class="body-text">
+      The nested cube is a classic machining demonstration: a series of concentric cubes carved from a single billet of aluminum on a <strong>CNC mill</strong>, each inner cube free to rotate inside the one surrounding it. What makes it challenging is that once material is removed, there's no correcting it — the machining sequence has to be planned so that inner features are cut before the surrounding material is removed, and every inside corner has to be cleared to spec before the next cube is freed.
+    </p>
+    <p class="body-text">
+      The project required writing <strong>G-code</strong> for each operation, setting work offsets, and managing tool changes between the roughing and finishing passes. The final result is a single piece with three independently articulating cubes — no assembly, no fasteners, milled from one block.
+    </p>
+
+    <div class="gallery-grid">
+
+      <div class="gallery-item" onclick="openLightbox('machineshop/machineshop_nested_cube_iso.jpg', 'Nested cube — isometric view showing three concentric cubes milled from a single aluminum billet.')">
+        <img src="machineshop/machineshop_nested_cube_iso.jpg" alt="Nested cube isometric view">
+        <div class="gallery-caption">Nested cube — isometric view</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('machineshop/machineshop_nested_cube_angle.jpg', 'Angled view showing the inner cubes articulating inside the outer frame.')">
+        <img src="machineshop/machineshop_nested_cube_angle.jpg" alt="Nested cube angled view showing inner cubes">
+        <div class="gallery-caption">Inner cubes — articulating freely</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('machineshop/machineshop_nested_cube_top.jpg', 'Top-down view of the nested cube showing the concentric geometry.')">
+        <img src="machineshop/machineshop_nested_cube_top.jpg" alt="Nested cube top-down view">
+        <div class="gallery-caption">Top-down — concentric geometry</div>
+      </div>
+
+    </div>
+
+  </div><!-- end section 2 -->
+
+</div><!-- end content-wrap -->
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <div class="lightbox-content" onclick="event.stopPropagation()">
+    <img id="lightbox-img" src="" alt="Enlarged image">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Hylton Reber</span>
+  <a href="index.html#projects">← Back to all projects</a>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function openLightbox(src, caption) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-caption').textContent = caption || '';
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+  }
+</script>
+
+</body>
+</html>
