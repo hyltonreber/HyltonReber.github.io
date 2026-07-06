@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pendulum Feedback Control – Hylton Reber</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  img { max-width: 100%; display: block; }
+
+  :root {
+    --navy: #0D1B2A;
+    --navy-mid: #152436;
+    --offwhite: #F0EFE9;
+    --steel: #4A7FA5;
+    --amber: #C8883A;
+    --muted: #8A9BAD;
+    --card-bg: #192C3E;
+  }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
+
+  body {
+    background: var(--navy);
+    color: var(--offwhite);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    width: 100%; max-width: 100vw;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background: rgba(13,27,42,0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(74,127,165,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--offwhite);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--amber); }
+
+  .back-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--amber); }
+
+  /* HERO */
+  .project-hero {
+    width: 100%; max-width: 100vw;
+    padding: 9rem 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(74,127,165,0.15);
+    background: var(--navy);
+  }
+
+  .project-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(74,127,165,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,127,165,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .hero-inner { position: relative; max-width: 900px; }
+
+  .project-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+    color: var(--offwhite);
+  }
+
+  .project-subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .meta-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .meta-value {
+    font-size: 0.85rem;
+    color: var(--offwhite);
+    font-weight: 500;
+  }
+
+  /* CONTENT */
+  .content-wrap {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 3rem;
+    box-sizing: border-box;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 5rem 0;
+    border-bottom: 1px solid rgba(74,127,165,0.1);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    color: var(--offwhite);
+  }
+
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: var(--amber);
+    margin-bottom: 2rem;
+  }
+
+  .body-text {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.85;
+    max-width: 760px;
+  }
+  .body-text + .body-text { margin-top: 1rem; }
+  .body-text strong { color: var(--offwhite); font-weight: 500; }
+
+  /* TWO-COL */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+  .two-col > div { min-width: 0; }
+
+  /* ROLE CHIPS */
+  .role-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+
+  .chip {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--steel);
+    border: 1px solid rgba(74,127,165,0.4);
+    padding: 0.3rem 0.75rem;
+  }
+
+  /* STAT BOXES */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .stat-box {
+    background: var(--card-bg);
+    border: 1px solid rgba(74,127,165,0.15);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--offwhite);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+  .stat-num span { color: var(--amber); }
+  .stat-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--card-bg);
+    border-left: 3px solid var(--amber);
+    padding: 1.5rem 2rem;
+    margin-top: 2rem;
+    max-width: 760px;
+  }
+
+  .callout-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .callout p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+  .callout p + p { margin-top: 0.75rem; }
+  .callout p strong { color: var(--offwhite); font-weight: 500; }
+
+  /* click-to-enlarge */
+  .clickable-img { cursor: pointer; transition: opacity 0.2s ease; }
+  .clickable-img:hover { opacity: 0.88; }
+
+  /* IMAGES */
+  .img-full {
+    width: 100%;
+    margin-top: 2.5rem;
+    border: 1px solid rgba(74,127,165,0.2);
+    display: block;
+  }
+
+  .img-caption {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-top: 0.6rem;
+    font-style: italic;
+  }
+
+  .img-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .img-grid-item img {
+    width: 100%;
+    border: 1px solid rgba(74,127,165,0.2);
+    display: block;
+  }
+
+  /* GALLERY */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(74,127,165,0.15);
+    cursor: pointer;
+    aspect-ratio: 4 / 3;
+    background: #0a1420;
+  }
+
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-item.fit img { object-fit: contain; }
+
+  .gallery-item:hover img { transform: scale(1.08); }
+  .gallery-item.fit:hover img { transform: scale(1.03); }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(13,27,42,0.95), transparent);
+    color: var(--offwhite);
+    font-size: 0.75rem;
+    padding: 1.5rem 0.85rem 0.6rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .gallery-item:hover .gallery-caption { opacity: 1; }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8,14,22,0.92);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+  }
+
+  .lightbox.active { display: flex; }
+
+  .lightbox-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 80vh;
+    border: 1px solid rgba(74,127,165,0.3);
+    display: block;
+  }
+
+  .lightbox-caption {
+    color: var(--offwhite);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 1rem;
+    max-width: 70ch;
+    line-height: 1.5;
+  }
+  .lightbox-caption:empty { margin-top: 0; }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 2rem;
+    color: var(--offwhite);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 1.5rem 3rem;
+    border-top: 1px solid rgba(74,127,165,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  footer a { color: var(--steel); text-decoration: none; }
+  footer a:hover { color: var(--amber); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* === MOBILE RESPONSIVE === */
+  @media (max-width: 900px) {
+    .project-hero { padding: 7rem 1.25rem 3rem; }
+    .meta-row { gap: 1.25rem; }
+
+    section, .section { padding: 3rem 0; }
+    .content-wrap { padding: 0 1.25rem; }
+
+    .two-col {
+      grid-template-columns: 1fr !important;
+      gap: 2rem;
+    }
+
+    .img-grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    .stat-row {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">H<span>.</span>REBER</a>
+  <a href="index.html#projects" class="back-link">← Back to Projects</a>
+</nav>
+
+<!-- ============================================== -->
+<!-- HERO                                           -->
+<!-- ============================================== -->
+<div class="project-hero">
+  <div class="hero-inner">
+
+    <p class="project-tag">Controls · ME 313</p>
+
+    <h1 class="project-title">Pendulum<br>Feedback Control<br>Project</h1>
+
+    <p class="project-subtitle">
+      Designed and tuned a closed-loop feedback controller for an Arduino-driven pendulum — fusing accelerometer and gyroscope signals through a complementary filter, then iteratively tuning PD gains to hit a target overshoot response and a fast, smooth settling response.
+    </p>
+
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="meta-label">Course</div>
+        <div class="meta-value">ME 313 — Control Systems</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Platform</div>
+        <div class="meta-value">Arduino</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Tools</div>
+        <div class="meta-value">Arduino · MATLAB · Simulink</div>
+      </div>
+    </div>
+
+    <img
+      src="pendulum/pendulum_tuned_controller.gif"
+      alt="Pendulum tuned controller response — looping animation"
+      style="margin-top:2rem; max-width:360px; border:1px solid rgba(74,127,165,0.2);"
+    >
+
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- ============================================== -->
+  <!-- APPROACH SECTION                               -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Approach</p>
+    <h2 class="section-title">Sensor Fusion &amp; Gain Tuning</h2>
+    <div class="divider"></div>
+
+    <p class="body-text">
+      The pendulum's angle was estimated by fusing an accelerometer and a gyroscope using a <strong>complementary filter</strong> with a weighting constant of <strong>c = 0.9</strong>. The accelerometer reading is accurate at low frequencies but noisy at high frequencies; the gyroscope is accurate at high frequencies but drifts over time. The complementary filter blends them: <strong>θ = c · (θ + ω · dt) + (1 − c) · θ_accel</strong>, giving a clean, drift-free angle estimate that the controller could act on.
+    </p>
+    <p class="body-text">
+      With a stable angle estimate in hand, the controller was tuned in two phases — first to hit a specific overshoot target, then to produce the cleanest, fastest settling response possible.
+    </p>
+
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-num">0<span>.9</span></div>
+        <div class="stat-label">Complementary Filter Constant (c)</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">2<span> targets</span></div>
+        <div class="stat-label">Overshoot &amp; Tuned Response</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">K<span>d</span> = 4</div>
+        <div class="stat-label">Tuned Controller Derivative Gain</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">K<span>p</span> = 0.225</div>
+        <div class="stat-label">Tuned Controller Proportional Gain</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Overshoot Controller</div>
+      <p>
+        Target: <strong>50% overshoot</strong>. Gains found: <strong>k<sub>d</sub> = 2.725, k<sub>p</sub> = 0</strong>. With only derivative action, the controller damps the pendulum's natural tendency to oscillate but provides no restoring force toward the setpoint — producing the clean overshoot shape with no steady-state correction.
+      </p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Tuned Controller</div>
+      <p>
+        Target: fast, smooth settling with minimal overshoot. Gains found: <strong>k<sub>d</sub> = 4, k<sub>p</sub> = 0.225</strong>. Adding proportional gain pulls the pendulum toward the setpoint while the higher derivative gain suppresses the oscillation — yielding a crisp step response that settles quickly without ringing.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================== -->
+  <!-- SYSTEM MODELING SECTION                        -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">System Identification</p>
+    <h2 class="section-title">Modeling the Pendulum</h2>
+    <div class="divider"></div>
+
+    <p class="body-text">
+      Before tuning gains, the pendulum's dynamics had to be characterized. A second-order transfer function was fit to the experimental step response data by matching the simulated response to observed behavior. The identified parameters were a <strong>damping ratio ζ = 0.1</strong>, a <strong>natural frequency ω<sub>n</sub> = 14 rad/s</strong>, and an <strong>adjusted static gain of 0.565</strong>. These values were used to build the simulation model that gain tuning was tested against before being applied to the physical rig.
+    </p>
+
+    <div class="img-grid">
+      <div class="img-grid-item">
+        <img
+          src="pendulum/pendulum_static_gain_plot.png"
+          alt="Static gain plot for the pendulum system"
+          class="clickable-img"
+          onclick="openLightbox('pendulum/pendulum_static_gain_plot.png', 'Static gain plot — used to determine the adjusted static gain of 0.565 from the experimental steady-state response.')"
+        >
+        <p class="img-caption">Static gain plot — adjusted static gain = 0.565.</p>
+      </div>
+      <div class="img-grid-item">
+        <img
+          src="pendulum/pendulum_transient_response_plot.png"
+          alt="Transient response fit: simulated vs experimental"
+          class="clickable-img"
+          onclick="openLightbox('pendulum/pendulum_transient_response_plot.png', 'Simulated transient response fit to experimental data — ζ = 0.1, ωn = 14 rad/s. The model closely matches the physical system\'s oscillation and decay rate.')"
+        >
+        <p class="img-caption">Transient response fit — ζ = 0.1, ω<sub>n</sub> = 14 rad/s.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================== -->
+  <!-- RESULTS SECTION                                -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Results</p>
+    <h2 class="section-title">Controller Responses</h2>
+    <div class="divider"></div>
+
+    <p class="body-text">
+      Both controllers were tested on the physical pendulum rig. The animations below show the step response for each — the overshoot controller on the left, the tuned controller on the right.
+    </p>
+
+    <div class="img-grid">
+      <div class="img-grid-item">
+        <img
+          src="pendulum/pendulum_overshoot_controller.gif"
+          alt="50% overshoot controller response"
+          class="clickable-img"
+          onclick="openLightbox('pendulum/pendulum_overshoot_controller.gif', '50% Overshoot Response — kd = 2.725, kp = 0. Pure derivative control produces a controlled overshoot with no steady-state error correction.')"
+        >
+        <p class="img-caption">50% Overshoot Response — k<sub>d</sub> = 2.725, k<sub>p</sub> = 0.</p>
+      </div>
+      <div class="img-grid-item">
+        <img
+          src="pendulum/pendulum_tuned_controller.gif"
+          alt="Tuned controller response"
+          class="clickable-img"
+          onclick="openLightbox('pendulum/pendulum_tuned_controller.gif', 'Tuned Response — kd = 4, kp = 0.225. Adding proportional gain and increasing derivative action yields a fast, smooth step response with minimal overshoot.')"
+        >
+        <p class="img-caption">Tuned Response — k<sub>d</sub> = 4, k<sub>p</sub> = 0.225.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================== -->
+  <!-- REFLECTION SECTION                             -->
+  <!-- ============================================== -->
+  <div class="section reveal">
+    <p class="section-label">Reflection</p>
+    <h2 class="section-title">What I Learned</h2>
+    <div class="divider"></div>
+
+    <p class="body-text">
+      Most of the non-trivial work in this project happened at the boundary between the simulation and the physical rig. Gain values that produced clean responses in simulation would sometimes cause the motor to jitter or oscillate on the actual hardware — a reminder that a model is always a simplification, and that noise, motor dead-band, and sensor quantization don't show up in a transfer function. Tuning on the physical system meant learning to read what the rig was telling you: whether a twitch was controller instability, electrical noise, or mechanical play. Getting the complementary filter constant right was similarly iterative — too much gyroscope weighting and the angle estimate drifted; too much accelerometer weighting and it was too noisy to control. The final values came from observation, not from first principles alone.
+    </p>
+
+  </div>
+
+</div><!-- end content-wrap -->
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <div class="lightbox-content" onclick="event.stopPropagation()">
+    <img id="lightbox-img" src="" alt="Enlarged image">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Hylton Reber</span>
+  <a href="index.html#projects">← Back to all projects</a>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function openLightbox(src, caption) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-caption').textContent = caption || '';
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+  }
+</script>
+
+</body>
+</html>
