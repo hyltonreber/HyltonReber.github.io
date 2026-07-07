@@ -259,6 +259,44 @@
 
   .about-text p strong { color: var(--offwhite); font-weight: 500; }
 
+  .hero-docs {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .hero-docs a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
+  .hero-docs a:hover { color: var(--offwhite); }
+
+  .values-block {
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(74,127,165,0.15);
+  }
+  .values-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--steel);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+  .values-intro {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  .value-item {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid rgba(74,127,165,0.08);
+  }
+  .value-item:last-child { border-bottom: none; }
+  .value-title { color: var(--amber); font-weight: 600; font-style: normal; }
+
   .certs { display: flex; flex-direction: column; gap: 1rem; }
 
   .cert-item {
@@ -492,6 +530,7 @@
       <a href="#projects" class="btn-primary">View Projects</a>
       <a href="resume.pdf" class="btn-outline">Download Resume</a>
     </div>
+    <p class="hero-docs">Also available: <a href="work-history.pdf">Complete Work History</a> · <a href="transcript.pdf">Unofficial Transcript</a></p>
   </div>
   <div class="hero-stats">
     <div>
@@ -520,6 +559,14 @@
         <p>I graduated from the <strong>University of Idaho</strong> in May 2025 with a B.S. in Mechanical Engineering and an Aerospace Engineering Academic Certificate. My coursework spanned thermodynamics, fluid mechanics, fatigue &amp; fracture mechanics, gas dynamics, and turbomachinery.</p>
         <p>My capstone project with <strong>Hyster-Yale</strong> had me building a physics-based modal testing rig — programming Arduino accelerometers in C++, executing a 38-node test procedure, and running FFT analysis in MATLAB to isolate resonance frequencies in an overhead guard.</p>
         <p>Outside the lab, I co-founded <strong>Axes &amp; Axles LLC</strong> to compete in the Red Bull Soapbox Race Denver 2026 — designing and fabricating a full vehicle from the ground up and engineering a field replacement brake system 24 hours before competition.</p>
+        <div class="values-block">
+          <p class="values-label">What I Stand For</p>
+          <p class="values-intro">These come from two places that shaped how I lead and work: Boy Scouts, where I made Eagle, and Phi Kappa Tau, where I served in leadership. Four ideas carried through everything since.</p>
+          <div class="value-item"><strong class="value-title">Integrity</strong> — Honest work whether or not anyone checks: closing sales honestly, reporting test data as-is.</div>
+          <div class="value-item"><strong class="value-title">Service</strong> — Engineering exists to help people. Outdoor trips, the climbing center, the Eagle project display case — same instinct, different scale.</div>
+          <div class="value-item"><strong class="value-title">Ethical Leadership</strong> — Lead from the front. Co-founding the company and rebuilding the brake system 24 hours before race day both came from the same place.</div>
+          <div class="value-item"><strong class="value-title">Continuous Learning</strong> — Chase mastery. The CSWE, the FE exam, and teaching myself the code behind this site are the same habit.</div>
+        </div>
       </div>
       <div class="certs">
         <a href="https://www.credly.com/badges/32e2e253-3652-4bc5-922f-1d1d566518d0/linked_in" target="_blank" rel="noopener" class="cert-item" style="text-decoration:none; cursor:pointer;">
