@@ -479,6 +479,26 @@
     cursor: pointer;
     line-height: 1;
   }
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    user-select: none;
+    transition: color 0.2s ease;
+    z-index: 10;
+  }
+  .lightbox-arrow:hover { color: var(--amber); }
+  .lightbox-arrow-left { left: 1rem; }
+  .lightbox-arrow-right { right: 1rem; }
+
+  @media (max-width: 640px) {
+    .lightbox-arrow { font-size: 2rem; padding: 0.5rem; }
+  }
 
   /* UNCERTAINTY TABLE */
   .data-table {
@@ -633,7 +653,7 @@
       </div>
       <div>
         <!-- EDIT: photo + caption next to overview text -->
-        <img src="refrigeration/refrigeration_rig_full_angle_1.jpg" alt="Scott Model 9086 refrigeration rig, full view" class="clickable-img" onclick="openLightbox('refrigeration/refrigeration_rig_full_angle_1.jpg', 'Scott Air Conditioning and Refrigeration Education System Model 9086 (Technovate Inc.) — the R-134a test rig used for all experiments.')" style="width:100%; border:1px solid rgba(74,127,165,0.2); display:block;">
+        <img src="refrigeration/refrigeration_rig_full_angle_1.jpg" alt="Scott Model 9086 refrigeration rig, full view" class="clickable-img" data-caption="Scott Air Conditioning and Refrigeration Education System Model 9086 (Technovate Inc.) — the R-134a test rig used for all experiments." style="width:100%; border:1px solid rgba(74,127,165,0.2); display:block;">
         <p class="img-caption">Scott Model 9086 — the R-134a vapor-compression rig used for all experiments.</p>
       </div>
     </div>
@@ -718,22 +738,22 @@
     <!-- Methodology supporting images -->
     <div class="img-grid" style="margin-top:3rem;">
       <div class="img-grid-item">
-        <img src="refrigeration/refrigeration_condenser_closeup.jpg" alt="Condenser coil close-up" class="clickable-img" onclick="openLightbox('refrigeration/refrigeration_condenser_closeup.jpg', 'Close-up of the condenser coil face — the measurement grid covered this area for both inlet and exit velocity readings.')">
+        <img src="refrigeration/refrigeration_condenser_closeup.jpg" alt="Condenser coil close-up" class="clickable-img" data-caption="Close-up of the condenser coil face — the measurement grid covered this area for both inlet and exit velocity readings.">
         <p class="img-caption">Condenser coil face — velocity measurement grid applied here for both inlet and exit.</p>
       </div>
       <div class="img-grid-item">
-        <img src="refrigeration/refrigeration_condenser_anemometer_measurement.jpg" alt="Anemometer measurement at the condenser exit" class="clickable-img" onclick="openLightbox('refrigeration/refrigeration_condenser_anemometer_measurement.jpg', 'Taking an anemometer reading at the condenser exit face — one of the 6 measurement points used to determine average exit air velocity.')">
+        <img src="refrigeration/refrigeration_condenser_anemometer_measurement.jpg" alt="Anemometer measurement at the condenser exit" class="clickable-img" data-caption="Taking an anemometer reading at the condenser exit face — one of the 6 measurement points used to determine average exit air velocity.">
         <p class="img-caption">Anemometer at the condenser exit — one of 6 measurement points used to determine average exit velocity.</p>
       </div>
     </div>
 
     <div class="img-grid" style="margin-top:1.5rem;">
       <div class="img-grid-item">
-        <img src="refrigeration/refrigeration_fan_closeup_thermocouples.jpg" alt="Thermocouples at the evaporator fan exit" class="clickable-img" onclick="openLightbox('refrigeration/refrigeration_fan_closeup_thermocouples.jpg', 'Thermocouples positioned at the evaporator fan exit — used to measure the air temperature drop across the evaporator coil.')">
+        <img src="refrigeration/refrigeration_fan_closeup_thermocouples.jpg" alt="Thermocouples at the evaporator fan exit" class="clickable-img" data-caption="Thermocouples positioned at the evaporator fan exit — used to measure the air temperature drop across the evaporator coil.">
         <p class="img-caption">Thermocouples at the evaporator fan exit — measuring the temperature drop across the evaporator.</p>
       </div>
       <div class="img-grid-item">
-        <img src="refrigeration/refrigeration_anemometer_device.jpg" alt="Digital anemometer used for velocity measurements" class="clickable-img" onclick="openLightbox('refrigeration/refrigeration_anemometer_device.jpg', 'The digital anemometer used throughout the experiment — velocity resolution was one of the primary uncertainty drivers.')">
+        <img src="refrigeration/refrigeration_anemometer_device.jpg" alt="Digital anemometer used for velocity measurements" class="clickable-img" data-caption="The digital anemometer used throughout the experiment — velocity resolution was one of the primary uncertainty drivers.">
         <p class="img-caption">Digital anemometer — velocity resolution was one of the primary contributors to measurement uncertainty.</p>
       </div>
     </div>
@@ -758,7 +778,7 @@
       src="refrigeration/refrigeration_heat_summary_chart_combined.jpg"
       alt="Heat absorbed vs. heat rejected by fan speed — combined summary chart"
       class="img-full clickable-img"
-      onclick="openLightbox('refrigeration/refrigeration_heat_summary_chart_combined.jpg', 'Summary chart: heat absorbed by the evaporator vs. heat rejected by the condenser, across all three fan speed experiments (LL, MM, HH). The reversal at higher fan speeds — where absorbed exceeds rejected — is the central finding.')"
+      data-caption="Summary chart: heat absorbed by the evaporator vs. heat rejected by the condenser, across all three fan speed experiments (LL, MM, HH). The reversal at higher fan speeds — where absorbed exceeds rejected — is the central finding."
     />
     <p class="img-caption">Fig. 1 — Heat absorbed (evaporator) vs. heat rejected (condenser) across all three fan speed settings. The reversal at higher speeds is the central finding.</p>
 
@@ -773,7 +793,7 @@
       src="refrigeration/refrigeration_heat_loss_trend_chart.jpg"
       alt="Heat loss trend across fan speed experiments"
       class="img-full clickable-img"
-      onclick="openLightbox('refrigeration/refrigeration_heat_loss_trend_chart.jpg', 'Heat loss trend — the gap between heat absorbed and heat rejected grows with fan speed, consistent with increased ambient heat loss from the uninsulated rig at higher airflow rates.')"
+      data-caption="Heat loss trend — the gap between heat absorbed and heat rejected grows with fan speed, consistent with increased ambient heat loss from the uninsulated rig at higher airflow rates."
     />
     <p class="img-caption">Fig. 2 — Heat loss trend: the gap between absorbed and rejected heat grows with fan speed, consistent with greater ambient losses at higher airflow.</p>
 
@@ -784,11 +804,11 @@
     <!-- Per-experiment charts -->
     <div class="img-grid" style="margin-top:1.5rem;">
       <div class="img-grid-item">
-        <img src="refrigeration/refrigeration_heat_absorbed_evaporator_chart.jpg" alt="Heat absorbed at the evaporator by experiment" class="clickable-img" onclick="openLightbox('refrigeration/refrigeration_heat_absorbed_evaporator_chart.jpg', 'Heat absorbed by the evaporator across all experiments — increases with fan speed as higher airflow enhances heat exchange.')">
+        <img src="refrigeration/refrigeration_heat_absorbed_evaporator_chart.jpg" alt="Heat absorbed at the evaporator by experiment" class="clickable-img" data-caption="Heat absorbed by the evaporator across all experiments — increases with fan speed as higher airflow enhances heat exchange.">
         <p class="img-caption">Heat absorbed at the evaporator by experiment — increases with fan speed.</p>
       </div>
       <div class="img-grid-item">
-        <img src="refrigeration/refrigeration_heat_rejected_condenser_chart.jpg" alt="Heat rejected at the condenser by experiment" class="clickable-img" onclick="openLightbox('refrigeration/refrigeration_heat_rejected_condenser_chart.jpg', 'Heat rejected at the condenser by experiment — rises with fan speed, but at a lower rate than evaporator absorption at medium and high speeds.')">
+        <img src="refrigeration/refrigeration_heat_rejected_condenser_chart.jpg" alt="Heat rejected at the condenser by experiment" class="clickable-img" data-caption="Heat rejected at the condenser by experiment — rises with fan speed, but at a lower rate than evaporator absorption at medium and high speeds.">
         <p class="img-caption">Heat rejected at the condenser by experiment — rises with fan speed, but below evaporator values at medium and high settings.</p>
       </div>
     </div>
@@ -807,7 +827,7 @@
       src="refrigeration/refrigeration_heat_chart_final_by_experiment.jpg"
       alt="Heat transfer results by experiment number"
       class="img-full clickable-img"
-      onclick="openLightbox('refrigeration/refrigeration_heat_chart_final_by_experiment.jpg', 'Final heat transfer results organized by experiment number — showing both evaporator and condenser heat rates across all runs.')"
+      data-caption="Final heat transfer results organized by experiment number — showing both evaporator and condenser heat rates across all runs."
     />
     <p class="img-caption">Fig. 3 — Heat transfer results by experiment number, showing evaporator and condenser heat rates across all runs.</p>
 
@@ -919,27 +939,27 @@
     <!-- EDIT: each .gallery-item = one photo. To add: copy a block, -->
     <!-- change the image filename (2 places) and the caption text.  -->
     <div class="gallery-grid">
-      <div class="gallery-item" onclick="openLightbox('refrigeration/refrigeration_rig_full_hero.jpg', 'Scott Model 9086 refrigeration education system — full view of the test rig')">
+      <div class="gallery-item" data-src="refrigeration/refrigeration_rig_full_hero.jpg" data-caption="Scott Model 9086 refrigeration education system — full view of the test rig">
         <img src="refrigeration/refrigeration_rig_full_hero.jpg" alt="Scott Model 9086 refrigeration rig, full view">
         <div class="gallery-caption">Scott Model 9086 — full rig view</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('refrigeration/refrigeration_dual_fan_assembly_wide.jpg', 'Dual-fan assembly on the rig — condenser and evaporator fans visible from the side')">
+      <div class="gallery-item" data-src="refrigeration/refrigeration_dual_fan_assembly_wide.jpg" data-caption="Dual-fan assembly on the rig — condenser and evaporator fans visible from the side">
         <img src="refrigeration/refrigeration_dual_fan_assembly_wide.jpg" alt="Dual fan assembly, wide view">
         <div class="gallery-caption">Dual-fan assembly — condenser and evaporator</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('refrigeration/refrigeration_fan_closeup_thermocouples.jpg', 'Thermocouples positioned at the evaporator fan exit for temperature measurement')">
+      <div class="gallery-item" data-src="refrigeration/refrigeration_fan_closeup_thermocouples.jpg" data-caption="Thermocouples positioned at the evaporator fan exit for temperature measurement">
         <img src="refrigeration/refrigeration_fan_closeup_thermocouples.jpg" alt="Fan close-up with thermocouples">
         <div class="gallery-caption">Thermocouple placement at the evaporator fan exit</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('refrigeration/refrigeration_condenser_closeup.jpg', 'Condenser coil face — the 6-point exit velocity measurement grid was applied here')">
+      <div class="gallery-item" data-src="refrigeration/refrigeration_condenser_closeup.jpg" data-caption="Condenser coil face — the 6-point exit velocity measurement grid was applied here">
         <img src="refrigeration/refrigeration_condenser_closeup.jpg" alt="Condenser coil close-up">
         <div class="gallery-caption">Condenser coil — velocity measurement face</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('refrigeration/refrigeration_anemometer_device.jpg', 'Digital anemometer used for all air velocity measurements at the condenser and evaporator')">
+      <div class="gallery-item" data-src="refrigeration/refrigeration_anemometer_device.jpg" data-caption="Digital anemometer used for all air velocity measurements at the condenser and evaporator">
         <img src="refrigeration/refrigeration_anemometer_device.jpg" alt="Digital anemometer device">
         <div class="gallery-caption">Digital anemometer used for velocity measurements</div>
       </div>
-      <div class="gallery-item fit" onclick="openLightbox('refrigeration/refrigeration_heat_summary_chart_combined.jpg', 'Summary chart: heat absorbed vs. heat rejected across all three fan speed settings')">
+      <div class="gallery-item fit" data-src="refrigeration/refrigeration_heat_summary_chart_combined.jpg" data-caption="Summary chart: heat absorbed vs. heat rejected across all three fan speed settings">
         <img src="refrigeration/refrigeration_heat_summary_chart_combined.jpg" alt="Heat absorbed vs rejected summary chart">
         <div class="gallery-caption">Heat absorbed vs. rejected — summary chart</div>
       </div>
@@ -952,6 +972,8 @@
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <span class="lightbox-arrow lightbox-arrow-left" onclick="lightboxPrev(event)">&lsaquo;</span>
+  <span class="lightbox-arrow lightbox-arrow-right" onclick="lightboxNext(event)">&rsaquo;</span>
   <div class="lightbox-content" onclick="event.stopPropagation()">
     <img id="lightbox-img" src="" alt="Enlarged image">
     <div class="lightbox-caption" id="lightbox-caption"></div>
@@ -970,14 +992,63 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  function openLightbox(src, caption) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox-caption').textContent = caption || '';
+  let currentGalleryItems = [];
+  let currentGalleryIndex = 0;
+
+  function getItemSrc(el) {
+    return el.tagName === 'IMG' ? el.src : (el.dataset.src || '');
+  }
+  function getItemCaption(el) {
+    return el.dataset.caption || '';
+  }
+
+  function showLightboxItem(index) {
+    const items = currentGalleryItems;
+    if (!items.length) return;
+    currentGalleryIndex = (index + items.length) % items.length;
+    const el = items[currentGalleryIndex];
+    document.getElementById('lightbox-img').src = getItemSrc(el);
+    document.getElementById('lightbox-caption').textContent = getItemCaption(el);
+    const multi = items.length > 1;
+    document.querySelectorAll('.lightbox-arrow').forEach(a => a.style.display = multi ? 'flex' : 'none');
+  }
+
+  function openLightbox(el) {
+    const group = el.closest('.gallery-grid, .img-grid');
+    currentGalleryItems = group
+      ? Array.from(group.querySelectorAll('.gallery-item[data-src], .clickable-img'))
+      : [el];
+    const index = currentGalleryItems.indexOf(el);
+    showLightboxItem(index >= 0 ? index : 0);
     document.getElementById('lightbox').classList.add('active');
   }
+
   function closeLightbox() {
     document.getElementById('lightbox').classList.remove('active');
   }
+
+  function lightboxNext(e) {
+    if (e) e.stopPropagation();
+    showLightboxItem(currentGalleryIndex + 1);
+  }
+
+  function lightboxPrev(e) {
+    if (e) e.stopPropagation();
+    showLightboxItem(currentGalleryIndex - 1);
+  }
+
+  document.addEventListener('click', (e) => {
+    const item = e.target.closest('.gallery-item[data-src], .clickable-img');
+    if (item) openLightbox(item);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'ArrowRight') lightboxNext();
+    if (e.key === 'ArrowLeft') lightboxPrev();
+    if (e.key === 'Escape') closeLightbox();
+  });
 </script>
 
 </body>

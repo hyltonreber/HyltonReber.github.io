@@ -396,6 +396,26 @@
     cursor: pointer;
     line-height: 1;
   }
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    user-select: none;
+    transition: color 0.2s ease;
+    z-index: 10;
+  }
+  .lightbox-arrow:hover { color: var(--amber); }
+  .lightbox-arrow-left { left: 1rem; }
+  .lightbox-arrow-right { right: 1rem; }
+
+  @media (max-width: 640px) {
+    .lightbox-arrow { font-size: 2rem; padding: 0.5rem; }
+  }
 
   /* FOOTER */
   footer {
@@ -554,7 +574,7 @@
           src="pendulum/pendulum_static_gain_plot.png"
           alt="Static gain plot for the pendulum system"
           class="clickable-img"
-          onclick="openLightbox('pendulum/pendulum_static_gain_plot.png', 'Static gain plot — used to determine the adjusted static gain of 0.565 from the experimental steady-state response.')"
+          data-caption="Static gain plot — used to determine the adjusted static gain of 0.565 from the experimental steady-state response."
         >
         <p class="img-caption">Static gain plot — adjusted static gain = 0.565.</p>
       </div>
@@ -563,7 +583,7 @@
           src="pendulum/pendulum_transient_response_plot.png"
           alt="Transient response fit: simulated vs experimental"
           class="clickable-img"
-          onclick="openLightbox('pendulum/pendulum_transient_response_plot.png', 'Simulated transient response fit to experimental data — ζ = 0.1, ωn = 14 rad/s. The model closely matches the physical system\'s oscillation and decay rate.')"
+          data-caption="Simulated transient response fit to experimental data — ζ = 0.1, ωn = 14 rad/s. The model closely matches the physical system's oscillation and decay rate."
         >
         <p class="img-caption">Transient response fit — ζ = 0.1, ω<sub>n</sub> = 14 rad/s.</p>
       </div>
@@ -589,7 +609,7 @@
           src="pendulum/pendulum_overshoot_controller.gif"
           alt="50% overshoot controller response"
           class="clickable-img"
-          onclick="openLightbox('pendulum/pendulum_overshoot_controller.gif', '50% Overshoot Response — kd = 2.725, kp = 0. Pure derivative control produces a controlled overshoot with no steady-state error correction.')"
+          data-caption="50% Overshoot Response — kd = 2.725, kp = 0. Pure derivative control produces a controlled overshoot with no steady-state error correction."
         >
         <p class="img-caption">50% Overshoot Response — k<sub>d</sub> = 2.725, k<sub>p</sub> = 0.</p>
       </div>
@@ -598,7 +618,7 @@
           src="pendulum/pendulum_tuned_controller.gif"
           alt="Tuned controller response"
           class="clickable-img"
-          onclick="openLightbox('pendulum/pendulum_tuned_controller.gif', 'Tuned Response — kd = 4, kp = 0.225. Adding proportional gain and increasing derivative action yields a fast, smooth step response with minimal overshoot.')"
+          data-caption="Tuned Response — kd = 4, kp = 0.225. Adding proportional gain and increasing derivative action yields a fast, smooth step response with minimal overshoot."
         >
         <p class="img-caption">Tuned Response — k<sub>d</sub> = 4, k<sub>p</sub> = 0.225.</p>
       </div>
@@ -625,6 +645,8 @@
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <span class="lightbox-arrow lightbox-arrow-left" onclick="lightboxPrev(event)">&lsaquo;</span>
+  <span class="lightbox-arrow lightbox-arrow-right" onclick="lightboxNext(event)">&rsaquo;</span>
   <div class="lightbox-content" onclick="event.stopPropagation()">
     <img id="lightbox-img" src="" alt="Enlarged image">
     <div class="lightbox-caption" id="lightbox-caption"></div>
@@ -642,14 +664,63 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  function openLightbox(src, caption) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox-caption').textContent = caption || '';
+  let currentGalleryItems = [];
+  let currentGalleryIndex = 0;
+
+  function getItemSrc(el) {
+    return el.tagName === 'IMG' ? el.src : (el.dataset.src || '');
+  }
+  function getItemCaption(el) {
+    return el.dataset.caption || '';
+  }
+
+  function showLightboxItem(index) {
+    const items = currentGalleryItems;
+    if (!items.length) return;
+    currentGalleryIndex = (index + items.length) % items.length;
+    const el = items[currentGalleryIndex];
+    document.getElementById('lightbox-img').src = getItemSrc(el);
+    document.getElementById('lightbox-caption').textContent = getItemCaption(el);
+    const multi = items.length > 1;
+    document.querySelectorAll('.lightbox-arrow').forEach(a => a.style.display = multi ? 'flex' : 'none');
+  }
+
+  function openLightbox(el) {
+    const group = el.closest('.gallery-grid, .img-grid');
+    currentGalleryItems = group
+      ? Array.from(group.querySelectorAll('.gallery-item[data-src], .clickable-img'))
+      : [el];
+    const index = currentGalleryItems.indexOf(el);
+    showLightboxItem(index >= 0 ? index : 0);
     document.getElementById('lightbox').classList.add('active');
   }
+
   function closeLightbox() {
     document.getElementById('lightbox').classList.remove('active');
   }
+
+  function lightboxNext(e) {
+    if (e) e.stopPropagation();
+    showLightboxItem(currentGalleryIndex + 1);
+  }
+
+  function lightboxPrev(e) {
+    if (e) e.stopPropagation();
+    showLightboxItem(currentGalleryIndex - 1);
+  }
+
+  document.addEventListener('click', (e) => {
+    const item = e.target.closest('.gallery-item[data-src], .clickable-img');
+    if (item) openLightbox(item);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'ArrowRight') lightboxNext();
+    if (e.key === 'ArrowLeft') lightboxPrev();
+    if (e.key === 'Escape') closeLightbox();
+  });
 </script>
 
 </body>

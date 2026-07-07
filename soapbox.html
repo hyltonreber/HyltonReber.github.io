@@ -381,6 +381,13 @@
     display: block;
   }
 
+  .img-grid-item img,
+  .img-single img {
+    max-height: 420px;
+    object-fit: cover;
+    object-position: center;
+  }
+
   .img-single .img-caption {
     margin-top: 0.6rem;
     text-align: center;
@@ -473,6 +480,26 @@
     font-size: 2rem;
     cursor: pointer;
     line-height: 1;
+  }
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    user-select: none;
+    transition: color 0.2s ease;
+    z-index: 10;
+  }
+  .lightbox-arrow:hover { color: var(--amber); }
+  .lightbox-arrow-left { left: 1rem; }
+  .lightbox-arrow-right { right: 1rem; }
+
+  @media (max-width: 640px) {
+    .lightbox-arrow { font-size: 2rem; padding: 0.5rem; }
   }
 
   /* FOOTER */
@@ -634,7 +661,7 @@
       </div>
       <div>
         <!-- EDIT: photo + caption next to overview text -->
-        <img src="soapbox/soapbox-frame-initial.jpg" alt="Bare chassis when the team received it" class="clickable-img" onclick="openLightbox('soapbox/soapbox-frame-initial.jpg', 'The chassis as received — starting point for the build.')" style="width:100%; border:1px solid rgba(74,127,165,0.2); display:block;">
+        <img src="soapbox/soapbox-frame-initial.jpg" alt="Bare chassis when the team received it" class="clickable-img" data-caption="The chassis as received — starting point for the build." style="width:100%; border:1px solid rgba(74,127,165,0.2); display:block;">
         <p class="img-caption">The chassis as received — starting point for the build.</p>
       </div>
     </div>
@@ -685,15 +712,15 @@
     <!-- Before / First rework / After image grid -->
     <div class="img-grid" style="grid-template-columns: repeat(3, 1fr);">
       <div class="img-grid-item">
-        <img src="soapbox/soapbox-front-initial.jpg" alt="Initial front suspension configuration" class="clickable-img" onclick="openLightbox('soapbox/soapbox-front-initial.jpg', 'Initial front suspension — first design mounted on the chassis.')">
+        <img src="soapbox/soapbox-front-initial.jpg" alt="Initial front suspension configuration" class="clickable-img" data-caption="Initial front suspension — first design mounted on the chassis.">
         <p class="img-caption">Initial front suspension — first design mounted on chassis.</p>
       </div>
       <div class="img-grid-item">
-        <img src="soapbox/soapbox-suspension-alt.jpg" alt="Front suspension first rework" class="clickable-img" onclick="openLightbox('soapbox/soapbox-suspension-alt.jpg', 'First rework — geometry issues here forced a second full rebuild.')">
+        <img src="soapbox/soapbox-suspension-alt.jpg" alt="Front suspension first rework" class="clickable-img" data-caption="First rework — geometry issues here forced a second full rebuild.">
         <p class="img-caption">First rework — geometry issues here forced a second full rebuild.</p>
       </div>
       <div class="img-grid-item">
-        <img src="soapbox/soapbox-suspension-final.jpg" alt="Final front suspension — race-day configuration" class="clickable-img" onclick="openLightbox('soapbox/soapbox-suspension-final.jpg', 'Final race-day front suspension — result of two full redesigns.')">
+        <img src="soapbox/soapbox-suspension-final.jpg" alt="Final front suspension — race-day configuration" class="clickable-img" data-caption="Final race-day front suspension — result of two full redesigns.">
         <p class="img-caption">Final front suspension — after two complete redesigns.</p>
       </div>
     </div>
@@ -728,11 +755,11 @@
     <!-- Steering fix images -->
     <div class="img-grid">
       <div class="img-grid-item">
-        <img src="soapbox/soapbox-steering-fix.jpg" alt="Corrected steering geometry after the inversion fix" class="clickable-img" onclick="openLightbox('soapbox/soapbox-steering-fix.jpg', 'Corrected steering geometry after the inversion fix — arm extension mounted behind the spindle.')">
+        <img src="soapbox/soapbox-steering-fix.jpg" alt="Corrected steering geometry after the inversion fix" class="clickable-img" data-caption="Corrected steering geometry after the inversion fix — arm extension mounted behind the spindle.">
         <p class="img-caption">Corrected steering geometry after the inversion fix.</p>
       </div>
       <div class="img-grid-item">
-        <img src="soapbox/soapbox-steering-arm.jpg" alt="Steering arm extension that reversed the linkage geometry" class="clickable-img" onclick="openLightbox('soapbox/soapbox-steering-arm.jpg', 'The steering arm extension — reversed the effective linkage geometry without a full rebuild, but reduced mechanical advantage in the process.')">
+        <img src="soapbox/soapbox-steering-arm.jpg" alt="Steering arm extension that reversed the linkage geometry" class="clickable-img" data-caption="The steering arm extension — reversed the effective linkage geometry without a full rebuild, but reduced mechanical advantage in the process.">
         <p class="img-caption">Steering arm extension — reversed the linkage geometry without a full rebuild.</p>
       </div>
     </div>
@@ -764,7 +791,7 @@
 
     <!-- Failed caliper image — shown near failure description -->
     <div class="img-single" style="margin-top:2rem;">
-      <img src="soapbox/soapbox-caliper-failed.jpg" alt="Failed hydraulic caliper pulled apart on race morning" class="clickable-img" onclick="openLightbox('soapbox/soapbox-caliper-failed.jpg', 'The failed hydraulic caliper, pulled apart during on-site troubleshooting on race morning — pistons not actuating.')">
+      <img src="soapbox/soapbox-caliper-failed.jpg" alt="Failed hydraulic caliper pulled apart on race morning" class="clickable-img" data-caption="The failed hydraulic caliper, pulled apart during on-site troubleshooting on race morning — pistons not actuating.">
       <p class="img-caption">The failed hydraulic caliper, pulled apart during race-morning troubleshooting.</p>
     </div>
 
@@ -775,16 +802,16 @@
     <!-- Improvised brake fix images -->
     <div class="img-grid" style="margin-top:1.5rem;">
       <div class="img-grid-item">
-        <img src="soapbox/soapbox-brake-fix-closeup.jpg" alt="Close-up of the improvised brake — welded pads on channel-lock plier jaws" class="clickable-img" onclick="openLightbox('soapbox/soapbox-brake-fix-closeup.jpg', 'Close-up of the improvised brake — brake pads welded directly onto the jaws of channel-lock pliers.')">
+        <img src="soapbox/soapbox-brake-fix-closeup.jpg" alt="Close-up of the improvised brake — welded pads on channel-lock plier jaws" class="clickable-img" data-caption="Close-up of the improvised brake — brake pads welded directly onto the jaws of channel-lock pliers.">
         <p class="img-caption">Brake pads welded onto channel-lock plier jaws — the core of the improvised system.</p>
       </div>
       <div class="img-grid-item">
-        <img src="soapbox/soapbox-brake-fix-mounted.jpg" alt="Improvised brake arm welded to the frame" class="clickable-img" onclick="openLightbox('soapbox/soapbox-brake-fix-mounted.jpg', 'One arm of the pliers welded to the frame — the fixed jaw of the improvised caliper.')">
+        <img src="soapbox/soapbox-brake-fix-mounted.jpg" alt="Improvised brake arm welded to the frame" class="clickable-img" data-caption="One arm of the pliers welded to the frame — the fixed jaw of the improvised caliper.">
         <p class="img-caption">Fixed arm welded to the frame — the anchor point for the improvised caliper.</p>
       </div>
     </div>
     <div class="img-single" style="margin-top:1.5rem;">
-      <img src="soapbox/soapbox-brake-fix-wide.jpg" alt="Full improvised brake mechanism in context with tools visible" class="clickable-img" onclick="openLightbox('soapbox/soapbox-brake-fix-wide.jpg', 'The full improvised brake mechanism in context — quick-grip clamp extensions welded to the actuating arm so the driver can reach it from the seat.')">
+      <img src="soapbox/soapbox-brake-fix-wide.jpg" alt="Full improvised brake mechanism in context with tools visible" class="clickable-img" data-caption="The full improvised brake mechanism in context — quick-grip clamp extensions welded to the actuating arm so the driver can reach it from the seat.">
       <p class="img-caption">Full mechanism in context — quick-grip extensions welded to the actuating arm for driver reach.</p>
     </div>
 
@@ -816,36 +843,36 @@
     <!-- EDIT: each .gallery-item = one photo. To add: copy a block, change -->
     <!-- the image filename (2 places) and the caption text.                -->
     <div class="gallery-grid">
-      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-team-pit-row.jpg', 'The Axes & Axles team at pit row before the race')">
+      <div class="gallery-item" data-src="soapbox/soapbox-team-pit-row.jpg" data-caption="The Axes & Axles team at pit row before the race">
         <img src="soapbox/soapbox-team-pit-row.jpg" alt="Team at pit row before the race">
         <div class="gallery-caption">The team at pit row before the race</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-gallery-pit-row.jpg', 'Vehicle staged at pit row before the run')">
+      <div class="gallery-item" data-src="soapbox/soapbox-gallery-pit-row.jpg" data-caption="Vehicle staged at pit row before the run">
         <img src="soapbox/soapbox-gallery-pit-row.jpg" alt="Vehicle at pit row">
         <div class="gallery-caption">Vehicle staged at pit row before the run</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-rear-initial.jpg', 'Rear frame during early stages of the build')">
+      <div class="gallery-item" data-src="soapbox/soapbox-rear-initial.jpg" data-caption="Rear frame during early stages of the build">
         <img src="soapbox/soapbox-rear-initial.jpg" alt="Rear frame during beginning of project">
         <div class="gallery-caption">Rear frame during early stages of the build</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-suspension-final-closeup.jpg', 'Final front suspension — close-up view')">
+      <div class="gallery-item" data-src="soapbox/soapbox-suspension-final-closeup.jpg" data-caption="Final front suspension — close-up view">
         <img src="soapbox/soapbox-suspension-final-closeup.jpg" alt="Final front suspension close-up">
         <div class="gallery-caption">Final front suspension — close-up</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-steering-123.jpg', 'Steering system assembly')">
+      <div class="gallery-item" data-src="soapbox/soapbox-steering-123.jpg" data-caption="Steering system assembly">
         <img src="soapbox/soapbox-steering-123.jpg" alt="Steering system assembly">
         <div class="gallery-caption">Steering system assembly</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-steering-top.jpg', 'Steering geometry — top-down view')">
+      <div class="gallery-item" data-src="soapbox/soapbox-steering-top.jpg" data-caption="Steering geometry — top-down view">
         <img src="soapbox/soapbox-steering-top.jpg" alt="Steering top view">
         <div class="gallery-caption">Steering geometry — top-down view</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-gallery-working.jpg', 'Hands-on fabrication during the build')">
+      <div class="gallery-item" data-src="soapbox/soapbox-gallery-working.jpg" data-caption="Hands-on fabrication during the build">
         <img src="soapbox/soapbox-gallery-working.jpg" alt="Working on the vehicle during fabrication">
         <div class="gallery-caption">Hands-on fabrication during the build</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-garage-workspace.jpg', 'The build space — tools laid out, team banner on the wall, and the cart up on sawhorses')">
+      <div class="gallery-item" data-src="soapbox/soapbox-garage-workspace.jpg" data-caption="The build space — tools laid out, team banner on the wall, and the cart up on sawhorses">
         <img src="soapbox/soapbox-garage-workspace.jpg" alt="Garage workspace with tools, team banner, and cart on sawhorses">
         <div class="gallery-caption">The build space — tools, team banner, and cart on sawhorses</div>
       </div>
@@ -891,6 +918,8 @@
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <span class="lightbox-arrow lightbox-arrow-left" onclick="lightboxPrev(event)">&lsaquo;</span>
+  <span class="lightbox-arrow lightbox-arrow-right" onclick="lightboxNext(event)">&rsaquo;</span>
   <div class="lightbox-content" onclick="event.stopPropagation()">
     <img id="lightbox-img" src="" alt="Enlarged image">
     <div class="lightbox-caption" id="lightbox-caption"></div>
@@ -909,14 +938,63 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  function openLightbox(src, caption) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox-caption').textContent = caption || '';
+  let currentGalleryItems = [];
+  let currentGalleryIndex = 0;
+
+  function getItemSrc(el) {
+    return el.tagName === 'IMG' ? el.src : (el.dataset.src || '');
+  }
+  function getItemCaption(el) {
+    return el.dataset.caption || '';
+  }
+
+  function showLightboxItem(index) {
+    const items = currentGalleryItems;
+    if (!items.length) return;
+    currentGalleryIndex = (index + items.length) % items.length;
+    const el = items[currentGalleryIndex];
+    document.getElementById('lightbox-img').src = getItemSrc(el);
+    document.getElementById('lightbox-caption').textContent = getItemCaption(el);
+    const multi = items.length > 1;
+    document.querySelectorAll('.lightbox-arrow').forEach(a => a.style.display = multi ? 'flex' : 'none');
+  }
+
+  function openLightbox(el) {
+    const group = el.closest('.gallery-grid, .img-grid');
+    currentGalleryItems = group
+      ? Array.from(group.querySelectorAll('.gallery-item[data-src], .clickable-img'))
+      : [el];
+    const index = currentGalleryItems.indexOf(el);
+    showLightboxItem(index >= 0 ? index : 0);
     document.getElementById('lightbox').classList.add('active');
   }
+
   function closeLightbox() {
     document.getElementById('lightbox').classList.remove('active');
   }
+
+  function lightboxNext(e) {
+    if (e) e.stopPropagation();
+    showLightboxItem(currentGalleryIndex + 1);
+  }
+
+  function lightboxPrev(e) {
+    if (e) e.stopPropagation();
+    showLightboxItem(currentGalleryIndex - 1);
+  }
+
+  document.addEventListener('click', (e) => {
+    const item = e.target.closest('.gallery-item[data-src], .clickable-img');
+    if (item) openLightbox(item);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'ArrowRight') lightboxNext();
+    if (e.key === 'ArrowLeft') lightboxPrev();
+    if (e.key === 'Escape') closeLightbox();
+  });
 </script>
 
 </body>

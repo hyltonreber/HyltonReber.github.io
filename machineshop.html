@@ -376,6 +376,26 @@
     cursor: pointer;
     line-height: 1;
   }
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    user-select: none;
+    transition: color 0.2s ease;
+    z-index: 10;
+  }
+  .lightbox-arrow:hover { color: var(--amber); }
+  .lightbox-arrow-left { left: 1rem; }
+  .lightbox-arrow-right { right: 1rem; }
+
+  @media (max-width: 640px) {
+    .lightbox-arrow { font-size: 2rem; padding: 0.5rem; }
+  }
 
   /* FOOTER */
   footer {
@@ -505,17 +525,17 @@
 
     <div class="gallery-grid">
 
-      <div class="gallery-item" onclick="openLightbox('machineshop/machineshop_tap_wrench_assembled.jpg', 'Finished tap wrench — assembled and ready for use. Both pieces machined from raw bar stock on a manual lathe.')">
+      <div class="gallery-item" data-src="machineshop/machineshop_tap_wrench_assembled.jpg" data-caption="Finished tap wrench — assembled and ready for use. Both pieces machined from raw bar stock on a manual lathe.">
         <img src="machineshop/machineshop_tap_wrench_assembled.jpg" alt="Finished tap wrench assembled">
         <div class="gallery-caption">Finished tap wrench — assembled</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('machineshop/machineshop_tap_wrench_disassembled.jpg', 'Tap wrench disassembled — showing the threaded T-handle and the bored body separately.')">
+      <div class="gallery-item" data-src="machineshop/machineshop_tap_wrench_disassembled.jpg" data-caption="Tap wrench disassembled — showing the threaded T-handle and the bored body separately.">
         <img src="machineshop/machineshop_tap_wrench_disassembled.jpg" alt="Tap wrench disassembled showing T-handle and body">
         <div class="gallery-caption">Disassembled — T-handle and body</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('machineshop/machineshop_tap_wrench_in_hand.jpg', 'Tap wrench in hand — showing finished scale and grip.')">
+      <div class="gallery-item" data-src="machineshop/machineshop_tap_wrench_in_hand.jpg" data-caption="Tap wrench in hand — showing finished scale and grip.">
         <img src="machineshop/machineshop_tap_wrench_in_hand.jpg" alt="Tap wrench held in hand showing scale">
         <div class="gallery-caption">Finished part — scale reference</div>
       </div>
@@ -541,17 +561,17 @@
 
     <div class="gallery-grid">
 
-      <div class="gallery-item" onclick="openLightbox('machineshop/machineshop_nested_cube_iso.jpg', 'Nested cube — isometric view showing three concentric cubes milled from a single aluminum billet.')">
+      <div class="gallery-item" data-src="machineshop/machineshop_nested_cube_iso.jpg" data-caption="Nested cube — isometric view showing three concentric cubes milled from a single aluminum billet.">
         <img src="machineshop/machineshop_nested_cube_iso.jpg" alt="Nested cube isometric view">
         <div class="gallery-caption">Nested cube — isometric view</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('machineshop/machineshop_nested_cube_angle.jpg', 'Angled view showing the inner cubes articulating inside the outer frame.')">
+      <div class="gallery-item" data-src="machineshop/machineshop_nested_cube_angle.jpg" data-caption="Angled view showing the inner cubes articulating inside the outer frame.">
         <img src="machineshop/machineshop_nested_cube_angle.jpg" alt="Nested cube angled view showing inner cubes">
         <div class="gallery-caption">Inner cubes — articulating freely</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('machineshop/machineshop_nested_cube_top.jpg', 'Top-down view of the nested cube showing the concentric geometry.')">
+      <div class="gallery-item" data-src="machineshop/machineshop_nested_cube_top.jpg" data-caption="Top-down view of the nested cube showing the concentric geometry.">
         <img src="machineshop/machineshop_nested_cube_top.jpg" alt="Nested cube top-down view">
         <div class="gallery-caption">Top-down — concentric geometry</div>
       </div>
@@ -565,6 +585,8 @@
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <span class="lightbox-arrow lightbox-arrow-left" onclick="lightboxPrev(event)">&lsaquo;</span>
+  <span class="lightbox-arrow lightbox-arrow-right" onclick="lightboxNext(event)">&rsaquo;</span>
   <div class="lightbox-content" onclick="event.stopPropagation()">
     <img id="lightbox-img" src="" alt="Enlarged image">
     <div class="lightbox-caption" id="lightbox-caption"></div>
@@ -582,14 +604,63 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  function openLightbox(src, caption) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox-caption').textContent = caption || '';
+  let currentGalleryItems = [];
+  let currentGalleryIndex = 0;
+
+  function getItemSrc(el) {
+    return el.tagName === 'IMG' ? el.src : (el.dataset.src || '');
+  }
+  function getItemCaption(el) {
+    return el.dataset.caption || '';
+  }
+
+  function showLightboxItem(index) {
+    const items = currentGalleryItems;
+    if (!items.length) return;
+    currentGalleryIndex = (index + items.length) % items.length;
+    const el = items[currentGalleryIndex];
+    document.getElementById('lightbox-img').src = getItemSrc(el);
+    document.getElementById('lightbox-caption').textContent = getItemCaption(el);
+    const multi = items.length > 1;
+    document.querySelectorAll('.lightbox-arrow').forEach(a => a.style.display = multi ? 'flex' : 'none');
+  }
+
+  function openLightbox(el) {
+    const group = el.closest('.gallery-grid, .img-grid');
+    currentGalleryItems = group
+      ? Array.from(group.querySelectorAll('.gallery-item[data-src], .clickable-img'))
+      : [el];
+    const index = currentGalleryItems.indexOf(el);
+    showLightboxItem(index >= 0 ? index : 0);
     document.getElementById('lightbox').classList.add('active');
   }
+
   function closeLightbox() {
     document.getElementById('lightbox').classList.remove('active');
   }
+
+  function lightboxNext(e) {
+    if (e) e.stopPropagation();
+    showLightboxItem(currentGalleryIndex + 1);
+  }
+
+  function lightboxPrev(e) {
+    if (e) e.stopPropagation();
+    showLightboxItem(currentGalleryIndex - 1);
+  }
+
+  document.addEventListener('click', (e) => {
+    const item = e.target.closest('.gallery-item[data-src], .clickable-img');
+    if (item) openLightbox(item);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'ArrowRight') lightboxNext();
+    if (e.key === 'ArrowLeft') lightboxPrev();
+    if (e.key === 'Escape') closeLightbox();
+  });
 </script>
 
 </body>

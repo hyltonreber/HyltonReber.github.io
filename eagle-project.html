@@ -347,6 +347,26 @@
     cursor: pointer;
     line-height: 1;
   }
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    user-select: none;
+    transition: color 0.2s ease;
+    z-index: 10;
+  }
+  .lightbox-arrow:hover { color: var(--amber); }
+  .lightbox-arrow-left { left: 1rem; }
+  .lightbox-arrow-right { right: 1rem; }
+
+  @media (max-width: 640px) {
+    .lightbox-arrow { font-size: 2rem; padding: 0.5rem; }
+  }
 
   /* FOOTER */
   footer {
@@ -494,67 +514,67 @@
     <!-- EDIT: each .gallery-item = one photo. Change image path and caption to update. -->
     <div class="gallery-grid">
 
-      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_group_shop.jpg', 'The team with the case body, fresh out of the clamps')">
+      <div class="gallery-item" data-src="eagle_project/eagle_project_group_shop.jpg" data-caption="The team with the case body, fresh out of the clamps">
         <img src="eagle_project/eagle_project_group_shop.jpg" alt="The team with the case body in the shop">
         <div class="gallery-caption">The team with the case body, fresh out of the clamps</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_glueup.jpg', 'Gluing up the frame')">
+      <div class="gallery-item" data-src="eagle_project/eagle_project_glueup.jpg" data-caption="Gluing up the frame">
         <img src="eagle_project/eagle_project_glueup.jpg" alt="Gluing up the frame">
         <div class="gallery-caption">Gluing up the frame</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_drilling_track.jpg', 'Drilling the glass door track hardware')">
+      <div class="gallery-item" data-src="eagle_project/eagle_project_drilling_track.jpg" data-caption="Drilling the glass door track hardware">
         <img src="eagle_project/eagle_project_drilling_track.jpg" alt="Drilling the glass door track hardware">
         <div class="gallery-caption">Drilling the glass door track hardware</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_track_detail.jpg', 'Drill press detail on the aluminum sliding track')">
+      <div class="gallery-item" data-src="eagle_project/eagle_project_track_detail.jpg" data-caption="Drill press detail on the aluminum sliding track">
         <img src="eagle_project/eagle_project_track_detail.jpg" alt="Drill press detail on the aluminum sliding track">
         <div class="gallery-caption">Drill press detail on the aluminum sliding track</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_staining.jpg', 'Applying the dark walnut stain')">
+      <div class="gallery-item" data-src="eagle_project/eagle_project_staining.jpg" data-caption="Applying the dark walnut stain">
         <img src="eagle_project/eagle_project_staining.jpg" alt="Applying the dark walnut stain">
         <div class="gallery-caption">Applying the dark walnut stain</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_sanding_shelves.jpg', 'All hands sanding the shelving stock')">
+      <div class="gallery-item" data-src="eagle_project/eagle_project_sanding_shelves.jpg" data-caption="All hands sanding the shelving stock">
         <img src="eagle_project/eagle_project_sanding_shelves.jpg" alt="All hands sanding the shelving stock">
         <div class="gallery-caption">All hands sanding the shelving stock</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_shelf_standards.jpg', 'Installing the adjustable shelf standards')">
+      <div class="gallery-item" data-src="eagle_project/eagle_project_shelf_standards.jpg" data-caption="Installing the adjustable shelf standards">
         <img src="eagle_project/eagle_project_shelf_standards.jpg" alt="Installing the adjustable shelf standards">
         <div class="gallery-caption">Installing the adjustable shelf standards</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_glass_track_install.jpg', 'Fitting the sliding glass door track')">
+      <div class="gallery-item" data-src="eagle_project/eagle_project_glass_track_install.jpg" data-caption="Fitting the sliding glass door track">
         <img src="eagle_project/eagle_project_glass_track_install.jpg" alt="Fitting the sliding glass door track">
         <div class="gallery-caption">Fitting the sliding glass door track</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_install_day.jpg', 'Move-in day — leveling the case before mounting it in the school hallway')">
+      <div class="gallery-item" data-src="eagle_project/eagle_project_install_day.jpg" data-caption="Move-in day — leveling the case before mounting it in the school hallway">
         <img src="eagle_project/eagle_project_install_day.jpg" alt="Move-in day, leveling the case in the hallway">
         <div class="gallery-caption">Move-in day — leveling the case before mounting</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_hallway_wide.jpg', 'Mounted and ready in the school hallway')">
+      <div class="gallery-item" data-src="eagle_project/eagle_project_hallway_wide.jpg" data-caption="Mounted and ready in the school hallway">
         <img src="eagle_project/eagle_project_hallway_wide.jpg" alt="Case mounted in the school hallway, wide view">
         <div class="gallery-caption">Mounted and ready in the school hallway</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_finished.jpg', 'The finished case, stocked with trophies')">
+      <div class="gallery-item" data-src="eagle_project/eagle_project_finished.jpg" data-caption="The finished case, stocked with trophies">
         <img src="eagle_project/eagle_project_finished.jpg" alt="The finished case stocked with trophies">
         <div class="gallery-caption">The finished case, stocked with trophies</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_finished_with_me.jpg', 'Installed and stocked with trophies — including a few I helped win myself')">
+      <div class="gallery-item" data-src="eagle_project/eagle_project_finished_with_me.jpg" data-caption="Installed and stocked with trophies — including a few I helped win myself">
         <img src="eagle_project/eagle_project_finished_with_me.jpg" alt="Finished case with Hylton">
         <div class="gallery-caption">Installed and stocked — including a few I helped win myself</div>
       </div>
 
-      <div class="gallery-item" onclick="openLightbox('eagle_project/eagle_project_with_coach.jpg', 'With my project coach after the install')">
+      <div class="gallery-item" data-src="eagle_project/eagle_project_with_coach.jpg" data-caption="With my project coach after the install">
         <img src="eagle_project/eagle_project_with_coach.jpg" alt="With project coach after the install">
         <div class="gallery-caption">With my project coach after the install</div>
       </div>
@@ -567,6 +587,8 @@
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <span class="lightbox-arrow lightbox-arrow-left" onclick="lightboxPrev(event)">&lsaquo;</span>
+  <span class="lightbox-arrow lightbox-arrow-right" onclick="lightboxNext(event)">&rsaquo;</span>
   <div class="lightbox-content" onclick="event.stopPropagation()">
     <img id="lightbox-img" src="" alt="Enlarged image">
     <div class="lightbox-caption" id="lightbox-caption"></div>
@@ -585,14 +607,63 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  function openLightbox(src, caption) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox-caption').textContent = caption || '';
+  let currentGalleryItems = [];
+  let currentGalleryIndex = 0;
+
+  function getItemSrc(el) {
+    return el.tagName === 'IMG' ? el.src : (el.dataset.src || '');
+  }
+  function getItemCaption(el) {
+    return el.dataset.caption || '';
+  }
+
+  function showLightboxItem(index) {
+    const items = currentGalleryItems;
+    if (!items.length) return;
+    currentGalleryIndex = (index + items.length) % items.length;
+    const el = items[currentGalleryIndex];
+    document.getElementById('lightbox-img').src = getItemSrc(el);
+    document.getElementById('lightbox-caption').textContent = getItemCaption(el);
+    const multi = items.length > 1;
+    document.querySelectorAll('.lightbox-arrow').forEach(a => a.style.display = multi ? 'flex' : 'none');
+  }
+
+  function openLightbox(el) {
+    const group = el.closest('.gallery-grid, .img-grid');
+    currentGalleryItems = group
+      ? Array.from(group.querySelectorAll('.gallery-item[data-src], .clickable-img'))
+      : [el];
+    const index = currentGalleryItems.indexOf(el);
+    showLightboxItem(index >= 0 ? index : 0);
     document.getElementById('lightbox').classList.add('active');
   }
+
   function closeLightbox() {
     document.getElementById('lightbox').classList.remove('active');
   }
+
+  function lightboxNext(e) {
+    if (e) e.stopPropagation();
+    showLightboxItem(currentGalleryIndex + 1);
+  }
+
+  function lightboxPrev(e) {
+    if (e) e.stopPropagation();
+    showLightboxItem(currentGalleryIndex - 1);
+  }
+
+  document.addEventListener('click', (e) => {
+    const item = e.target.closest('.gallery-item[data-src], .clickable-img');
+    if (item) openLightbox(item);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'ArrowRight') lightboxNext();
+    if (e.key === 'ArrowLeft') lightboxPrev();
+    if (e.key === 'Escape') closeLightbox();
+  });
 </script>
 
 </body>

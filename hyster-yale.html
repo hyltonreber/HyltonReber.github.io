@@ -670,6 +670,26 @@
     cursor: pointer;
     line-height: 1;
   }
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    user-select: none;
+    transition: color 0.2s ease;
+    z-index: 10;
+  }
+  .lightbox-arrow:hover { color: var(--amber); }
+  .lightbox-arrow-left { left: 1rem; }
+  .lightbox-arrow-right { right: 1rem; }
+
+  @media (max-width: 640px) {
+    .lightbox-arrow { font-size: 2rem; padding: 0.5rem; }
+  }
 
   /* IMAGES */
   .img-full {
@@ -1024,7 +1044,7 @@
       </div>
       <div>
         <!-- EDIT: photo + caption next to "My Role" text -->
-        <img src="hyster-yale/hyster-yale-test-setup.jpg" alt="Accelerometer mounted on 3D-printed holder, wired to Arduino" class="clickable-img" onclick="openLightbox('hyster-yale/hyster-yale-test-setup.jpg', 'Accelerometer mounted on a 3D-printed holder, wired to the Arduino DAQ.')" style="width:100%; border:1px solid rgba(74,127,165,0.2); border-radius:20px; display:block;">
+        <img src="hyster-yale/hyster-yale-test-setup.jpg" alt="Accelerometer mounted on 3D-printed holder, wired to Arduino" class="clickable-img" data-caption="Accelerometer mounted on a 3D-printed holder, wired to the Arduino DAQ." style="width:100%; border:1px solid rgba(74,127,165,0.2); border-radius:20px; display:block;">
         <p class="img-caption">The data acquisition hardware — ICM-20649 accelerometer on a custom 3D-printed mount, wired to the Arduino used for register-level sensor configuration.</p>
       </div>
     </div>
@@ -1101,7 +1121,7 @@
       <div class="pipeline-grid">
         <div class="pipeline-step">
           <div class="pipeline-num">01</div>
-          <img src="hyster-yale/hyster-yale-raw-data.png" alt="Raw time and acceleration data in Excel" class="pipeline-img clickable-img" onclick="openLightbox('hyster-yale/hyster-yale-raw-data.png', 'Each hammer strike was logged as raw time-vs-acceleration data across X, Y, and Z axes, recorded straight from the Arduino serial monitor into Excel.')">
+          <img src="hyster-yale/hyster-yale-raw-data.png" alt="Raw time and acceleration data in Excel" class="pipeline-img clickable-img" data-caption="Each hammer strike was logged as raw time-vs-acceleration data across X, Y, and Z axes, recorded straight from the Arduino serial monitor into Excel.">
           <div class="pipeline-title">Collect Raw Acceleration Data</div>
           <div class="pipeline-desc">Each hammer strike was logged as raw time-vs-acceleration data across X, Y, and Z axes, recorded straight from the Arduino serial monitor into Excel.</div>
         </div>
@@ -1110,7 +1130,7 @@
 
         <div class="pipeline-step">
           <div class="pipeline-num">02</div>
-          <img src="hyster-yale/hyster-yale-accel-plot.png" alt="Acceleration vs time plot" class="pipeline-img clickable-img" onclick="openLightbox('hyster-yale/hyster-yale-accel-plot.png', 'Raw values were reoriented to a universal frame coordinate system and plotted as acceleration vs. time \u2014 one plot per node, direction, and axis (38 \u00d7 6 subplots).')">
+          <img src="hyster-yale/hyster-yale-accel-plot.png" alt="Acceleration vs time plot" class="pipeline-img clickable-img" data-caption="Raw values were reoriented to a universal frame coordinate system and plotted as acceleration vs. time — one plot per node, direction, and axis (38 × 6 subplots).">
           <div class="pipeline-title">Plot Relative to Frame Axes</div>
           <div class="pipeline-desc">Raw values were reoriented to a universal frame coordinate system and plotted as acceleration vs. time — one plot per node, direction, and axis (38 × 6 subplots).</div>
         </div>
@@ -1119,7 +1139,7 @@
 
         <div class="pipeline-step">
           <div class="pipeline-num">03</div>
-          <img src="hyster-yale/hyster-yale-freq-plot.png" alt="FFT frequency spectrum plot" class="pipeline-img clickable-img" onclick="openLightbox('hyster-yale/hyster-yale-freq-plot.png', 'A Fast Fourier Transform converted each time-domain signal into a frequency spectrum, revealing which frequencies the structure responded to most strongly.')">
+          <img src="hyster-yale/hyster-yale-freq-plot.png" alt="FFT frequency spectrum plot" class="pipeline-img clickable-img" data-caption="A Fast Fourier Transform converted each time-domain signal into a frequency spectrum, revealing which frequencies the structure responded to most strongly.">
           <div class="pipeline-title">Apply FFT</div>
           <div class="pipeline-desc">A Fast Fourier Transform converted each time-domain signal into a frequency spectrum, revealing which frequencies the structure responded to most strongly.</div>
         </div>
@@ -1216,7 +1236,8 @@
         id="mode-viewer-img"
         src="hyster-yale/hyster-yale-mode1.gif"
         alt="Ansys Modal animation — Mode 1, 19.29 Hz"
-        onclick="openLightbox(this.src, document.getElementById('mode-viewer-desc').textContent)"
+        class="clickable-img"
+        data-caption="Total deformation max of 0.110 m, concentrated in the roof structure — the frame's lowest-frequency bending mode."
       >
       <div class="mode-viewer-caption">
         <div class="mode-freq-line">Mode 1 — <span>19.29 Hz</span></div>
@@ -1243,7 +1264,7 @@
       src="hyster-yale/hyster-yale-initial-histogram.jpeg"
       alt="Initial Data — Combined Histogram of All Peak Frequencies"
       class="img-full clickable-img"
-      onclick="openLightbox('hyster-yale/hyster-yale-initial-histogram.jpeg', 'Fig. 1 \u2014 Initial OHG: Combined histogram of peak frequencies across all 38 nodes. Dominant peaks cluster near engine frequencies (26.66 Hz, 66.66 Hz, 80 Hz). Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly.')"
+      data-caption="Fig. 1 — Initial OHG: Combined histogram of peak frequencies across all 38 nodes. Dominant peaks cluster near engine frequencies (26.66 Hz, 66.66 Hz, 80 Hz). Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly."
     />
     <p class="img-caption">Fig. 1 — Initial OHG: Combined histogram of peak frequencies across all 38 nodes. Dominant peaks cluster near engine frequencies (26.66 Hz, 66.66 Hz, 80 Hz). Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly.</p>
 
@@ -1252,7 +1273,7 @@
       src="hyster-yale/hyster-yale-final-histogram.jpeg"
       alt="Final Data — Combined Histogram of All Peak Frequencies"
       class="img-full clickable-img"
-      onclick="openLightbox('hyster-yale/hyster-yale-final-histogram.jpeg', 'Fig. 2 \u2014 Final OHG (post-modification): Peak frequencies visibly shifted. Mode 1 moved from ~19 Hz to ~24 Hz; Mode 7 shifted to 88 Hz \u2014 landing within the target range of 88\u201396 Hz. Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly.')"
+      data-caption="Fig. 2 — Final OHG (post-modification): Peak frequencies visibly shifted. Mode 1 moved from ~19 Hz to ~24 Hz; Mode 7 shifted to 88 Hz — landing within the target range of 88–96 Hz. Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly."
     />
     <p class="img-caption">Fig. 2 — Final OHG (post-modification): Peak frequencies visibly shifted. Mode 1 moved from ~19 Hz to ~24 Hz; Mode 7 shifted to 88 Hz — landing within the target range of 88–96 Hz. Gold bars mark frequencies where physical data matched the Ansys FEA predictions almost exactly.</p>
 
@@ -1315,55 +1336,55 @@
     <!-- EDIT: each .gallery-item = one photo. To add a photo: copy a block, -->
     <!-- change the image filename (2 places) and the caption text.         -->
     <div class="gallery-grid">
-      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-frame-isometric.jpg', 'Unmodified overhead guard frame')">
+      <div class="gallery-item" data-src="hyster-yale/gallery-frame-isometric.jpg" data-caption="Unmodified overhead guard frame">
         <img src="hyster-yale/gallery-frame-isometric.jpg" alt="Bare overhead guard frame, isometric view">
         <div class="gallery-caption">Unmodified overhead guard frame</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-accel-node.jpg', 'Accelerometer mounted at a test node during data collection')">
+      <div class="gallery-item" data-src="hyster-yale/gallery-accel-node.jpg" data-caption="Accelerometer mounted at a test node during data collection">
         <img src="hyster-yale/gallery-accel-node.jpg" alt="Accelerometer mounted on a test node">
         <div class="gallery-caption">Accelerometer mounted at a test node during data collection</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-wiring-mess.jpg', 'The reality of prototyping a DAQ system from scratch')">
+      <div class="gallery-item" data-src="hyster-yale/gallery-wiring-mess.jpg" data-caption="The reality of prototyping a DAQ system from scratch">
         <img src="hyster-yale/gallery-wiring-mess.jpg" alt="Tangle of accelerometer and Arduino wiring">
         <div class="gallery-caption">The reality of prototyping a DAQ system from scratch</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-expo-table.jpg', 'Live demo setup at the Engineering EXPO')">
+      <div class="gallery-item" data-src="hyster-yale/gallery-expo-table.jpg" data-caption="Live demo setup at the Engineering EXPO">
         <img src="hyster-yale/gallery-expo-table.jpg" alt="EXPO demo table with impact hammer and test equipment">
         <div class="gallery-caption">Live demo setup at the Engineering EXPO</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-both-teams.jpg', 'Both Hyster-Yale capstone teams at EXPO')">
+      <div class="gallery-item" data-src="hyster-yale/gallery-both-teams.jpg" data-caption="Both Hyster-Yale capstone teams at EXPO">
         <img src="hyster-yale/gallery-both-teams.jpg" alt="Both Hyster-Yale capstone teams together at EXPO">
         <div class="gallery-caption">Both Hyster-Yale capstone teams at EXPO</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-solo.jpg', 'Presenting our results at the Engineering EXPO')">
+      <div class="gallery-item" data-src="hyster-yale/gallery-solo.jpg" data-caption="Presenting our results at the Engineering EXPO">
         <img src="hyster-yale/gallery-solo.jpg" alt="Presenting the project poster at EXPO">
         <div class="gallery-caption">Presenting our results at the Engineering EXPO</div>
       </div>
-      <div class="gallery-item fit" onclick="openLightbox('hyster-yale/gallery-wiring-diagram.png', 'SPI wiring schematic for the accelerometer to Arduino DAQ setup')">
+      <div class="gallery-item fit" data-src="hyster-yale/gallery-wiring-diagram.png" data-caption="SPI wiring schematic for the accelerometer to Arduino DAQ setup">
         <img src="hyster-yale/gallery-wiring-diagram.png" alt="SPI wiring diagram for ICM accelerometers on Arduino UNO and MEGA">
         <div class="gallery-caption">SPI wiring schematic for the accelerometer to Arduino DAQ setup</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-testing-setup.jpg', 'Impact hammer testing on the overhead guard frame, with live data logging')">
+      <div class="gallery-item" data-src="hyster-yale/gallery-testing-setup.jpg" data-caption="Impact hammer testing on the overhead guard frame, with live data logging">
         <img src="hyster-yale/gallery-testing-setup.jpg" alt="Impact hammer testing setup with laptops logging accelerometer data">
         <div class="gallery-caption">Impact hammer testing on the overhead guard frame, with live data logging</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-sd-bypass.jpg', 'SD card reader hacked to bypass an SPI wiring conflict \u2014 got it reading, but write speed couldn\u2019t keep up with dual high-rate accelerometers')">
+      <div class="gallery-item" data-src="hyster-yale/gallery-sd-bypass.jpg" data-caption="SD card reader hacked to bypass an SPI wiring conflict — got it reading, but write speed couldn’t keep up with dual high-rate accelerometers">
         <img src="hyster-yale/gallery-sd-bypass.jpg" alt="SD card reader module with a hand-soldered trace modification">
         <div class="gallery-caption">SD card reader hacked to bypass an SPI wiring conflict — got it reading, but write speed couldn't keep up with dual high-rate accelerometers</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-gusset.jpg', 'Close-up of a welded gusset added to stiffen a corner joint and shift the local resonance frequency')">
+      <div class="gallery-item" data-src="hyster-yale/gallery-gusset.jpg" data-caption="Close-up of a welded gusset added to stiffen a corner joint and shift the local resonance frequency">
         <img src="hyster-yale/gallery-gusset.jpg" alt="Welded gusset reinforcement at a frame joint">
         <div class="gallery-caption">Welded gusset added to stiffen a corner joint as part of the frequency-shifting modifications</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-frame-before.jpg', 'The overhead guard frame before structural modifications')">
+      <div class="gallery-item" data-src="hyster-yale/gallery-frame-before.jpg" data-caption="The overhead guard frame before structural modifications">
         <img src="hyster-yale/gallery-frame-before.jpg" alt="Overhead guard frame before modifications">
         <div class="gallery-caption">The overhead guard frame before structural modifications</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-frame-after.jpg', 'The overhead guard frame after structural modifications were fabricated')">
+      <div class="gallery-item" data-src="hyster-yale/gallery-frame-after.jpg" data-caption="The overhead guard frame after structural modifications were fabricated">
         <img src="hyster-yale/gallery-frame-after.jpg" alt="Overhead guard frame after modifications">
         <div class="gallery-caption">The overhead guard frame after structural modifications were fabricated</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('hyster-yale/gallery-frame-iso-shop.jpg', 'Isometric view of the modified frame in the fabrication shop')">
+      <div class="gallery-item" data-src="hyster-yale/gallery-frame-iso-shop.jpg" data-caption="Isometric view of the modified frame in the fabrication shop">
         <img src="hyster-yale/gallery-frame-iso-shop.jpg" alt="Isometric view of the modified overhead guard frame in the shop">
         <div class="gallery-caption">Isometric view of the modified frame in the fabrication shop</div>
       </div>
@@ -1375,6 +1396,8 @@
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <span class="lightbox-arrow lightbox-arrow-left" onclick="lightboxPrev(event)">&lsaquo;</span>
+  <span class="lightbox-arrow lightbox-arrow-right" onclick="lightboxNext(event)">&rsaquo;</span>
   <div class="lightbox-content" onclick="event.stopPropagation()">
     <img id="lightbox-img" src="" alt="Enlarged image">
     <div class="lightbox-caption" id="lightbox-caption"></div>
@@ -1393,14 +1416,63 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  function openLightbox(src, caption) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox-caption').textContent = caption || '';
+  let currentGalleryItems = [];
+  let currentGalleryIndex = 0;
+
+  function getItemSrc(el) {
+    return el.tagName === 'IMG' ? el.src : (el.dataset.src || '');
+  }
+  function getItemCaption(el) {
+    return el.dataset.caption || '';
+  }
+
+  function showLightboxItem(index) {
+    const items = currentGalleryItems;
+    if (!items.length) return;
+    currentGalleryIndex = (index + items.length) % items.length;
+    const el = items[currentGalleryIndex];
+    document.getElementById('lightbox-img').src = getItemSrc(el);
+    document.getElementById('lightbox-caption').textContent = getItemCaption(el);
+    const multi = items.length > 1;
+    document.querySelectorAll('.lightbox-arrow').forEach(a => a.style.display = multi ? 'flex' : 'none');
+  }
+
+  function openLightbox(el) {
+    const group = el.closest('.gallery-grid, .img-grid');
+    currentGalleryItems = group
+      ? Array.from(group.querySelectorAll('.gallery-item[data-src], .clickable-img'))
+      : [el];
+    const index = currentGalleryItems.indexOf(el);
+    showLightboxItem(index >= 0 ? index : 0);
     document.getElementById('lightbox').classList.add('active');
   }
+
   function closeLightbox() {
     document.getElementById('lightbox').classList.remove('active');
   }
+
+  function lightboxNext(e) {
+    if (e) e.stopPropagation();
+    showLightboxItem(currentGalleryIndex + 1);
+  }
+
+  function lightboxPrev(e) {
+    if (e) e.stopPropagation();
+    showLightboxItem(currentGalleryIndex - 1);
+  }
+
+  document.addEventListener('click', (e) => {
+    const item = e.target.closest('.gallery-item[data-src], .clickable-img');
+    if (item) openLightbox(item);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'ArrowRight') lightboxNext();
+    if (e.key === 'ArrowLeft') lightboxPrev();
+    if (e.key === 'Escape') closeLightbox();
+  });
 
   /* FEA modal animation selector */
   const modeData = {
@@ -1417,8 +1489,10 @@
 
   function selectMode(n) {
     const m = modeData[n];
-    document.getElementById('mode-viewer-img').src = m.file;
-    document.getElementById('mode-viewer-img').alt = 'Ansys Modal animation — Mode ' + n + ', ' + m.freq;
+    const img = document.getElementById('mode-viewer-img');
+    img.src = m.file;
+    img.alt = 'Ansys Modal animation — Mode ' + n + ', ' + m.freq;
+    img.dataset.caption = m.desc;
     document.querySelector('.mode-freq-line').innerHTML = 'Mode ' + n + ' — <span>' + m.freq + '</span>';
     document.getElementById('mode-viewer-desc').textContent = m.desc;
     document.querySelectorAll('.mode-tab').forEach(tab => {
