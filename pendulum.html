@@ -80,7 +80,11 @@
     position: relative;
     overflow: hidden;
     border-bottom: 1px solid rgba(74,127,165,0.15);
-    background: var(--navy);
+    background-image:
+      linear-gradient(110deg, rgba(13,27,42,0.97) 0%, rgba(13,27,42,0.88) 35%, rgba(13,27,42,0.65) 70%, rgba(13,27,42,0.4) 100%),
+      url('pendulum/pendulum_tuned_controller.gif');
+    background-size: cover;
+    background-position: center;
   }
 
   .project-hero::before {
@@ -474,12 +478,6 @@
       </div>
     </div>
 
-    <img
-      src="pendulum/pendulum_tuned_controller.gif"
-      alt="Pendulum tuned controller response — looping animation"
-      style="margin-top:2rem; max-width:360px; border:1px solid rgba(74,127,165,0.2);"
-    >
-
   </div>
 </div>
 
@@ -494,7 +492,10 @@
     <div class="divider"></div>
 
     <p class="body-text">
-      The pendulum's angle was estimated by fusing an accelerometer and a gyroscope using a <strong>complementary filter</strong> with a weighting constant of <strong>c = 0.9</strong>. The accelerometer reading is accurate at low frequencies but noisy at high frequencies; the gyroscope is accurate at high frequencies but drifts over time. The complementary filter blends them: <strong>θ = c · (θ + ω · dt) + (1 − c) · θ_accel</strong>, giving a clean, drift-free angle estimate that the controller could act on.
+      This capped a multi-part project: interfacing an IMU over I²C for angle sensing, driving the pendulum's DC gearmotor through an H-bridge circuit, characterizing the system's natural frequency and damping ratio from experimental data, and redefining the angle reference so θ = 0° corresponded to the inverted (balancing) position rather than hanging at rest.
+    </p>
+    <p class="body-text">
+      The pendulum's angle was estimated by fusing an accelerometer and a gyroscope using a <strong>complementary filter</strong> with a weighting constant of <strong>c = 0.9</strong>. The accelerometer reading is accurate at low frequencies but noisy at high frequencies; the gyroscope integrates quickly but drifts over time. The complementary filter blends them: <strong>θ = c · (θ + ω · dt) + (1 − c) · θ_accel</strong> — weighting the gyroscope-based estimate heavily for speed and low noise, while periodic accelerometer corrections keep it from drifting over time.
     </p>
     <p class="body-text">
       With a stable angle estimate in hand, the controller was tuned in two phases — first to hit a specific overshoot target, then to produce the cleanest, fastest settling response possible.
@@ -511,18 +512,18 @@
       </div>
       <div class="stat-box">
         <div class="stat-num">K<span>d</span> = 4</div>
-        <div class="stat-label">Tuned Controller Derivative Gain</div>
+        <div class="stat-label">Tuned Controller Proportional Gain</div>
       </div>
       <div class="stat-box">
         <div class="stat-num">K<span>p</span> = 0.225</div>
-        <div class="stat-label">Tuned Controller Proportional Gain</div>
+        <div class="stat-label">Tuned Controller Derivative Gain</div>
       </div>
     </div>
 
     <div class="callout">
       <div class="callout-title">Overshoot Controller</div>
       <p>
-        Target: <strong>50% overshoot</strong>. Gains found: <strong>k<sub>d</sub> = 2.725, k<sub>p</sub> = 0</strong>. With only derivative action, the controller damps the pendulum's natural tendency to oscillate but provides no restoring force toward the setpoint — producing the clean overshoot shape with no steady-state correction.
+        Target: <strong>50% overshoot</strong>. Gains found: <strong>k<sub>d</sub> = 2.725, k<sub>p</sub> = 0</strong>. With only proportional action pulling the pendulum toward the setpoint and no derivative damping, the response naturally overshoots before settling — producing the target 50% overshoot shape.
       </p>
     </div>
 
