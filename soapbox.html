@@ -370,6 +370,22 @@
     display: block;
   }
 
+  .img-single {
+    max-width: 540px;
+    margin: 2rem auto 0;
+  }
+
+  .img-single img {
+    width: 100%;
+    border: 1px solid rgba(74,127,165,0.2);
+    display: block;
+  }
+
+  .img-single .img-caption {
+    margin-top: 0.6rem;
+    text-align: center;
+  }
+
   /* GALLERY */
   .gallery-grid {
     display: grid;
@@ -666,11 +682,15 @@
       Loaded and on the vehicle, the first design revealed problems that weren't apparent during the build. The geometry produced inconsistent wheel behavior through the travel range — binding in certain positions and allowing too much uncontrolled movement in others. A first full teardown addressed the worst of those issues. The second design held better, but geometry problems affecting tracking and predictability under load required another complete rebuild before the front end behaved as intended. The configuration pictured below is the result of those two full cycles.
     </p>
 
-    <!-- Before / After image grid -->
-    <div class="img-grid">
+    <!-- Before / First rework / After image grid -->
+    <div class="img-grid" style="grid-template-columns: repeat(3, 1fr);">
       <div class="img-grid-item">
         <img src="soapbox/soapbox-front-initial.jpg" alt="Initial front suspension configuration" class="clickable-img" onclick="openLightbox('soapbox/soapbox-front-initial.jpg', 'Initial front suspension — first design mounted on the chassis.')">
         <p class="img-caption">Initial front suspension — first design mounted on chassis.</p>
+      </div>
+      <div class="img-grid-item">
+        <img src="soapbox/soapbox-suspension-alt.jpg" alt="Front suspension first rework" class="clickable-img" onclick="openLightbox('soapbox/soapbox-suspension-alt.jpg', 'First rework — geometry issues here forced a second full rebuild.')">
+        <p class="img-caption">First rework — geometry issues here forced a second full rebuild.</p>
       </div>
       <div class="img-grid-item">
         <img src="soapbox/soapbox-suspension-final.jpg" alt="Final front suspension — race-day configuration" class="clickable-img" onclick="openLightbox('soapbox/soapbox-suspension-final.jpg', 'Final race-day front suspension — result of two full redesigns.')">
@@ -743,11 +763,9 @@
     </p>
 
     <!-- Failed caliper image — shown near failure description -->
-    <div class="img-grid" style="margin-top:2rem;">
-      <div class="img-grid-item">
-        <img src="soapbox/soapbox-caliper-failed.jpg" alt="Failed hydraulic caliper pulled apart on race morning" class="clickable-img" onclick="openLightbox('soapbox/soapbox-caliper-failed.jpg', 'The failed hydraulic caliper, pulled apart during on-site troubleshooting on race morning — pistons not actuating.')">
-        <p class="img-caption">The failed hydraulic caliper, pulled apart during race-morning troubleshooting.</p>
-      </div>
+    <div class="img-single" style="margin-top:2rem;">
+      <img src="soapbox/soapbox-caliper-failed.jpg" alt="Failed hydraulic caliper pulled apart on race morning" class="clickable-img" onclick="openLightbox('soapbox/soapbox-caliper-failed.jpg', 'The failed hydraulic caliper, pulled apart during on-site troubleshooting on race morning — pistons not actuating.')">
+      <p class="img-caption">The failed hydraulic caliper, pulled apart during race-morning troubleshooting.</p>
     </div>
 
     <p class="body-text" style="margin-top:2rem;">
@@ -765,11 +783,9 @@
         <p class="img-caption">Fixed arm welded to the frame — the anchor point for the improvised caliper.</p>
       </div>
     </div>
-    <div class="img-grid" style="margin-top:1.5rem;">
-      <div class="img-grid-item">
-        <img src="soapbox/soapbox-brake-fix-wide.jpg" alt="Full improvised brake mechanism in context with tools visible" class="clickable-img" onclick="openLightbox('soapbox/soapbox-brake-fix-wide.jpg', 'The full improvised brake mechanism in context — quick-grip clamp extensions welded to the actuating arm so the driver can reach it from the seat.')">
-        <p class="img-caption">Full mechanism in context — quick-grip extensions welded to the actuating arm for driver reach.</p>
-      </div>
+    <div class="img-single" style="margin-top:1.5rem;">
+      <img src="soapbox/soapbox-brake-fix-wide.jpg" alt="Full improvised brake mechanism in context with tools visible" class="clickable-img" onclick="openLightbox('soapbox/soapbox-brake-fix-wide.jpg', 'The full improvised brake mechanism in context — quick-grip clamp extensions welded to the actuating arm so the driver can reach it from the seat.')">
+      <p class="img-caption">Full mechanism in context — quick-grip extensions welded to the actuating arm for driver reach.</p>
     </div>
 
     <!-- EDIT: brake race-day outcome callout -->
@@ -816,10 +832,7 @@
         <img src="soapbox/soapbox-suspension-final-closeup.jpg" alt="Final front suspension close-up">
         <div class="gallery-caption">Final front suspension — close-up</div>
       </div>
-      <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-suspension-alt.jpg', 'Front suspension assembly — alternate angle')">
-        <img src="soapbox/soapbox-suspension-alt.jpg" alt="Front suspension alternate view">
-        <div class="gallery-caption">Front suspension — alternate angle</div>
-      </div>
+
       <div class="gallery-item" onclick="openLightbox('soapbox/soapbox-steering-123.jpg', 'Steering system assembly')">
         <img src="soapbox/soapbox-steering-123.jpg" alt="Steering system assembly">
         <div class="gallery-caption">Steering system assembly</div>
