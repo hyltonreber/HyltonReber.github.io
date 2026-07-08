@@ -241,8 +241,8 @@
     flex-shrink: 0;
     display: block;
   }
-  .filmstrip-row--left  { animation: filmstrip-left  75s linear infinite; }
-  .filmstrip-row--right { animation: filmstrip-right 80s linear infinite; }
+  .filmstrip-row--left  { animation: filmstrip-left  120s linear infinite; }
+  .filmstrip-row--right { animation: filmstrip-right 120s linear infinite; }
   @keyframes filmstrip-left  { from { transform: translateX(0);    } to { transform: translateX(-50%); } }
   @keyframes filmstrip-right { from { transform: translateX(-50%); } to { transform: translateX(0);    } }
   .filmstrip-overlay {
@@ -635,8 +635,8 @@
       <img src="hero-filmscript/gallery-expo-table.jpg" alt="" loading="lazy">
     </div>
     <div class="filmstrip-row filmstrip-row--right">
-      <img src="hero-filmscript/eagle_project_finished.jpg" alt="" loading="lazy">
       <img src="hero-filmscript/solidworks_Sophomore_Drawing_Slide_Base_Sheet_1.jpg" alt="" loading="lazy">
+      <img src="hero-filmscript/eagle_project_finished.jpg" alt="" loading="lazy">
       <img src="hero-filmscript/soapbox-gallery-pit-row.jpg" alt="" loading="lazy">
       <img src="hero-filmscript/machineshop_tap_wrench_in_hand.jpg" alt="" loading="lazy">
       <img src="hero-filmscript/soapbox-brake-fix-closeup.jpg" alt="" loading="lazy">
@@ -644,8 +644,8 @@
       <img src="hero-filmscript/pendulum_step_response_plot.png" alt="" loading="lazy">
       <img src="hero-filmscript/pendulum_transient_response_plot.png" alt="" loading="lazy">
       <img src="hero-filmscript/solidworks_stirling_full_assembly_render.png" alt="" loading="lazy">
-      <img src="hero-filmscript/gallery-frame-after.jpg" alt="" loading="lazy">
       <img src="hero-filmscript/solidworks_Sophomore_Slide_Base_Part.jpg" alt="" loading="lazy">
+      <img src="hero-filmscript/gallery-frame-after.jpg" alt="" loading="lazy">
       <img src="hero-filmscript/gallery-frame-isometric.jpg" alt="" loading="lazy">
       <img src="hero-filmscript/refrigeration_heat_chart_draft_v1.png" alt="" loading="lazy">
       <img src="hero-filmscript/toothpaste_dispenser_team_photo.JPG" alt="" loading="lazy">
@@ -661,8 +661,8 @@
       <img src="hero-filmscript/gallery-wiring-diagram.png" alt="" loading="lazy">
       <img src="hero-filmscript/soapbox-frame-initial.jpg" alt="" loading="lazy">
       <img src="hero-filmscript/solidworks_stirling_flywheel_mass_properties.png" alt="" loading="lazy">
-      <img src="hero-filmscript/eagle_project_finished.jpg" alt="" loading="lazy">
       <img src="hero-filmscript/solidworks_Sophomore_Drawing_Slide_Base_Sheet_1.jpg" alt="" loading="lazy">
+      <img src="hero-filmscript/eagle_project_finished.jpg" alt="" loading="lazy">
       <img src="hero-filmscript/soapbox-gallery-pit-row.jpg" alt="" loading="lazy">
       <img src="hero-filmscript/machineshop_tap_wrench_in_hand.jpg" alt="" loading="lazy">
       <img src="hero-filmscript/soapbox-brake-fix-closeup.jpg" alt="" loading="lazy">
@@ -670,8 +670,8 @@
       <img src="hero-filmscript/pendulum_step_response_plot.png" alt="" loading="lazy">
       <img src="hero-filmscript/pendulum_transient_response_plot.png" alt="" loading="lazy">
       <img src="hero-filmscript/solidworks_stirling_full_assembly_render.png" alt="" loading="lazy">
-      <img src="hero-filmscript/gallery-frame-after.jpg" alt="" loading="lazy">
       <img src="hero-filmscript/solidworks_Sophomore_Slide_Base_Part.jpg" alt="" loading="lazy">
+      <img src="hero-filmscript/gallery-frame-after.jpg" alt="" loading="lazy">
       <img src="hero-filmscript/gallery-frame-isometric.jpg" alt="" loading="lazy">
       <img src="hero-filmscript/refrigeration_heat_chart_draft_v1.png" alt="" loading="lazy">
       <img src="hero-filmscript/toothpaste_dispenser_team_photo.JPG" alt="" loading="lazy">
@@ -998,6 +998,31 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Filmstrip: compute animation duration from actual row width for constant px/sec speed
+  (function () {
+    var SPEED = 28; // px per second — slow, ambient
+    function setDurations() {
+      document.querySelectorAll('.filmstrip-row').forEach(function (row) {
+        var w = row.scrollWidth / 2;
+        if (w > 100) row.style.animationDuration = (w / SPEED).toFixed(1) + 's';
+      });
+    }
+    var imgs = Array.from(document.querySelectorAll('.filmstrip-row img'));
+    var pending = imgs.length;
+    function tick() { if (--pending <= 0) requestAnimationFrame(setDurations); }
+    if (pending === 0) { requestAnimationFrame(setDurations); }
+    else {
+      imgs.forEach(function (img) {
+        if (img.complete) { tick(); }
+        else {
+          img.addEventListener('load',  tick, { once: true });
+          img.addEventListener('error', tick, { once: true });
+        }
+      });
+      setTimeout(function () { requestAnimationFrame(setDurations); }, 2000); // fallback
+    }
+  })();
 </script>
 
 </body>
