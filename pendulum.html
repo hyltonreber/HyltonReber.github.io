@@ -371,7 +371,8 @@
     max-height: 90vh;
   }
 
-  .lightbox img {
+  .lightbox-content img,
+  .lightbox-content video {
     max-width: 90vw;
     max-height: 80vh;
     border: 1px solid rgba(74,127,165,0.3);
@@ -650,7 +651,7 @@
   <span class="lightbox-arrow lightbox-arrow-left" onclick="lightboxPrev(event)">&lsaquo;</span>
   <span class="lightbox-arrow lightbox-arrow-right" onclick="lightboxNext(event)">&rsaquo;</span>
   <div class="lightbox-content" onclick="event.stopPropagation()">
-    <img id="lightbox-img" src="" alt="Enlarged image" loading="lazy">
+    <div id="lightbox-media"></div>
     <div class="lightbox-caption" id="lightbox-caption"></div>
   </div>
 </div>
@@ -661,6 +662,12 @@
 </footer>
 
 <script>
+  // Autoplay reliability: set muted as live property and call play() explicitly
+  document.querySelectorAll('video[autoplay]').forEach(function(v) {
+    v.muted = true;
+    v.play().catch(function() {});
+  });
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.08 });
@@ -681,7 +688,31 @@
     if (!items.length) return;
     currentGalleryIndex = (index + items.length) % items.length;
     const el = items[currentGalleryIndex];
-    document.getElementById('lightbox-img').src = getItemSrc(el);
+    const media = document.getElementById('lightbox-media');
+    const prevVid = media.querySelector('video');
+    if (prevVid) prevVid.pause();
+    if (el.tagName === 'VIDEO') {
+      const vid = document.createElement('video');
+      vid.autoplay = true;
+      vid.muted = true;
+      vid.loop = true;
+      vid.setAttribute('playsinline', '');
+      Array.from(el.querySelectorAll('source')).forEach(function(s) {
+        const src = document.createElement('source');
+        src.src = s.src; src.type = s.type;
+        vid.appendChild(src);
+      });
+      media.innerHTML = '';
+      media.appendChild(vid);
+      vid.muted = true;
+      vid.play().catch(function() {});
+    } else {
+      const img = document.createElement('img');
+      img.src = getItemSrc(el);
+      img.alt = 'Enlarged image';
+      media.innerHTML = '';
+      media.appendChild(img);
+    }
     document.getElementById('lightbox-caption').textContent = getItemCaption(el);
     const multi = items.length > 1;
     document.querySelectorAll('.lightbox-arrow').forEach(a => a.style.display = multi ? 'flex' : 'none');
@@ -698,6 +729,9 @@
   }
 
   function closeLightbox() {
+    const media = document.getElementById('lightbox-media');
+    const vid = media && media.querySelector('video');
+    if (vid) vid.pause();
     document.getElementById('lightbox').classList.remove('active');
   }
 
