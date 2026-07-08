@@ -800,12 +800,16 @@
 
     <!-- ===================== GALLERY — SECTION 1 ===================== -->
     <div style="display:block; margin:2rem 0;">
-      <img src="solidworks/steam_engine/solidworks_steam_engine_animation_1.gif"
-           alt="Steam engine — running animation"
-           style="width:100%; border-radius:4px; margin-bottom:1rem;">
-      <img src="solidworks/steam_engine/solidworks_steam_engine_animation_2.gif"
-           alt="Steam engine — exploded view animation"
-           style="width:100%; border-radius:4px;" loading="lazy">
+      <video autoplay muted loop playsinline
+             style="width:100%; border-radius:4px; margin-bottom:1rem; display:block;">
+        <source src="solidworks/steam_engine/solidworks_steam_engine_animation_1.webm" type="video/webm">
+        <source src="solidworks/steam_engine/solidworks_steam_engine_animation_1.mp4" type="video/mp4">
+      </video>
+      <video autoplay muted loop playsinline loading="lazy"
+             style="width:100%; border-radius:4px; display:block;">
+        <source src="solidworks/steam_engine/solidworks_steam_engine_animation_2.webm" type="video/webm">
+        <source src="solidworks/steam_engine/solidworks_steam_engine_animation_2.mp4" type="video/mp4">
+      </video>
     </div>
 
     <!-- Sub-group: Renderings -->

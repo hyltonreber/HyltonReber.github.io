@@ -82,7 +82,7 @@
     border-bottom: 1px solid rgba(74,127,165,0.15);
     background-image:
       linear-gradient(110deg, rgba(13,27,42,0.97) 0%, rgba(13,27,42,0.88) 35%, rgba(13,27,42,0.65) 70%, rgba(13,27,42,0.4) 100%),
-      url('pendulum/pendulum_tuned_controller.gif');
+      url('pendulum/pendulum_tuned_controller_still.jpg');
     background-size: cover;
     background-position: center;
   }
@@ -605,21 +605,23 @@
 
     <div class="img-grid">
       <div class="img-grid-item">
-        <img
-          src="pendulum/pendulum_overshoot_controller.gif"
-          alt="50% overshoot controller response"
-          class="clickable-img"
-          data-caption="50% Overshoot Response — kd = 2.725, kp = 0. Pure derivative control produces a controlled overshoot with no steady-state error correction." loading="lazy"
-        >
+        <video autoplay muted loop playsinline
+               class="clickable-img"
+               data-caption="50% Overshoot Response — kd = 2.725, kp = 0. Pure derivative control produces a controlled overshoot with no steady-state error correction."
+               style="width:100%; display:block;" loading="lazy">
+          <source src="pendulum/pendulum_overshoot_controller.webm" type="video/webm">
+          <source src="pendulum/pendulum_overshoot_controller.mp4" type="video/mp4">
+        </video>
         <p class="img-caption">50% Overshoot Response — k<sub>d</sub> = 2.725, k<sub>p</sub> = 0.</p>
       </div>
       <div class="img-grid-item">
-        <img
-          src="pendulum/pendulum_tuned_controller.gif"
-          alt="Tuned controller response"
-          class="clickable-img"
-          data-caption="Tuned Response — kd = 4, kp = 0.225. Adding proportional gain and increasing derivative action yields a fast, smooth step response with minimal overshoot." loading="lazy"
-        >
+        <video autoplay muted loop playsinline
+               class="clickable-img"
+               data-caption="Tuned Response — kd = 4, kp = 0.225. Adding proportional gain and increasing derivative action yields a fast, smooth step response with minimal overshoot."
+               style="width:100%; display:block;" loading="lazy">
+          <source src="pendulum/pendulum_tuned_controller.webm" type="video/webm">
+          <source src="pendulum/pendulum_tuned_controller.mp4" type="video/mp4">
+        </video>
         <p class="img-caption">Tuned Response — k<sub>d</sub> = 4, k<sub>p</sub> = 0.225.</p>
       </div>
     </div>

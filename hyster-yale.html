@@ -1232,13 +1232,13 @@
     </div>
 
     <div class="mode-viewer">
-      <img
-        id="mode-viewer-img"
-        src="hyster-yale/hyster-yale-mode1.gif"
-        alt="Ansys Modal animation — Mode 1, 19.29 Hz"
-        class="clickable-img"
-        data-caption="Total deformation max of 0.110 m, concentrated in the roof structure — the frame's lowest-frequency bending mode." loading="lazy"
-      >
+      <video id="mode-viewer-img" autoplay muted loop playsinline
+             class="clickable-img"
+             data-caption="Total deformation max of 0.110 m, concentrated in the roof structure — the frame's lowest-frequency bending mode."
+             style="width:100%; display:block;" loading="lazy">
+        <source id="mode-viewer-webm" src="hyster-yale/hyster-yale-mode1.webm" type="video/webm">
+        <source id="mode-viewer-mp4"  src="hyster-yale/hyster-yale-mode1.mp4"  type="video/mp4">
+      </video>
       <div class="mode-viewer-caption">
         <div class="mode-freq-line">Mode 1 — <span>19.29 Hz</span></div>
         <p id="mode-viewer-desc">Total deformation max of 0.110 m, concentrated in the roof structure — the frame's lowest-frequency bending mode.</p>
@@ -1476,7 +1476,7 @@
 
   /* FEA modal animation selector */
   const modeData = {
-    1: { file: 'hyster-yale/hyster-yale-mode1.gif', freq: '19.29 Hz', desc: 'Total deformation max of 0.110 m, concentrated in the roof structure — the frame\u2019s lowest-frequency bending mode.' },
+    1: { webm: 'hyster-yale/hyster-yale-mode1.webm', mp4: 'hyster-yale/hyster-yale-mode1.mp4', freq: '19.29 Hz', desc: 'Total deformation max of 0.110 m, concentrated in the roof structure — the frame\u2019s lowest-frequency bending mode.' },
     2: { file: 'hyster-yale/hyster-yale-mode2.gif', freq: '25.05 Hz', desc: 'Total deformation max of 0.123 m. Roof bending mode with a twisting component across the canopy.' },
     3: { file: 'hyster-yale/hyster-yale-mode3.gif', freq: '33.69 Hz', desc: 'Total deformation max of 0.180 m. Torsional mode concentrated in the roof bars and upper corner posts.' },
     4: { file: 'hyster-yale/hyster-yale-mode4.gif', freq: '38.42 Hz', desc: 'Total deformation max of 0.457 m. Large-amplitude mode driven by lower frame/chassis flexing.' },
@@ -1489,10 +1489,15 @@
 
   function selectMode(n) {
     const m = modeData[n];
-    const img = document.getElementById('mode-viewer-img');
-    img.src = m.file;
-    img.alt = 'Ansys Modal animation — Mode ' + n + ', ' + m.freq;
-    img.dataset.caption = m.desc;
+    const viewer = document.getElementById('mode-viewer-img');
+    if (viewer.tagName === 'VIDEO') {
+      document.getElementById('mode-viewer-webm').src = m.webm || '';
+      document.getElementById('mode-viewer-mp4').src  = m.mp4  || (m.file || '');
+      viewer.load();
+    } else {
+      viewer.src = m.file || '';
+    }
+    viewer.dataset.caption = m.desc;
     document.querySelector('.mode-freq-line').innerHTML = 'Mode ' + n + ' — <span>' + m.freq + '</span>';
     document.getElementById('mode-viewer-desc').textContent = m.desc;
     document.querySelectorAll('.mode-tab').forEach(tab => {
