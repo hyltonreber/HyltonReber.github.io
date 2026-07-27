@@ -373,6 +373,47 @@
   .cert-title { font-size: 0.85rem; font-weight: 600; color: var(--offwhite); margin-bottom: 0.2rem; }
   .cert-sub { font-size: 0.75rem; color: var(--muted); }
 
+  .cert-dropdown { display: block; padding: 0; }
+  .cert-dropdown > summary {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  .cert-dropdown > summary::-webkit-details-marker { display: none; }
+  .cert-dropdown > summary:hover { background: rgba(74,127,165,0.14); }
+  .cert-caret {
+    margin-left: auto;
+    color: var(--muted);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+    transition: transform 0.2s;
+  }
+  .cert-dropdown[open] .cert-caret { transform: rotate(180deg); }
+  .cert-dropdown-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0 1.2rem 1rem 1.2rem;
+    border-top: 1px solid rgba(74,127,165,0.14);
+    margin: 0 0 0 0;
+  }
+  .cert-sub-item {
+    display: block;
+    padding: 0.65rem 0 0.65rem 1.9rem;
+    border-bottom: 1px solid rgba(74,127,165,0.08);
+    text-decoration: none;
+  }
+  .cert-sub-item:last-of-type { border-bottom: none; }
+  a.cert-sub-link { cursor: pointer; }
+  a.cert-sub-link:hover .cert-sub-title { color: var(--amber); }
+  .cert-sub-title { font-size: 0.78rem; font-weight: 600; color: var(--offwhite); margin-bottom: 0.15rem; transition: color 0.2s; }
+  .cert-sub-detail { font-size: 0.7rem; color: var(--muted); }
+  .cert-sub-note { font-size: 0.7rem; color: var(--muted); font-style: italic; padding: 0.65rem 0 0 1.9rem; }
+
   /* PROJECTS */
   #projects { background: var(--navy); }
 
@@ -727,13 +768,43 @@
         </div>
       </div>
       <div class="certs">
-        <a href="https://www.credly.com/badges/32e2e253-3652-4bc5-922f-1d1d566518d0/linked_in" target="_blank" rel="noopener" class="cert-item" style="text-decoration:none; cursor:pointer;">
-          <img src="home/badge-cswe.png" alt="CSWE badge" style="width:2.2rem; height:2.2rem; flex-shrink:0; margin-top:0.1rem;">
-          <div style="flex:1;">
-            <div class="cert-title">Certified SolidWorks Expert (CSWE)</div>
-            <div class="cert-sub">Dassault Systèmes · May 2025 · <span style="color:var(--steel);">Verified ↗</span></div>
+        <details class="cert-item cert-dropdown">
+          <summary>
+            <img src="home/badge-cswe.png" alt="CSWE badge" style="width:2.2rem; height:2.2rem; flex-shrink:0; margin-top:0.1rem;">
+            <div style="flex:1;">
+              <div class="cert-title">Certified SolidWorks Expert (CSWE)</div>
+              <div class="cert-sub">Dassault Systèmes · May 2025 · <a href="https://www.credly.com/badges/32e2e253-3652-4bc5-922f-1d1d566518d0/linked_in" target="_blank" rel="noopener" style="color:var(--steel);">Verified ↗</a></div>
+            </div>
+            <span class="cert-caret">▾</span>
+          </summary>
+          <div class="cert-dropdown-body">
+            <a href="https://www.credly.com/badges/c27ac1d0-3c2b-43e5-9544-d47067cb6c2a/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link">
+              <div class="cert-sub-title">Design Associate (CSWA) — Verified ↗</div>
+              <div class="cert-sub-detail">May 2023 · ID C-BEK29FDNYC</div>
+            </a>
+            <a href="https://www.credly.com/badges/45a62d28-2964-4033-adca-1f0873a6cf9d/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link">
+              <div class="cert-sub-title">Design Professional (CSWP) — Verified ↗</div>
+              <div class="cert-sub-detail">Feb 2025 · ID C-JNKXV4TEBL</div>
+            </a>
+            <a href="https://www.credly.com/badges/6ebd737f-bfc4-4388-939f-c48c1193cde3/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link">
+              <div class="cert-sub-title">Drawing Tools Professional — Verified ↗</div>
+              <div class="cert-sub-detail">Feb 2025 · ID C-JMLZC8QK74</div>
+            </a>
+            <a href="https://www.credly.com/badges/893fcdf6-dfba-47cc-9af9-e97e77f6505d/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link">
+              <div class="cert-sub-title">Surfacing Professional — Verified ↗</div>
+              <div class="cert-sub-detail">Mar 2025 · ID C-B9TZX7LMY5</div>
+            </a>
+            <a href="https://www.credly.com/badges/b6d36f58-e950-4ab9-ac7b-79935d07a058/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link">
+              <div class="cert-sub-title">Sheet Metal Professional — Verified ↗</div>
+              <div class="cert-sub-detail">Apr 2025 · ID C-32R5DAZUJH</div>
+            </a>
+            <a href="https://www.credly.com/badges/39231954-c4e8-40bf-9ab0-9bfdff781d23/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link">
+              <div class="cert-sub-title">Weldments Professional — Verified ↗</div>
+              <div class="cert-sub-detail">Apr 2025 · ID C-V56LKFA2RU</div>
+            </a>
+            <div class="cert-sub-note">4 of 5 advanced topics required for CSWE — not held: Mold Tools</div>
           </div>
-        </a>
+        </details>
         <div class="cert-item" style="border-left-color: var(--steel);">
           <div class="cert-icon" style="color: var(--steel);">★</div>
           <div>
@@ -741,13 +812,27 @@
             <div class="cert-sub">University of Idaho College of Engineering · May 2025</div>
           </div>
         </div>
-        <a href="https://www.credly.com/badges/1ca33b52-fea2-47f7-bd29-502c7cbb962a/linked_in" target="_blank" rel="noopener" class="cert-item" style="text-decoration:none; cursor:pointer;">
-          <img src="home/badge-fe.png" alt="FE Exam badge" style="width:2.2rem; height:2.2rem; flex-shrink:0; margin-top:0.1rem;">
-          <div style="flex:1;">
-            <div class="cert-title">FE Exam – Passed (EIT)</div>
-            <div class="cert-sub">NCEES · May 2025 · <span style="color:var(--steel);">Verified ↗</span></div>
+        <details class="cert-item cert-dropdown">
+          <summary>
+            <div class="cert-icon" style="margin-top:0.1rem;">◆</div>
+            <div style="flex:1;">
+              <div class="cert-title">Engineer-in-Training (EIT) License</div>
+              <div class="cert-sub">Idaho Board of Professional Engineers &amp; Land Surveyors · License #6381828 · Jul 2026</div>
+            </div>
+            <span class="cert-caret">▾</span>
+          </summary>
+          <div class="cert-dropdown-body">
+            <div class="cert-sub-item">
+              <div class="cert-sub-title">Intern Certificate (Idaho's term for EIT) — Idaho Code §54-1215</div>
+              <div class="cert-sub-detail">Effective 07/24/2026 · Expires 09/23/2028 · License #6381828</div>
+              <div class="cert-sub-detail">Verify by searching "Hylton Reber" or license #6381828 at the <a href="https://dopl.idaho.gov/" target="_blank" rel="noopener" style="color:var(--steel);">Idaho DOPL license lookup</a></div>
+            </div>
+            <a href="https://account.ncees.org/rn/2422707-1811846-f2f7160" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link">
+              <div class="cert-sub-title">FE Exam — Passed — Verified ↗</div>
+              <div class="cert-sub-detail">NCEES · Effective 05/13/2025 · Cert ID 24-227-07</div>
+            </a>
           </div>
-        </a>
+        </details>
         <div class="cert-item">
           <div class="cert-icon">◆</div>
           <div>
