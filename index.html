@@ -379,6 +379,13 @@
   }
   .cert-sub-item:last-of-type { border-bottom: none; }
   a.cert-sub-link { cursor: pointer; }
+  .cert-sub-item.has-badge {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding-left: 0;
+  }
+  .cert-sub-badge { width: 1.6rem; height: 1.6rem; flex-shrink: 0; margin-top: 0.1rem; }
   a.cert-sub-link:hover .cert-sub-title { color: var(--amber); }
   .cert-sub-title { font-size: 0.78rem; font-weight: 600; color: var(--offwhite); margin-bottom: 0.15rem; transition: color 0.2s; }
   .cert-sub-detail { font-size: 0.7rem; color: var(--muted); }
@@ -753,7 +760,7 @@
         </details>
         <details class="cert-item cert-dropdown">
           <summary>
-            <img src="home/badge-cswe.png" alt="CSWE badge" style="width:2.2rem; height:2.2rem; flex-shrink:0; margin-top:0.1rem;">
+            <img src="home/badge-cswe.webp" alt="CSWE badge" style="width:2.2rem; height:2.2rem; flex-shrink:0; margin-top:0.1rem;">
             <div style="flex:1;">
               <div class="cert-title">Certified SolidWorks Expert (CSWE)</div>
               <div class="cert-sub">Dassault Systèmes · May 2025 · <a href="https://www.credly.com/badges/32e2e253-3652-4bc5-922f-1d1d566518d0/linked_in" target="_blank" rel="noopener" style="color:var(--steel);">Verified ↗</a></div>
@@ -761,29 +768,47 @@
             <span class="cert-caret">▾</span>
           </summary>
           <div class="cert-dropdown-body">
-            <a href="https://www.credly.com/badges/39231954-c4e8-40bf-9ab0-9bfdff781d23/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link">
-              <div class="cert-sub-title">Weldments Professional — Verified ↗</div>
-              <div class="cert-sub-detail">Apr 2025 · ID C-V56LKFA2RU</div>
+            <a href="https://www.credly.com/badges/39231954-c4e8-40bf-9ab0-9bfdff781d23/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link has-badge">
+              <img src="home/badge-weldments.webp" alt="Weldments badge" class="cert-sub-badge">
+              <div>
+                <div class="cert-sub-title">Weldments Professional — Verified ↗</div>
+                <div class="cert-sub-detail">Apr 2025 · ID C-V56LKFA2RU</div>
+              </div>
             </a>
-            <a href="https://www.credly.com/badges/b6d36f58-e950-4ab9-ac7b-79935d07a058/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link">
-              <div class="cert-sub-title">Sheet Metal Professional — Verified ↗</div>
-              <div class="cert-sub-detail">Apr 2025 · ID C-32R5DAZUJH</div>
+            <a href="https://www.credly.com/badges/b6d36f58-e950-4ab9-ac7b-79935d07a058/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link has-badge">
+              <img src="home/badge-sheet-metal.webp" alt="Sheet Metal badge" class="cert-sub-badge">
+              <div>
+                <div class="cert-sub-title">Sheet Metal Professional — Verified ↗</div>
+                <div class="cert-sub-detail">Apr 2025 · ID C-32R5DAZUJH</div>
+              </div>
             </a>
-            <a href="https://www.credly.com/badges/893fcdf6-dfba-47cc-9af9-e97e77f6505d/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link">
-              <div class="cert-sub-title">Surfacing Professional — Verified ↗</div>
-              <div class="cert-sub-detail">Mar 2025 · ID C-B9TZX7LMY5</div>
+            <a href="https://www.credly.com/badges/893fcdf6-dfba-47cc-9af9-e97e77f6505d/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link has-badge">
+              <img src="home/badge-surfacing.webp" alt="Surfacing badge" class="cert-sub-badge">
+              <div>
+                <div class="cert-sub-title">Surfacing Professional — Verified ↗</div>
+                <div class="cert-sub-detail">Mar 2025 · ID C-B9TZX7LMY5</div>
+              </div>
             </a>
-            <a href="https://www.credly.com/badges/6ebd737f-bfc4-4388-939f-c48c1193cde3/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link">
-              <div class="cert-sub-title">Drawing Tools Professional — Verified ↗</div>
-              <div class="cert-sub-detail">Feb 2025 · ID C-JMLZC8QK74</div>
+            <a href="https://www.credly.com/badges/6ebd737f-bfc4-4388-939f-c48c1193cde3/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link has-badge">
+              <img src="home/badge-drawing-tools.webp" alt="Drawing Tools badge" class="cert-sub-badge">
+              <div>
+                <div class="cert-sub-title">Drawing Tools Professional — Verified ↗</div>
+                <div class="cert-sub-detail">Feb 2025 · ID C-JMLZC8QK74</div>
+              </div>
             </a>
-            <a href="https://www.credly.com/badges/45a62d28-2964-4033-adca-1f0873a6cf9d/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link">
-              <div class="cert-sub-title">Design Professional (CSWP) — Verified ↗</div>
-              <div class="cert-sub-detail">Feb 2025 · ID C-JNKXV4TEBL</div>
+            <a href="https://www.credly.com/badges/45a62d28-2964-4033-adca-1f0873a6cf9d/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link has-badge">
+              <img src="home/badge-cswp.webp" alt="CSWP badge" class="cert-sub-badge">
+              <div>
+                <div class="cert-sub-title">Design Professional (CSWP) — Verified ↗</div>
+                <div class="cert-sub-detail">Feb 2025 · ID C-JNKXV4TEBL</div>
+              </div>
             </a>
-            <a href="https://www.credly.com/badges/c27ac1d0-3c2b-43e5-9544-d47067cb6c2a/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link">
-              <div class="cert-sub-title">Design Associate (CSWA) — Verified ↗</div>
-              <div class="cert-sub-detail">May 2023 · ID C-BEK29FDNYC</div>
+            <a href="https://www.credly.com/badges/c27ac1d0-3c2b-43e5-9544-d47067cb6c2a/public_url" target="_blank" rel="noopener" class="cert-sub-item cert-sub-link has-badge">
+              <img src="home/badge-cswa.webp" alt="CSWA badge" class="cert-sub-badge">
+              <div>
+                <div class="cert-sub-title">Design Associate (CSWA) — Verified ↗</div>
+                <div class="cert-sub-detail">May 2023 · ID C-BEK29FDNYC</div>
+              </div>
             </a>
           </div>
         </details>
